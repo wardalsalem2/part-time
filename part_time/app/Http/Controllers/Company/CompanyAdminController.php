@@ -1,0 +1,92 @@
+<?php
+
+namespace App\Http\Controllers\Company;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\JobApplication;
+use Illuminate\Http\Request;
+
+
+class CompanyAdminController extends Controller
+{
+
+    public function index()
+    {
+        $user = Auth::user();
+        $company = $user->company;
+
+        if (!$company) {
+            return redirect()->back()->with('error', 'There is no company associated with this account.');
+        }
+
+        $jobOffersCount = $company->jobOffers()->count();
+        $jobApplicationsCount = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->count();
+        $acceptedApplications = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->where('status', 'accepted')->count();
+        $pendingApplications = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->where('status', 'pending')->count();
+
+        $rejectedApplications = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))
+    ->where('status', 'rejected')->count();
+        // Monthly earnings data (replace with real data)
+        $monthlyEarnings = [40000, 45000, 50000, 55000, 60000, 65000, 70000];
+
+        // Revenue sources data (replace with real data)
+        $revenueSources = [300, 500, 200];
+
+        return view('company.dashboard', [
+            'company' => $company,
+            'jobOffersCount' => $jobOffersCount,
+            'jobApplicationsCount' => $jobApplicationsCount,
+            'acceptedApplications' => $acceptedApplications,
+            'pendingApplications' => $pendingApplications,
+            'monthlyEarnings' => $monthlyEarnings,
+            'revenueSources' => $revenueSources,
+            'rejectedApplications' => $rejectedApplications
+        ]);
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------
+
+    public function profile()
+    {
+        $company = Auth::user()->company;
+        if (!$company) {
+            return redirect()->back()->with('error', 'No company associated with this account.');
+        }
+        return view('company.profile.profileAdmin', compact('company'));
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    public function editprofile(){
+        $company = Auth::user()->company;
+
+        if (!$company) {
+            return redirect()->back()->with('error', 'No company associated with this account.');
+        }
+        return view('company.profile.editProfile', compact('company'));
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------
+
+    public function updateprofile(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'industry' => 'nullable|string|max:255',
+        'website' => 'nullable|url',
+        'phone' => 'nullable|string|max:20',
+        'email' => 'required|email',
+        'address' => 'nullable|string',
+        'city' => 'nullable|string|max:100',
+        'num_employees' => 'nullable|integer',
+    ]);
+
+    $company = Auth::user()->company;
+
+    $company->update($request->all());
+    return redirect()->route('company.profile')->with('success', 'Profile updated successfully.');
+}
+
+}
