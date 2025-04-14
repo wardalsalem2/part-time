@@ -2,8 +2,9 @@
 
 <div class="main-panel bg-white">
     <div class="content bg-white">
-        <div class="container-fluid p-4 bg-white">
-            <h3 class="mb-4">Contact Messages</h3>
+        <div class="container-fluid bg-white">
+
+            <h2>Contact Messages</h2>
 
             @if(session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>

@@ -3,7 +3,7 @@
 <div class="main-panel bg-white">
     <div class="content bg-white">
         <div class="container-fluid bg-white">
-            <h1>Users List</h1>
+            <h2>Users List</h2>
 
             @if(session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>

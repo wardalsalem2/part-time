@@ -1,9 +1,8 @@
 @include('admin.componant.header')
-
-<div class="main-panel">
-    <div class="content">
-    <div class="container">
-        <h1>Company Details: {{ $company->name }}</h1>
+<div class="main-panel bg-white">
+    <div class="content bg-white">
+        <div class="container-fluid bg-white">
+        <h2>Company Details: {{ $company->name }}</h2>
 
         <div class="table-responsive">
             <table class="table table-bordered table-head-bg-light table-bordered-bd-light mt-4">

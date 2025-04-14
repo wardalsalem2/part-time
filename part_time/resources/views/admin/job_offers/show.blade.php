@@ -1,7 +1,7 @@
 @include('admin.componant.header')
 <div class="main-panel bg-white">
     <div class="content bg-white">
-        <div class="container-fluid bg-white p-4 rounded shadow-sm">
+        <div class="container-fluid bg-white">
 
             <h2>Job Details</h2>
 

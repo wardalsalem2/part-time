@@ -3,7 +3,7 @@
 <div class="main-panel bg-white">
     <div class="content bg-white">
         <div class="container-fluid bg-white">
-            <h1>User Details: {{ $user->name }}</h1>
+            <h2>User Details: {{ $user->name }}</h2>
 
             <div class="card mt-3">
                 <div class="card-header">

@@ -1,9 +1,9 @@
 @include('admin.componant.header')
 
-<div class="main-panel">
-    <div class="content">
-        <div class="container">
-            <h1>Edit Company: {{ $company->name }}</h1>
+<div class="main-panel bg-white">
+    <div class="content bg-white">
+        <div class="container-fluid bg-white">
+            <h2>Edit Company: {{ $company->name }}</h2>
 
             <!-- Success Message -->
             @if(session('success'))

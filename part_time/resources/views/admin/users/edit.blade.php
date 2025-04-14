@@ -3,7 +3,7 @@
 <div class="main-panel bg-white">
     <div class="content bg-white">
         <div class="container-fluid bg-white">
-            <h1>Edit User</h1>
+            <h2>Edit User</h2>
 
             <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
                 @csrf

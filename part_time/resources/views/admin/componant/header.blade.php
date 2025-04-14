@@ -35,7 +35,7 @@
 								<img src="{{ Auth::user()->profile && Auth::user()->profile->image_path
 	? asset('storage/' . Auth::user()->profile->image_path)
 	: asset('assets/admin/img/profile.jpg') }}" alt="user-img" class="rounded-circle" width="40" height="40">
-								<span class="text-dark fw-bold ms-2">{{ Auth::user()->name }}</span>
+								<span class="text-dark fw-bold px-1">{{ Auth::user()->name }}</span>
 							</a>
 
 							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
@@ -70,8 +70,8 @@
 	: asset('assets/admin/img/profile.jpg') }}" alt="user-img" class="rounded-circle" width="40" height="40">
 
 							<div class="ms-2">
-								<div class="text-dark font-weight-bold mb-0">{{ Auth::user()->name }}</div>
-								<small class="text-muted">Administrator</small>
+								<div class="text-dark font-weight-bold mb-0 px-2">{{ Auth::user()->name }}</div>
+								<small class="text-muted px-2">Administrator</small>
 							</div>
 						</div>
 					</div>

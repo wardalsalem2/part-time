@@ -2,8 +2,8 @@
 
 <div class="main-panel bg-white">
     <div class="content bg-white">
-        <div class="container-fluid bg-white p-4">
-            <h2 class="mb-4">Job Applications Management</h2>
+        <div class="container-fluid bg-white">
+            <h2>Job Applications Management</h2>
             
             <!-- Search Form -->
             <form action="{{ route('admin.job_applications.index') }}" method="GET" class="mb-4">

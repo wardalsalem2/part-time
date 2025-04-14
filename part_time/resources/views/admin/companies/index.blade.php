@@ -2,8 +2,8 @@
 
 <div class="main-panel bg-white">
     <div class="content bg-white">
-        <div class="container-fluid bg-white p-4 rounded shadow-sm">
-            <h1 class="mb-4">Company Management</h1>
+        <div class="container-fluid bg-white">
+            <h2>Company Management</h2>
 
             <!-- Success Message -->
             @if(session('success'))

@@ -2,8 +2,9 @@
 
 <div class="main-panel bg-white">
     <div class="content bg-white">
-        <div class="container-fluid p-4">
-            <h3 class="mb-4">Job Application Details</h3>
+        <div class="container-fluid bg-white">
+            
+            <h2>Job Application Details</h2>
             <div class="card shadow-sm">
                 <div class="card-header">
                     <h5 class="mb-0">Application Information</h5>
