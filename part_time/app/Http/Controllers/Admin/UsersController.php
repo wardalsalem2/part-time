@@ -3,45 +3,51 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 
 class UsersController extends Controller
-{
-
-    public function index(Request $request)
+{public function index(Request $request)
     {
+        // Manually build your query
         $query = User::with(['profile', 'role']);
         
-        // Apply filters based on user input
+        // Filter by name if provided
         if ($request->has('name') && $request->input('name') !== '') {
             $query->where('name', 'like', '%' . $request->input('name') . '%');
         }
         
-        if ($request->has('status') && $request->input('status') !== '') {
+        // Validate and filter by status if provided (e.g., 'active' or 'inactive')
+        if ($request->has('status') && in_array($request->input('status'), ['1', '0'])) {
             $query->whereHas('profile', function ($q) use ($request) {
                 $q->where('is_active', $request->input('status'));
             });
         }
-    
+        
+        // Filter by role if provided
         if ($request->filled('role') && $request->input('role') !== '') {
             $query->whereHas('role', function ($q) use ($request) {
                 $q->where('id', $request->input('role'));
             });
         }
     
+        // Log the generated query and bindings before executing
+        Log::info('Generated Query: ' . $query->toSql());
+        Log::info('Bindings: ' . json_encode($query->getBindings()));
+    
         // Get the users with pagination
         $users = $query->paginate(10);
-    
-        // Check if there are no results
-        $noResults = $users->isEmpty();
-    
-        // Get all roles for the filter
-        $roles = Role::all();
         
-        // Return the view with the filtered users, roles, and noResults flag
-        return view('admin.users.index', compact('users', 'roles', 'noResults'));
+        // Log the count of users returned
+        Log::info('Users Count: ' . $users->count());
+    
+        // Get all roles for the filter dropdown
+        $roles = Role::all();
+    
+        // Return the view with the filtered users and roles
+        return view('admin.users.index', compact('users', 'roles'));
     }
     
 

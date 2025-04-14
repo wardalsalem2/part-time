@@ -40,60 +40,52 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center"
-                href="{{ route('company.dashboard') }}">
-                <div class="sidebar-brand ">
-                    <img src="{{ asset('assets/logonew.png') }}" alt="Part Time Dashboard Logo" width="150" />
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center" href="{{ route('company.dashboard') }}">
+        <div class="sidebar-brand ">
+            <img src="{{ asset('assets/logonew.png') }}" alt="Part Time Dashboard Logo" width="150" />
+        </div>
+    </a>
 
-                </div>
+    <!-- Divider -->
+    <hr class="sidebar-divider mx-2">
 
-            </a>
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link d-flex align-items-center" href="{{ route('company.dashboard') }}">
+            <i class="fas fa-fw fa-tachometer-alt mr-2"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider mx-2">
+    <!-- Nav Item - Job Offers -->
+    <li class="nav-item">
+        <a class="nav-link d-flex align-items-center" href="{{ route('company.job-offers.index') }}">
+            <i class="fas fa-fw fa-briefcase mr-2"></i>
+            <span>Job Offers</span>
+        </a>
+    </li>
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link d-flex align-items-center justify-content-center"
-                    href="{{ route('company.dashboard') }}">
-                    <i class="fas fa-fw fa-tachometer-alt mr-2"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
+    <!-- Nav Item - Job Applications -->
+    <li class="nav-item">
+        <a class="nav-link d-flex align-items-center" href="{{ route('company.applications.index') }}">
+            <i class="fas fa-fw fa-file-alt mr-2"></i>
+            <span>Job Applications</span>
+        </a>
+    </li>
 
-            <!-- Nav Item - Job Offers -->
-            <li class="nav-item">
-                <a class="nav-link d-flex align-items-center justify-content-center"
-                    href="{{ route('company.job-offers.index') }}">
-                    <i class="fas fa-fw fa-briefcase mr-2"></i>
-                    <span>Job Offers</span>
-                </a>
-            </li>
+    <!-- Nav Item - Logout -->
+    <li class="nav-item">
+        <a class="nav-link d-flex align-items-center" href="{{ route('logout') }}">
+            <i class="fas fa-fw fa-sign-out-alt mr-2"></i>
+            <span>Logout</span>
+        </a>
+    </li>
 
-            <!-- Nav Item - Job Applications -->
-            <li class="nav-item">
-                <a class="nav-link d-flex align-items-center justify-content-center"
-                    href="{{ route('company.applications.index') }}">
-                    <i class="fas fa-fw fa-file-alt mr-2"></i>
-                    <span>Job Applications</span>
-                </a>
-            </li>
+</ul>
 
-            <!-- Nav Item - Logout -->
-            <li class="nav-item">
-                <a class="nav-link d-flex align-items-center justify-content-center" href="{{ route('logout') }}">
-                    <i class="fas fa-fw fa-sign-out-alt mr-2"></i>
-                    <span>Logout</span>
-                </a>
-            </li>
-
-
-
-        </ul>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">

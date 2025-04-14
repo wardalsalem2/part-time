@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Company;
@@ -9,24 +10,41 @@ use App\Models\Company;
 class CompaniesController extends Controller
 {
 
-
     public function index(Request $request)
     {
         $query = Company::with('user');
+        
+        Log::info('Request Parameters:', $request->all());
     
+        // Filter by name if provided
         if ($request->has('name') && $request->name) {
             $query->where('name', 'like', '%' . $request->name . '%');
+            Log::info('Filtering by name:', ['name' => $request->name]);
         }
-    
-        if ($request->has('status') && $request->status !== '') {
-            $query->where('is_active', $request->status);
+        
+        // Handle status filter
+        if ($request->has('status') && $request->status !== 'All statuses') {
+            $status = $request->status === '1' ? true : false; // Convert status to boolean (if needed)
+            $query->where('is_active', $status);
+            Log::info('Filtering by status:', ['status' => $status]);
+        } else {
+        
+            Log::info('No status filter applied, returning all companies');
         }
-    
         $companies = $query->paginate(10)->appends($request->all());
-    
-        return view('admin.companies.index', compact('companies'));
+        
+        // Log the generated SQL query and bindings
+        Log::info('Generated SQL Query:', ['query' => $query->toSql()]);
+        Log::info('Query Bindings:', ['bindings' => $query->getBindings()]);
+        
+        // Log the number of companies returned
+        Log::info('Companies Count:', ['count' => $companies->count()]);
+        
+            return view('admin.companies.index', compact('companies'));
     }
-
+    
+    
+    
     //------------------------------------------------------------------------------------------------------------
 
     public function show(string $id)

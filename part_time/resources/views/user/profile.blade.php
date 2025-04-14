@@ -178,9 +178,10 @@
         </div>
     @endif
     <div class="profile-card text-center">
+    
         <div class="profile-image-wrapper">
             @if (!empty($profile->image_path) && Storage::disk('public')->exists($profile->image_path))
-                <img src="{{ asset('storage/' . $profile->image_path) }}" alt="Profile Image" class="profile-image">
+                            <img src="{{ Storage::url($profile->image_path) }}" alt="Profile Image" class="profile-image">
             @else
                 <img src="{{ asset('images/default-profile.png') }}" alt="Default Profile" class="profile-image">
             @endif
