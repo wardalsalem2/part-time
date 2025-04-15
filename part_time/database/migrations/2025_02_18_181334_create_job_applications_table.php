@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('job_applications', function (Blueprint $table) {
-            $table->id(); // Primary Key
+            $table->id(); 
             $table->foreignId('profile_id')->constrained('profiles')->onDelete('cascade'); 
             $table->foreignId('job_offer_id')->constrained('job_offers')->onDelete('cascade'); 
-            $table->string('status')->default('pending'); // (pending, accepted, rejected)
+            $table->enum('status', ['applied', 'pending', 'accepted', 'rejected'])->default('applied'); 
             $table->text('cover_letter')->nullable();
             $table->string('resume')->nullable(); 
-            $table->timestamps(); // created_at & updated_at
+            $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      */

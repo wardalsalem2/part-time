@@ -20,7 +20,7 @@
                             class="form-control"
                             placeholder="Search by job title..."
                             value="{{ request('search') }}">
-            
+
                         <!-- Divider -->
                         <span class="input-group-text">
                             <div style="width: 1px; height: 24px; background-color:rgb(0, 0, 0);"></div>
@@ -28,12 +28,12 @@
             
                         <!-- Status Filter -->
                         <select name="status"
-                            class="form-select
-                            ;rounded-end-3">
+                            class="form-select rounded-end-3">
                             <option value="">Filter by Status</option>
                             <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>Accepted</option>
                             <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
                             <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="applied" {{ request('status') == 'applied' ? 'selected' : '' }}>Applied</option>
                         </select>
             
                         <!-- Search Button -->
@@ -74,9 +74,12 @@
                     </p>
                     <span class="badge px-3 py-1 fs-6 text-white
                             {{ $app->status === 'accepted' ? 'bg-success' :
-            ($app->status === 'rejected' ? 'bg-danger' : 'bg-warning') }}">
+            ($app->status === 'rejected' ? 'bg-danger' : 
+            ($app->status === 'pending' ? 'bg-warning' : 'bg-info')) }}">
                         <i
-                            class="bi {{ $app->status === 'accepted' ? 'bi-check-circle' : ($app->status === 'rejected' ? 'bi-x-circle' : 'bi-hourglass-split') }} me-1"></i>
+                            class="bi {{ $app->status === 'accepted' ? 'bi-check-circle' :
+        ($app->status === 'rejected' ? 'bi-x-circle' :
+        ($app->status === 'pending' ? 'bi-hourglass-split' : 'bi-file-earmark-check')) }} me-1"></i>
                         {{ ucfirst($app->status) }}
                     </span>
                 </div>

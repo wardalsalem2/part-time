@@ -162,6 +162,14 @@
                     value="{{ request('salary') }}" min="0">
             </div>
             <div class="col-md-2">
+                <select name="category" class="form-control form-control-lg">
+                    <option value="">Select Category</option>
+                    <option value="IT" {{ request('category') == 'IT' ? 'selected' : '' }}>IT</option>
+                    <option value="Marketing" {{ request('category') == 'Marketing' ? 'selected' : '' }}>Marketing</option>
+                    <option value="Design" {{ request('category') == 'Design' ? 'selected' : '' }}>Design</option>
+                </select>
+            </div>
+            <div class="col-md-2">
                 <button type="submit" class="btn btn-primary btn-md w-100">
                     <i class="fas fa-search me-2"></i> Search
                 </button>
@@ -170,12 +178,12 @@
     </form>
 </div>
 
+
 <div class="container py-5">
     <div class="row g-3">
         @foreach ($jobOffers as $job)
             <div class="col-lg-4 col-md-6">
                 <div class="card">
-                    
                     <div class="card-header">
                         <h5 class="card-title mb-0">{{ $job->title }}</h5>
                     </div>
@@ -191,7 +199,9 @@
                             </p>
                             <p class="mb-2">
                                 <i class="fas fa-money-bill-wave me-2"></i>
-                                ${{ number_format($job->salary, 2) }}
+                                {{ number_format($job->salary, 2) }}
+                                JD
+
                             </p>
                         </div>
                         <hr>
@@ -207,6 +217,26 @@
                         <a href="{{ route('jobOffersDetails', $job->id) }}" class="btn btn-primary mt-3 w-100">
                             View Details <i class="fas fa-arrow-right ms-2"></i>
                         </a>
+
+                        <!-- Heart Button to add job to favorites -->
+                        @if(auth()->user()->favoriteJobs->contains($job))
+                            <!-- If the job is already favorited -->
+                            <form action="{{ route('favorites.destroy', $job->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-heart-broken"></i> Remove from Favorites
+                                </button>
+                            </form>
+                        @else
+                            <!-- If the job is not favorited -->
+                            <form action="{{ route('favorites.store', $job->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-heart"></i> Add to Favorites
+                                </button>
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>

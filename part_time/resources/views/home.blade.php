@@ -154,7 +154,8 @@
                                     </p>
                                     <p class="mb-2" style="font-size: 0.95rem; color: #555;">
                                         <i class="fas fa-money-bill-wave me-2" style="color: #6ec0c7;"></i>
-                                        ${{ number_format($job->salary, 2) }}
+                                        {{ number_format($job->salary, 2) }}
+                                        JD
                                     </p>
                                 </div>
                                 <hr>

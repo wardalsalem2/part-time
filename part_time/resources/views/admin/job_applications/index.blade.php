@@ -65,29 +65,29 @@
                                     <span class="badge 
                                         @if($app->status == 'pending') bg-warning
                                         @elseif($app->status == 'accepted') bg-success
-                                        @else bg-danger @endif">
+                                        @elseif($app->status == 'rejected') bg-danger
+                                        @endif">
                                         {{ ucfirst($app->status) }}
                                     </span>
                                 </td>
                                 <td>{{ $app->created_at->format('Y-m-d') }}</td>
                                 <td>
-                                    <!-- Toggle Button for Accepted/Rejected -->
+                                    <!-- Toggle Button for Pending, Accepted and Rejected -->
                                     @if($app->status == 'pending')
-                                        <form action="{{ route('admin.job_applications.accept', $app->id) }}" method="POST" style="display:inline;">
+                                        <form action="{{ route('admin.job_applications.toggleStatus', $app->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             <button type="submit" class="btn btn-success btn-sm">Accept</button>
                                         </form>
-
-                                        <form action="{{ route('admin.job_applications.reject', $app->id) }}" method="POST" style="display:inline;">
+                                        <form action="{{ route('admin.job_applications.toggleStatus', $app->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             <button type="submit" class="btn btn-danger btn-sm">Reject</button>
                                         </form>
-                                    @elseif($app->status == 'rejected' || $app->status == 'accepted')
-                                        <!-- Toggle between Accept and Reject -->
+                                    @elseif($app->status == 'accepted' || $app->status == 'rejected')
+                                        <!-- Toggle between Pending -->
                                         <form action="{{ route('admin.job_applications.toggleStatus', $app->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             <button type="submit" class="btn btn-warning btn-sm">
-                                                @if($app->status == 'rejected') Accept @else Reject @endif
+                                                Set as Pending
                                             </button>
                                         </form>
                                     @endif

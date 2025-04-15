@@ -8,6 +8,7 @@
             <ul class="list-group">
                 <li class="list-group-item"><strong>Title:</strong> {{ $job->title }}</li>
                 <li class="list-group-item"><strong>Description:</strong> {{ $job->description }}</li>
+                <li class="list-group-item"><strong>Category:</strong> {{ $job->category }}</li>
                 <li class="list-group-item"><strong>Company:</strong> {{ $job->company->name }}</li>
                 <li class="list-group-item"><strong>Work Hours:</strong> {{ $job->work_hours }}</li>
                 <li class="list-group-item"><strong>Salary:</strong> {{ $job->salary }}</li>

@@ -10,8 +10,10 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\FavoriteJobController;
 use App\Http\Controllers\JobApplicationController;
+use App\Http\Controllers\Admin\AdminController;
+
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\CompaniesController;
 use App\Http\Controllers\Admin\JobOffersController;
@@ -75,6 +77,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
+
+
+//------------------------------- favorite job ---------------------------------------------------------------------
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/job-offers/{jobOffer}/favorite', [FavoriteJobController::class, 'store'])->name('favorites.store');
+    Route::delete('/job-offers/{jobOffer}/unfavorite', [FavoriteJobController::class, 'destroy'])->name('favorites.destroy');
+    Route::get('/my-favorites', [FavoriteJobController::class, 'index'])->name('favorites.index');
+});
+
 //--------------------------- company pages ---------------------------------------------------------------------
 Route::middleware(['role:2'])->prefix('company')->name('company.')->group(function () {
 
@@ -82,17 +96,22 @@ Route::middleware(['role:2'])->prefix('company')->name('company.')->group(functi
     Route::get('/', [CompanyAdminController::class, 'index'])->name('dashboard');
 
     // --------------------------- Job Offers ---------------------------
+    Route::get('/company/job-offers/{job}/applications', [CompanyJobOfferController::class, 'applications'])
+    ->name('job-offers.applications');
     Route::resource('job-offers', CompanyJobOfferController::class);
     Route::post('job-offers/{id}/toggle-status', [CompanyJobOfferController::class, 'toggleStatus'])->name('job-offers.toggle-status');
     Route::get('company/job-offers/{id}', [CompanyJobOfferController::class, 'show'])->name('company.job-offers.show');
+
 
     // --------------------------- Job Applications ---------------------------
     Route::get('applications', [CompanyJobApplicationController::class, 'index'])->name('applications.index');
     Route::get('applications/{id}', [CompanyJobApplicationController::class, 'show'])->name('applications.show');
     Route::post('applications/{id}/accept', [CompanyJobApplicationController::class, 'accept'])->name('applications.accept');
     Route::post('applications/{id}/reject', [CompanyJobApplicationController::class, 'reject'])->name('applications.reject');
-    // New Route for Deleting an Application
     Route::delete('applications/{id}', [CompanyJobApplicationController::class, 'destroy'])->name('applications.destroy');
+    Route::post('/company/applications/{id}/set-pending', [CompanyJobApplicationController::class, 'setPending'])
+    ->name('applications.setPending');
+
 
     // --------------------------- Profile ---------------------------
     Route::get('profile', [CompanyAdminController::class, 'profile'])->name('profile');

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
@@ -7,10 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\JobApplication;
 use Illuminate\Http\Request;
 
-
 class CompanyAdminController extends Controller
 {
-
     public function index()
     {
         $user = Auth::user();
@@ -21,27 +18,31 @@ class CompanyAdminController extends Controller
         }
 
         $jobOffersCount = $company->jobOffers()->count();
+        
         $jobApplicationsCount = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->count();
-        $acceptedApplications = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->where('status', 'accepted')->count();
+        
+        // تعديل الحالات حسب الستيتس الجديد
+        $appliedApplications = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->where('status', 'applied')->count();
         $pendingApplications = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->where('status', 'pending')->count();
+        $acceptedApplications = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->where('status', 'accepted')->count();
+        $rejectedApplications = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->where('status', 'rejected')->count();
 
-        $rejectedApplications = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))
-    ->where('status', 'rejected')->count();
-        // Monthly earnings data (replace with real data)
+        // بيانات الأرباح الشهرية (استبدلها بالبيانات الحقيقية)
         $monthlyEarnings = [40000, 45000, 50000, 55000, 60000, 65000, 70000];
 
-        // Revenue sources data (replace with real data)
+        // بيانات مصادر الإيرادات (استبدلها بالبيانات الحقيقية)
         $revenueSources = [300, 500, 200];
 
         return view('company.dashboard', [
             'company' => $company,
             'jobOffersCount' => $jobOffersCount,
             'jobApplicationsCount' => $jobApplicationsCount,
-            'acceptedApplications' => $acceptedApplications,
+            'appliedApplications' => $appliedApplications, 
             'pendingApplications' => $pendingApplications,
+            'acceptedApplications' => $acceptedApplications,
+            'rejectedApplications' => $rejectedApplications,
             'monthlyEarnings' => $monthlyEarnings,
             'revenueSources' => $revenueSources,
-            'rejectedApplications' => $rejectedApplications
         ]);
     }
 

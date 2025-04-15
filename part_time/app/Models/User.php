@@ -25,6 +25,18 @@ class User extends Authenticatable
     {
         return $this->hasOne(Company::class);
     }
+    public function jobOffer()
+    {
+        return $this->belongsTo(JobOffer::class);
+    }
+
+
+    //---------------------------------------------------------------------------------------------
+    public function favoriteJobs()
+    {
+        return $this->belongsToMany(JobOffer::class, 'favorite_jobs')->withTimestamps();
+    }
+
 
 
 }

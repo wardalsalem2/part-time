@@ -178,12 +178,13 @@
         </div>
     @endif
     <div class="profile-card text-center">
-    
+
         <div class="profile-image-wrapper">
-            @if (!empty($profile->image_path) && Storage::disk('public')->exists($profile->image_path))
-                            <img src="{{ Storage::url($profile->image_path) }}" alt="Profile Image" class="profile-image">
+
+            @if($profile->image_path)
+                <img src="{{ Storage::url($profile->image_path) }}" alt="Profile Image" class="profile-image">
             @else
-                <img src="{{ asset('images/default-profile.png') }}" alt="Default Profile" class="profile-image">
+                <img src="{{ asset('images/default-profile.png') }}" class="profile-image">
             @endif
         </div>
 
@@ -235,11 +236,13 @@
                                         <td>{{ $application->created_at->format('M d, Y') }}</td>
                                         <td>
                                             <span class="badge job-status-badge bg-{{ 
-                                                        $application->status == 'accepted' ? 'success' :
-                            ($application->status == 'rejected' ? 'danger' : 'warning') 
+                                                        $application->status == 'applied' ? 'primary' :
+                            ($application->status == 'pending' ? 'warning' :
+                                ($application->status == 'accepted' ? 'success' : 'danger')) 
                                                     }}">
                                                 {{ ucfirst($application->status) }}
                                             </span>
+
                                         </td>
                                         <td>
                                             <div class="action-buttons">
@@ -261,6 +264,7 @@
             </div>
         @endif
     </div>
+
 </div>
 
 @include('component.footer')

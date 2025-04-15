@@ -7,7 +7,7 @@
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Success!</strong> {{ session('success') }}
-                
+
             </div>
         @endif
         <h2 class="mb-4">{{ $jobOffer->title }}</h2>
@@ -15,13 +15,14 @@
         <div class="card p-4">
             <p><strong>Description:</strong> {{ $jobOffer->description }}</p>
             <p><strong>Location:</strong> {{ $jobOffer->location }}</p>
+            <p><strong>Category:</strong> {{ $jobOffer->category }}</p>
 
             @if($jobOffer->work_hours)
                 <p><strong>Work Hours:</strong> {{ $jobOffer->work_hours }}</p>
             @endif
 
             @if($jobOffer->salary)
-                <p><strong>Salary:</strong> ${{ number_format($jobOffer->salary, 2) }}</p>
+                <p><strong>Salary:</strong> {{ number_format($jobOffer->salary, 2) }} JD</p>
             @endif
 
             @if($jobOffer->requirements)
@@ -34,7 +35,6 @@
 
             <p><strong>Status:</strong> {{ $jobOffer->is_active ? 'Active' : 'Inactive' }}</p>
 
-            <!-- عرض عدد المتقدمين -->
             <p><strong>Applicants:</strong> {{ $jobOffer->job_applications_count }}</p>
         </div>
 

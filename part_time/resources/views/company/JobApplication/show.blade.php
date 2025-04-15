@@ -12,6 +12,7 @@
             <strong>Warning!</strong> {{ session('warning') }}
         </div>
     @endif
+
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="text-dark">Application Details</h2>
         <a href="{{ route('company.applications.index') }}" class="btn btn-outline-secondary rounded-pill px-4">
@@ -38,7 +39,8 @@
                 <p><strong>Status:</strong>
                     <span class="badge text-white 
                         {{ $application->status === 'accepted' ? 'bg-success' :
-    ($application->status === 'rejected' ? 'bg-danger' : 'bg-warning') }}">
+    ($application->status === 'rejected' ? 'bg-danger' :
+        ($application->status === 'pending' ? 'bg-warning' : 'bg-secondary')) }}">
                         {{ ucfirst($application->status) }}
                     </span>
                 </p>
@@ -65,7 +67,24 @@
             @endif
         </div>
 
-        @if($application->status === 'pending')
+        {{-- Actions Based on Status --}}
+        @if($application->status === 'applied')
+            <div class="mt-5 d-flex gap-2">
+                <form method="POST" action="{{ route('company.applications.setPending', $application->id) }}">
+                    @csrf
+                    <button class="btn btn-warning px-4 rounded-pill">Move to Interview</button>
+                </form>
+
+                <form method="POST" action="{{ route('company.applications.reject', $application->id) }}">
+                    @csrf
+                    <input type="hidden" name="confirm_reject" value="1">
+                    <button class="btn btn-danger px-4 rounded-pill"
+                        onclick="return confirm('Are you sure you want to reject this application?')">
+                        Reject
+                    </button>
+                </form>
+            </div>
+        @elseif($application->status === 'pending')
             <div class="mt-5 d-flex gap-2">
                 <form method="POST" action="{{ route('company.applications.accept', $application->id) }}">
                     @csrf
@@ -74,8 +93,11 @@
 
                 <form method="POST" action="{{ route('company.applications.reject', $application->id) }}">
                     @csrf
+                    <input type="hidden" name="confirm_reject" value="1">
                     <button class="btn btn-danger px-4 rounded-pill"
-                        onclick="return confirm('Are you sure you want to reject this application?')">Reject</button>
+                        onclick="return confirm('Are you sure you want to reject this application?')">
+                        Reject
+                    </button>
                 </form>
             </div>
         @else
@@ -85,8 +107,6 @@
             </div>
         @endif
     </div>
-
-
 </div>
 
 @include('company.component.footer')

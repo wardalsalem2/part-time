@@ -164,7 +164,9 @@
                 <button type="submit" class="px-5 py-2 save-btn">Save Changes</button>
             </div>
         </form>
-    </div>
+<div class="text-center mt-4">
+    <a href="{{ route('profile.show') }}" class="btn btn-outline-dark px-5 py-2">Back</a>
+</div>    </div>
 </div>
 
 @include('component.footer')

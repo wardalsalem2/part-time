@@ -1,4 +1,4 @@
-@include( 'admin.componant.header')
+@include('admin.componant.header')
 
 <div class="main-panel">
     <div class="content bg-white">
@@ -8,14 +8,14 @@
 
             <!-- Filters -->
             <form method="GET" action="{{ route('admin.job_offers.index') }}" class="row mb-4">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <select name="status" class="form-control">
                         <option value="">All Statuses</option>
                         <option value="1" {{ request('status') === '1' ? 'selected' : '' }}>Active</option>
                         <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>Inactive</option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <select name="company" class="form-control">
                         <option value="">All Companies</option>
                         @foreach($companies as $company)
@@ -23,7 +23,16 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-4">
+                <!-- Category Filter as Dropdown -->
+                <div class="col-md-3">
+                    <select name="category" class="form-control">
+                        <option value="">Select Category</option>
+                        <option value="IT" {{ request('category') == 'IT' ? 'selected' : '' }}>IT</option>
+                        <option value="Marketing" {{ request('category') == 'Marketing' ? 'selected' : '' }}>Marketing</option>
+                        <option value="Design" {{ request('category') == 'Design' ? 'selected' : '' }}>Design</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
                     <button type="submit" class="btn btn-primary w-100">Filter</button>
                 </div>
             </form>
@@ -35,6 +44,7 @@
                         <th>Title</th>
                         <th>Company</th>
                         <th>Status</th>
+                        <th>Category</th>
                         <th>Deadline</th>
                         <th>Actions</th>
                     </tr>
@@ -49,6 +59,7 @@
                                     {{ $offer->is_active ? 'Active' : 'Inactive' }}
                                 </span>
                             </td>
+                            <td>{{ $offer->category ?? 'N/A' }}</td>
                             <td>{{ $offer->deadline ?? 'N/A' }}</td>
                             <td>
                                 <a href="{{ route('admin.job_offers.show', $offer->id) }}" class="btn btn-sm btn-info">Show</a>
@@ -68,7 +79,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5">No job offers found.</td>
+                            <td colspan="6">No job offers found.</td>
                         </tr>
                     @endforelse
                 </tbody>

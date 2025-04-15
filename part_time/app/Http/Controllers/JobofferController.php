@@ -28,13 +28,14 @@ public function index(Request $request)
         ->when($request->salary, function ($query, $salary) {
             return $query->where('salary', '>=', $salary);
         })
-        ->when($request->deadline, function ($query, $deadline) {
-            return $query->where('deadline', '>=', $deadline);
+        ->when($request->category, function ($query, $category) {
+            return $query->where('category', $category);
         })
         ->paginate(9);
 
     return view('user.jobs', compact('jobOffers'));
 }
+
 
 //----------------------------------------------------------------------------------------------------------------------
     public function show(JobOffer $jobOffer)

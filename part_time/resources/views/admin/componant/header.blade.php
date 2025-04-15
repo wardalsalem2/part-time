@@ -41,18 +41,17 @@
 							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
 								<li>
 									<a class="dropdown-item" href="{{ route('profile.show') }}">
-										<i class="la la-user mt-2"></i> Profile
+										<i class="la la-user me-2"></i> Profile
 									</a>
 								</li>
 								<li>
-									<form method="POST" action="{{ route('logout') }}">
-										@csrf
-										<button type="submit" class="dropdown-item">
-											<i class="la la-sign-out mt-3"></i> Logout
-										</button>
-									</form>
+									<a href="{{ route('logout') }}"
+										class="dropdown-item text-danger d-flex align-items-center">
+										<i class="la la-sign-out me-2"></i> Logout
+									</a>	
 								</li>
 							</ul>
+
 						</li>
 					</ul>
 
@@ -63,7 +62,7 @@
 			<div class="scrollbar-inner sidebar-wrapper">
 
 				<a href="{{ route('profile.show') }}" class="text-decoration-none">
-					<div class="user">
+					<div class="user mt-4 mb-3">
 						<div class="d-flex align-items-center">
 							<img src="{{ Auth::user()->profile && Auth::user()->profile->image_path
 	? asset('storage/' . Auth::user()->profile->image_path)

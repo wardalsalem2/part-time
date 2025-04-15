@@ -14,6 +14,8 @@
   <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
   <link rel="stylesheet" href="{{ asset('assets/css/login&register.css') }}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -36,7 +38,7 @@
       position: relative;
       display: inline-block;
     }
-  
+
     .logo:hover::after {
       content: "";
       position: absolute;
@@ -47,7 +49,7 @@
       bottom: -5px;
       border-radius: 2px;
     }
-  
+
     .navmenu ul li a {
       color: #ffffff !important;
       font-weight: 500;
@@ -56,11 +58,11 @@
       position: relative;
       transition: color 0.3s ease;
     }
-  
+
     .navmenu ul li a:hover {
       color: #6ec0c7 !important;
     }
-  
+
     .navmenu ul li a:hover::after {
       content: "";
       position: absolute;
@@ -71,12 +73,13 @@
       bottom: -5px;
       border-radius: 2px;
     }
-  
+
     .navmenu ul li a.active {
-      color: #6ec0c7 !important; /* لون العنصر النشط */
+      color: #6ec0c7 !important;
+      /* لون العنصر النشط */
       font-weight: 600;
     }
-  
+
     /* لإظهار اللون الفاتح فقط عند الضغط على الرابط */
     .navmenu ul li a.active::after {
       content: "";
@@ -88,17 +91,19 @@
       bottom: -5px;
       border-radius: 2px;
     }
-  
+
     .navmenu ul li a:not(.active) {
-      color: #ffffff !important; /* اللون الافتراضي */
+      color: #ffffff !important;
+      /* اللون الافتراضي */
     }
-  
+
     /* إضافة استايل عند الضغط على أي رابط */
     .navmenu ul li a.active:hover {
-      color: #6ec0c7 !important; /* بنفس اللون عند الضغط */
+      color: #6ec0c7 !important;
+      /* بنفس اللون عند الضغط */
     }
   </style>
-  
+
 
 </head>
 
@@ -114,22 +119,40 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <ul>
-            <li><a href="{{ route('homepage') }}" class="{{ request()->routeIs('homepage') ? 'active' : '' }}">Home</a></li>
-            <li><a href="{{ route('homepage') }}#about" class="{{ request()->is('about') ? 'active' : '' }}">About</a></li>
-            <li><a href="{{ route('homepage') }}#services" class="{{ request()->is('services') ? 'active' : '' }}">Services</a></li>
-            <li><a href="{{ route('jobOffersIndex') }}" class="{{ request()->routeIs('jobOffersIndex') ? 'active' : '' }}">Jobs</a></li>
-            <li><a href="{{ route('contactCreate') }}" class="{{ request()->routeIs('contactCreate') ? 'active' : '' }}">Contact</a></li>
-          <!-- Check if the user is logged in -->
-          @if(Auth::check())
+            <li><a href="{{ route('homepage') }}" class="{{ request()->routeIs('homepage') ? 'active' : '' }}">Home</a>
+            </li>
+            <li><a href="{{ route('homepage') }}#about" class="{{ request()->is('about') ? 'active' : '' }}">About</a>
+            </li>
+            <li><a href="{{ route('homepage') }}#services"
+                class="{{ request()->is('services') ? 'active' : '' }}">Services</a></li>
+            <li><a href="{{ route('jobOffersIndex') }}"
+                class="{{ request()->routeIs('jobOffersIndex') ? 'active' : '' }}">Jobs</a></li>
+            <li><a href="{{ route('contactCreate') }}"
+                class="{{ request()->routeIs('contactCreate') ? 'active' : '' }}">Contact</a></li>
+            <!-- Check if the user is logged in -->
+            @if(Auth::check())
         <li><a href="{{ route('profile.show') }}" class="user-profile"><i class="bi bi-person-circle fs-5"></i></a>
+
+          {{-------------------- favorites --------------------------}}
+          @auth
+      <li class="nav-item">
+        <a href="{{ route('favorites.index') }}" class="btn btn-link position-relative">
+        <i class="fas fa-heart" style="font-size: 1.5rem; color: #6ec0c7;"></i>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {{ auth()->user()->favoriteJobs->count() }}
+        </span>
+        </a>
+      </li>
+    @endauth
+
         </li>
 
         <li><a href="{{ route('logout') }}" class="logout">Logout</a></li>
       @else
-      <li><a href="{{ route('login') }}" class="login">Login</a></li>
-    @endif
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+    <li><a href="{{ route('login') }}" class="login">Login</a></li>
+  @endif
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
     </div>
   </header>

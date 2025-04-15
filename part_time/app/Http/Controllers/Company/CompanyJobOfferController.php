@@ -19,9 +19,11 @@ class CompanyJobOfferController extends Controller
         if ($request->filled('location')) {
             $query->where('location', 'like', '%' . $request->location . '%');
         }
+        if ($request->filled('category')) {
+            $query->where('category', 'like', '%' . $request->category . '%');
+        }
 
-
-        $jobOffers = $query->withCount('jobApplications')->paginate(10)->appends($request->query());
+        $jobOffers = $query->withCount('jobApplications')->paginate(6)->appends($request->query());
 
         return view('company.jobOffer.index', compact('jobOffers'));
     }
@@ -52,6 +54,7 @@ class CompanyJobOfferController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required',
             'location' => 'required',
+            'category' => 'required|string',
             'work_hours' => 'required|string|max:255',
             'salary' => 'required|numeric',
             'requirements' => 'required|string',
@@ -62,6 +65,7 @@ class CompanyJobOfferController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'location' => $request->location,
+            'category' => $request->category,
             'work_hours' => $request->work_hours,
             'salary' => $request->salary,
             'requirements' => $request->requirements,
@@ -92,6 +96,7 @@ class CompanyJobOfferController extends Controller
             'salary' => 'nullable|numeric|min:0',
             'requirements' => 'nullable|string',
             'deadline' => 'nullable|date|after_or_equal:today',
+            'category' => 'required|string|max:255',
         ]);
 
         $jobOffer->update($request->only([
@@ -102,7 +107,9 @@ class CompanyJobOfferController extends Controller
             'salary',
             'requirements',
             'deadline',
+            'category',
         ]));
+
 
         // Redirect to the show page of the job offer with success message
         return redirect()->route('company.job-offers.show', $jobOffer->id)
@@ -127,6 +134,14 @@ class CompanyJobOfferController extends Controller
         $message = $jobOffer->is_active ? 'Job offer is active.' : 'Job offer is inactive.';
 
         return back()->with('success', $message);
+    }
+
+//------------------ function for showing the users who applied for the job offer in the company dashboard ------------------//
+
+    public function applications(JobOffer $job)
+    {   
+        $applications = $job->jobApplications()->with(['user', 'profile'])->latest()->get();
+        return view('company.jobOffer.applications', compact('job', 'applications'));
     }
 
 }

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('job_offers', function (Blueprint $table) {
-            $table->id(); // Primary Key
-            $table->foreignId('company_id')->constrained('companies')->onDelete('cascade'); // الشركة المالكة للعرض الوظيفي
+            $table->id();
+            $table->foreignId('company_id')->constrained('companies')->onDelete('cascade'); 
             $table->string('title');
             $table->text('description'); 
             $table->integer('work_hours');
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('requirements')->nullable(); 
             $table->date('deadline')->nullable();
             $table->boolean('is_active')->default(true); 
+            $table->string('category');
             $table->timestamps(); 
         });
     }

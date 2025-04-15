@@ -13,37 +13,47 @@ class JobOffersController extends Controller
     public function index(Request $request)
     {
         $query = JobOffer::with('company');
-            Log::info('Request Parameters:', $request->all());
     
+        Log::info('Request Parameters:', $request->all());
+    
+        // Filter by status
         if ($request->has('status') && $request->status !== null && $request->status !== '') {
-            // Convert status to a boolean (1 -> true, 0 -> false)
             $status = ($request->status === '1') ? true : false;
             $query->where('is_active', $status);
             Log::info('Filtering by status:', ['status' => $status]);
         }
     
+        // Filter by company
         if ($request->has('company') && $request->company !== null && $request->company !== '') {
             $query->where('company_id', $request->company);
             Log::info('Filtering by company:', ['company_id' => $request->company]);
         }
     
+        // Filter by category
+        if ($request->has('category') && $request->category !== '') {
+            $query->where('category', $request->category);
+            Log::info('Filtering by category:', ['category' => $request->category]);
+        }
+    
+        // Filter by name (if applicable)
         if ($request->has('name') && $request->name !== '') {
-            $query->where('name', 'like', '%' . $request->name . '%');
+            $query->where('title', 'like', '%' . $request->name . '%');
             Log::info('Filtering by name:', ['name' => $request->name]);
         }
     
+        // Pagination
         $jobOffers = $query->paginate(10)->appends($request->all());
     
         Log::info('Generated SQL Query:', ['query' => $query->toSql()]);
         Log::info('Query Bindings:', ['bindings' => $query->getBindings()]);
-        
+    
         Log::info('Job Offers Count:', ['count' => $jobOffers->count()]);
     
+        // Fetch all companies
         $companies = Company::all();
     
         return view('admin.job_offers.index', compact('jobOffers', 'companies'));
     }
-    
     
     
 //--------------------------------------------------------------------------------------------------------------------

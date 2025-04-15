@@ -22,30 +22,67 @@
     </div>
 
     <!-- Search Form -->
-    <div class="card shadow-sm mb-5 border-0">
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white border-0">
+            <h5 class="mb-0 d-flex align-items-center">
+                <i class="bi bi-funnel me-2 text-primary"></i>
+                Filter Job Offers
+            </h5>
+        </div>
         <div class="card-body">
             <form method="GET" action="{{ route('company.job-offers.index') }}">
                 <div class="row g-3 align-items-center">
-                    <div class="col-md-4">
-                        <input type="text" name="title" class="form-control" placeholder="Search by title"
-                            value="{{ request('title') }}">
+                    <!-- Job Title -->
+                    <div class="col-auto">
+                        <input type="text" name="title" id="title"
+                            class="form-control rounded-pill border shadow-sm ps-3" placeholder="Job Title"
+                            value="{{ request('title') }}" aria-label="Job Title">
                     </div>
-                    <div class="col-md-4">
-                        <input type="text" name="location" class="form-control" placeholder="Search by location"
-                            value="{{ request('location') }}">
+
+                    <!-- Location -->
+                    <div class="col-auto">
+                        <input type="text" name="location" id="location"
+                            class="form-control rounded-pill border shadow-sm ps-3" placeholder="Location"
+                            value="{{ request('location') }}" aria-label="Location">
                     </div>
-                    <div class="col-md-4 d-flex gap-2 justify-content-md-end">
-                        <button type="submit" class="btn btn-outline-primary w-100">
+
+                    <!-- Category -->
+                    <div class="col-auto">
+                        <div class="input-group shadow-sm">
+                            <span class="input-group-text bg-white border-end-0 rounded-start-pill">
+                                <i class="bi bi-tags text-primary"></i>
+                            </span>
+                            <select name="category" id="category" class="form-select border-start-0 rounded-end-pill">
+                                <option value="">All Categories</option>
+                                <option value="IT" {{ request('category') == 'IT' ? 'selected' : '' }}>IT</option>
+                                <option value="Marketing" {{ request('category') == 'Marketing' ? 'selected' : '' }}>
+                                    Marketing
+                                </option>
+                                <option value="Design" {{ request('category') == 'Design' ? 'selected' : '' }}>Design
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Reset Button -->
+                    <div class="col-auto">
+                        <a href="{{ route('company.job-offers.index') }}"
+                            class="btn btn-outline-secondary rounded-pill px-4 py-2 d-flex align-items-center">
+                            <i class="bi bi-x-circle me-1"></i> Reset
+                        </a>
+                    </div>
+
+                    <!-- Search Button -->
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 d-flex align-items-center">
                             <i class="bi bi-search me-1"></i> Search
                         </button>
-                        <a href="{{ route('company.job-offers.index') }}" class="btn btn-outline-secondary w-100">
-                            <i class="bi bi-x-lg me-1"></i> Reset
-                        </a>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+
 
     <!-- Cards Grid -->
     <div class="row g-4">
@@ -95,8 +132,13 @@
                             </div>
 
                             <div>
+                                <i class="bi bi-tags me-1"></i>
+                                <span>{{ $job->category ?? 'Remote' }}</span>
+                            </div>
+
+                            <div>
                                 <i class="bi bi-cash me-1"></i>
-                                <span>${{ number_format($job->salary) }}</span>
+                                <span>{{ number_format($job->salary) }} JD</span>
                             </div>
                         </div>
 
@@ -121,24 +163,37 @@
                                 </button>
                             </form>
 
-                            <div class="d-flex justify-content-between gap-2">
-                                <a href="{{ route('company.job-offers.show', $job->id) }}"
-                                    class="btn btn-outline-primary btn-sm w-100">
-                                    <i class="bi bi-eye"></i> Show
+                            <div class="d-flex flex-column gap-2">
+
+                                <a href="{{ route('company.job-offers.applications', $job->id) }}"
+                                    class="btn btn-outline-info btn-sm w-100">
+                                    <i class="bi bi-person-lines-fill me-1"></i> View Applicants
                                 </a>
-                                <a href="{{ route('company.job-offers.edit', $job->id) }}"
-                                    class="btn btn-outline-secondary btn-sm w-100">
-                                    <i class="bi bi-pencil-square"></i> Edit
-                                </a>
-                                <form method="POST" action="{{ route('company.job-offers.destroy', $job->id) }}"
-                                    class="w-100" id="delete-form-{{ $job->id }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" onclick="confirmDelete({{ $job->id }})"
-                                        class="btn btn-outline-danger btn-sm w-100">
-                                        <i class="bi bi-trash"></i> Delete
-                                    </button>
-                                </form>
+
+
+                                <div class="d-flex justify-content-between gap-2">
+                                    <a href="{{ route('company.job-offers.show', $job->id) }}"
+                                        class="btn btn-outline-primary btn-sm w-100">
+                                        <i class="bi bi-eye"></i> Show
+                                    </a>
+
+
+                                    <a href="{{ route('company.job-offers.edit', $job->id) }}"
+                                        class="btn btn-outline-secondary btn-sm w-100">
+                                        <i class="bi bi-pencil-square"></i> Edit
+                                    </a>
+
+
+                                    <form method="POST" action="{{ route('company.job-offers.destroy', $job->id) }}"
+                                        class="w-100" id="delete-form-{{ $job->id }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" onclick="confirmDelete({{ $job->id }})"
+                                            class="btn btn-outline-danger btn-sm w-100">
+                                            <i class="bi bi-trash"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

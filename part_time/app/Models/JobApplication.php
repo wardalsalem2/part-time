@@ -23,5 +23,17 @@ class JobApplication extends Model
         return $this->belongsTo(JobOffer::class);
     }
 
+    public function user()
+{
+    return $this->hasOneThrough(
+        User::class,     
+        Profile::class,  
+        'id',    
+        'id',  
+        'profile_id', 
+        'user_id' 
+    );
+}
+
 
 }

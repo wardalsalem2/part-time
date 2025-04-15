@@ -38,7 +38,7 @@ public function store(Request $request)
         'job_offer_id' => $request->job_offer_id,
         'cover_letter' => $request->cover_letter,
         'resume' => $resumePath,
-        'status' => 'pending',
+        'status' => 'applied',
     ]);
 
     return $application

@@ -30,8 +30,9 @@
                             <span class="badge 
                                 @if($application->status === 'accepted') bg-success 
                                 @elseif($application->status === 'rejected') bg-danger 
-                                @else bg-warning text-dark @endif">
-                                {{ ucfirst($application->status) }}
+                                @elseif($application->status === 'pending') bg-warning text-dark 
+                                @else bg-secondary @endif">
+                                {{ ucfirst($application->status) ?: 'Not Set' }}
                             </span>
                         </div>
                     </div>
