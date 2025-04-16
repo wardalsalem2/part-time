@@ -15,10 +15,10 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="text-dark">Application Details</h2>
-        <a href="{{ route('company.applications.index') }}" class="btn btn-outline-secondary rounded-pill px-4">
-            ← Back to Applications
+        <a href="{{ route('company.applications.applications',$job) }}" class="btn btn-outline-secondary rounded-pill px-4">
+            ← Back
         </a>
-    </div>
+    </div>  
 
     <div class="card shadow-lg border-0 rounded-4 p-4">
         <div class="row">

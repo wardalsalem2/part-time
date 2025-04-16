@@ -69,12 +69,12 @@
     </li>
 
     <!-- Nav Item - Job Applications -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link d-flex align-items-center" href="{{ route('company.applications.index') }}">
             <i class="fas fa-fw fa-file-alt mr-2"></i>
             <span>Job Applications</span>
         </a>
-    </li>
+    </li> --}}
 
     <!-- Nav Item - Logout -->
     <li class="nav-item">

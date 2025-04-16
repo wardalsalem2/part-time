@@ -61,6 +61,7 @@
         background: white;
         box-shadow: 0 12px 25px rgba(0, 0, 0, 0.06);
         transition: all 0.3s ease-in-out;
+        
     }
 
     .card:hover {
@@ -142,35 +143,53 @@
     Find Your<span style="color:#6ec0c7;"> Dream Job</span>
 </h1>
 
-<div class="container search-container">
+<div class="container search-container my-3">
     <form action="{{ route('jobOffersIndex') }}" method="GET">
-        <div class="row g-3">
-            <div class="col-md-3">
+        {{-- First Row --}}
+        <div class="row g-2 mb-2 align-items-center">
+            <div class="col-md-4">
                 <input type="text" name="title" class="form-control form-control-lg" placeholder="Job Title"
                     value="{{ request('title') }}">
             </div>
-            <div class="col-md-3">
-                <input type="text" name="location" class="form-control form-control-lg" placeholder="Location"
-                    value="{{ request('location') }}">
+            <div class="col-md-4">
+                <select name="location" class="form-select form-select-lg ">
+                    <option value="">Select Location</option>
+                    @php
+                        $governorates = [
+                            'Amman', 'Zarqa', 'Irbid', 'Aqaba', 'Balqa',
+                            'Madaba', 'Mafraq', 'Jerash', 'Ajloun',
+                            'Karak', 'Tafilah', 'Ma\'an'
+                        ];
+                    @endphp
+                    @foreach($governorates as $gov)
+                        <option value="{{ $gov }}" {{ request('location') == $gov ? 'selected' : '' }}>
+                            {{ $gov }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
-            <div class="col-md-2">
-                <input type="number" name="work_hours" class="form-control form-control-lg" placeholder="Work Hours"
-                    value="{{ request('work_hours') }}">
-            </div>
-            <div class="col-md-2">
-                <input type="number" name="salary" class="form-control form-control-lg" placeholder="Salary"
-                    value="{{ request('salary') }}" min="0">
-            </div>
-            <div class="col-md-2">
-                <select name="category" class="form-control form-control-lg">
+            <div class="col-md-4">
+                <select name="category" class="form-select form-select-lg">
                     <option value="">Select Category</option>
                     <option value="IT" {{ request('category') == 'IT' ? 'selected' : '' }}>IT</option>
                     <option value="Marketing" {{ request('category') == 'Marketing' ? 'selected' : '' }}>Marketing</option>
                     <option value="Design" {{ request('category') == 'Design' ? 'selected' : '' }}>Design</option>
                 </select>
             </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-primary btn-md w-100">
+        </div>
+
+        {{-- Second Row --}}
+        <div class="row g-2 align-items-center">
+            <div class="col-md-4">
+                <input type="number" name="work_hours" class="form-control form-control-lg" placeholder="Work Hours"
+                    value="{{ request('work_hours') }}">
+            </div>
+            <div class="col-md-4">
+                <input type="number" name="salary" class="form-control form-control-lg" placeholder="Salary"
+                    value="{{ request('salary') }}" min="0">
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary btn-lg w-100">
                     <i class="fas fa-search me-2"></i> Search
                 </button>
             </div>
@@ -179,35 +198,63 @@
 </div>
 
 
+
+
+
 <div class="container py-5">
     <div class="row g-3">
         @foreach ($jobOffers as $job)
             <div class="col-lg-4 col-md-6">
-                <div class="card">
-                    <div class="card-header">
+                <div class="card position-relative">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0">{{ $job->title }}</h5>
                     </div>
+
                     <div class="card-body">
                         <div class="job-meta">
-                            <p class="mb-2">
-                                <i class="fas fa-building me-2"></i>
-                                {{ $job->company->name }}
-                            </p>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <p class="mb-0">
+                                    <i class="fas fa-building me-2"></i>
+                                    {{ $job->company->name }}
+                                </p>
+                                @auth
+                                    @if(auth()->user()->favoriteJobs && auth()->user()->favoriteJobs->contains($job))
+                                        <form action="{{ route('favorites.destroy', $job->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-link p-0 text-danger" title="Remove from Favorites">
+                                                <i class="fas fa-heart"></i>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('favorites.store', $job->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-link p-0 text-muted" title="Add to Favorites">
+                                                <i class="far fa-heart"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                @endauth
+                            </div>
+                            
                             <p class="mb-2">
                                 <i class="fas fa-map-marker-alt me-2"></i>
                                 {{ $job->location }}
                             </p>
                             <p class="mb-2">
+                                <i class="bi bi-tags me-2"></i>
+                                {{ $job->category }}
+                            </p>
+                            <p class="mb-2">
                                 <i class="fas fa-money-bill-wave me-2"></i>
-                                {{ number_format($job->salary, 2) }}
-                                JD
-
+                                {{ number_format($job->salary, 2) }} JD
                             </p>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between align-items-center">
-                            <span class="badge" style="background-color:#6ec0c7;">W.Hours:
-                                {{ ucfirst($job->work_hours) }}</span>
+                            <span class="badge" style="background-color:#6ec0c7;">
+                                W.Hours: {{ ucfirst($job->work_hours) }}
+                            </span>
                             <small class="text-muted">
                                 <i class="fas fa-clock me-1"></i>
                                 Deadline: {{ \Carbon\Carbon::parse($job->deadline)->format('d M, Y') }}
@@ -217,26 +264,6 @@
                         <a href="{{ route('jobOffersDetails', $job->id) }}" class="btn btn-primary mt-3 w-100">
                             View Details <i class="fas fa-arrow-right ms-2"></i>
                         </a>
-
-                        <!-- Heart Button to add job to favorites -->
-                        @if(auth()->user()->favoriteJobs->contains($job))
-                            <!-- If the job is already favorited -->
-                            <form action="{{ route('favorites.destroy', $job->id) }}" method="POST" style="display: inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="fas fa-heart-broken"></i> Remove from Favorites
-                                </button>
-                            </form>
-                        @else
-                            <!-- If the job is not favorited -->
-                            <form action="{{ route('favorites.store', $job->id) }}" method="POST" style="display: inline;">
-                                @csrf
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-heart"></i> Add to Favorites
-                                </button>
-                            </form>
-                        @endif
                     </div>
                 </div>
             </div>
@@ -246,5 +273,6 @@
         {{ $jobOffers->links('pagination::bootstrap-5') }}
     </div>
 </div>
+
 
 @include('component.footer')

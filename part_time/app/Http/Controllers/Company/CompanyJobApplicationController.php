@@ -9,8 +9,19 @@ use App\Models\JobOffer;
 
 class CompanyJobApplicationController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, JobOffer $job = null)
     {
+        if ($job != null) {
+            // إذا تم تمرير job، نعرض فقط الطلبات الخاصة فيه
+            $applications = $job->jobApplications()
+                ->with(['user', 'profile'])
+                ->latest()
+                ->get();
+
+            return view('company.JobApplication.applications', compact('job', 'applications'));
+        }
+
+        // عرض كل الطلبات التابعة للشركة
         $applications = JobApplication::with(['jobOffer', 'profile.user'])
             ->whereHas('jobOffer', function ($q) use ($request) {
                 $q->where('company_id', Auth::user()->company->id);
@@ -19,22 +30,16 @@ class CompanyJobApplicationController extends Controller
                     $q->where('title', 'LIKE', '%' . $request->search . '%');
                 }
             })
-
             ->when($request->status, function ($q) use ($request) {
-                if ($request->status == 'applied') {
-                    $q->where('status', 'applied');
-                } elseif ($request->status == 'pending') {
-                    $q->where('status', 'pending');
-                } elseif ($request->status == 'accepted') {
-                    $q->where('status', 'accepted');
-                } elseif ($request->status == 'rejected') {
-                    $q->where('status', 'rejected');
+                if (in_array($request->status, ['applied', 'pending', 'accepted', 'rejected'])) {
+                    $q->where('status', $request->status);
                 }
             })
             ->latest()
             ->paginate(10);
 
-        return view('company.JobApplication.index', compact('applications'));
+        // رجعنا job كمتغير فاضي حتى لو مش موجود، عشان ما يعطي Error بالـ view
+        return view('company.JobApplication.applications', compact('applications', 'job'));
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -43,8 +48,8 @@ class CompanyJobApplicationController extends Controller
         $application = JobApplication::with(['jobOffer', 'profile.user'])
             ->whereHas('jobOffer', fn($q) => $q->where('company_id', Auth::user()->company->id))
             ->findOrFail($id);
-
-        return view('company.JobApplication.show', compact('application'));
+        $job = $application->jobOffer;
+        return view('company.JobApplication.show', compact(['application', 'job']));
     }
     //--------------------------------------------------------------------------------------------------
     public function accept($id)
@@ -98,6 +103,15 @@ class CompanyJobApplicationController extends Controller
     }
 
     //--------------------------------------------------------------------------------------------------
+//------------------ function for showing the users who applied for the job offer in the company dashboard ------------------//
+
+    // public function applications(JobOffer $job)
+    // {
+    //     $applications = $job->jobApplications()->with(['user', 'profile'])->latest()->get();
+    //     return view('company.JobApplication.applications', compact('job', 'applications'));
+    // }
+
+    //--------------------------------------------------------------------------------------------------
 
     public function destroy($id)
     {
@@ -105,13 +119,13 @@ class CompanyJobApplicationController extends Controller
 
         $application->delete();
 
-        return redirect()->route('company.applications.index')
+        return redirect()->route('company.applications.applications')
             ->with('success', 'The employee has been removed from the job.');
     }
 
 
 
-   
+
 
 }
 

@@ -165,7 +165,7 @@
 
                             <div class="d-flex flex-column gap-2">
 
-                                <a href="{{ route('company.job-offers.applications', $job->id) }}"
+                                <a href="{{ route('company.applications.applications', $job->id) }}"
                                     class="btn btn-outline-info btn-sm w-100">
                                     <i class="bi bi-person-lines-fill me-1"></i> View Applicants
                                 </a>

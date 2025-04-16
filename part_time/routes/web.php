@@ -96,8 +96,7 @@ Route::middleware(['role:2'])->prefix('company')->name('company.')->group(functi
     Route::get('/', [CompanyAdminController::class, 'index'])->name('dashboard');
 
     // --------------------------- Job Offers ---------------------------
-    Route::get('/company/job-offers/{job}/applications', [CompanyJobOfferController::class, 'applications'])
-    ->name('job-offers.applications');
+  
     Route::resource('job-offers', CompanyJobOfferController::class);
     Route::post('job-offers/{id}/toggle-status', [CompanyJobOfferController::class, 'toggleStatus'])->name('job-offers.toggle-status');
     Route::get('company/job-offers/{id}', [CompanyJobOfferController::class, 'show'])->name('company.job-offers.show');
@@ -111,6 +110,9 @@ Route::middleware(['role:2'])->prefix('company')->name('company.')->group(functi
     Route::delete('applications/{id}', [CompanyJobApplicationController::class, 'destroy'])->name('applications.destroy');
     Route::post('/company/applications/{id}/set-pending', [CompanyJobApplicationController::class, 'setPending'])
     ->name('applications.setPending');
+
+    Route::get('/company/{job}', [CompanyJobApplicationController::class, 'index'])
+    ->name('applications.applications');
 
 
     // --------------------------- Profile ---------------------------

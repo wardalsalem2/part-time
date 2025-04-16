@@ -47,7 +47,7 @@ class ProfileController extends Controller
             return view('user.editProfile', ['profile' => $user->profile]);
         } elseif ($user->role->id == 3) {
 
-            return view('admin.profile.editProfile', ['profile' => $user->profile]); // صفحة تعديل بروفايل الإدمن
+            return view('admin.profile.editProfile', ['profile' => $user->profile]); 
         } else {
 
             abort(403, 'Unauthorized');

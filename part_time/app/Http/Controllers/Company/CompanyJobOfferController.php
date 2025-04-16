@@ -31,7 +31,7 @@ class CompanyJobOfferController extends Controller
 
 
 
-    //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------- for showing single job-----------------------------------------------------------------------------------------------------------------------------------------------------
     public function show($id)
     {
         $jobOffer = JobOffer::where('company_id', Auth::user()->company->id)
@@ -42,12 +42,12 @@ class CompanyJobOfferController extends Controller
             ->with('success', session('success'));
     }
 
-    //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------for show form  create the job---------------------------------------------------------------------------------------------------------------------------------------------
     public function create()
     {
         return view('company.jobOffer.create');
     }
-    //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------- for create the job-------------------------------------------------------------------------------------------------------------------------------------------
     public function store(Request $request)
     {
         $request->validate([
@@ -77,13 +77,13 @@ class CompanyJobOfferController extends Controller
         return redirect()->route('company.job-offers.index')->with('success', 'Job offer created.');
     }
 
-    //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------for edit the job---------------------------------------------------------------------------------------------------------------------------------------------
     public function edit($id)
     {
         $jobOffer = JobOffer::where('company_id', Auth::user()->company->id)->findOrFail($id);
         return view('company.jobOffer.edit', compact('jobOffer'));
     }
-    //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------for update the job ------------------------------------------------------------------------------------------------------------------------------------------
     public function update(Request $request, $id)
     {
         $jobOffer = JobOffer::where('company_id', Auth::user()->company->id)->findOrFail($id);
@@ -117,7 +117,7 @@ class CompanyJobOfferController extends Controller
     }
 
 
-    //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------- for delet the job ---------------------------------------------------------------------------------------------------------------------------------
     public function destroy($id)
     {
         $jobOffer = JobOffer::where('company_id', Auth::user()->company->id)->findOrFail($id);
@@ -125,7 +125,7 @@ class CompanyJobOfferController extends Controller
 
         return redirect()->route('company.job-offers.index')->with('success', 'Job offer deleted.');
     }
-    //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------for update status of job ---------------------------------------------------------------------------------------------------------------------------------------
     public function toggleStatus($id)
     {
         $jobOffer = JobOffer::where('company_id', Auth::user()->company->id)->findOrFail($id);
@@ -136,12 +136,7 @@ class CompanyJobOfferController extends Controller
         return back()->with('success', $message);
     }
 
-//------------------ function for showing the users who applied for the job offer in the company dashboard ------------------//
 
-    public function applications(JobOffer $job)
-    {   
-        $applications = $job->jobApplications()->with(['user', 'profile'])->latest()->get();
-        return view('company.jobOffer.applications', compact('job', 'applications'));
-    }
+
 
 }

@@ -182,7 +182,7 @@
         <div class="profile-image-wrapper">
 
             @if($profile->image_path)
-                <img src="{{ Storage::url($profile->image_path) }}" alt="Profile Image" class="profile-image">
+                <img src="{{ asset('storage/'.$profile->image_path) }}" alt="Profile Image" class="profile-image">
             @else
                 <img src="{{ asset('images/default-profile.png') }}" class="profile-image">
             @endif

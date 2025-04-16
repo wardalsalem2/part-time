@@ -17,8 +17,42 @@
         color: #6ec0c7;
     }
 
-    .container {
-        padding-top: 20px;
+    .search-container {
+        background: linear-gradient(135deg, #e3f2f9, #ffffff);
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .search-container input {
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        padding: 0.75rem 1rem;
+        box-shadow: none;
+        transition: border 0.3s ease;
+    }
+
+    .search-container input:focus {
+        border-color: #6ec0c7;
+        outline: none;
+        box-shadow: 0 0 5px rgba(110, 192, 199, 0.3);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #6ec0c7, #3b8f94);
+        border: none;
+        border-radius: 30px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(110, 192, 199, 0.4);
     }
 
     .card {
@@ -86,6 +120,20 @@
         background-color: #6ec0c7 !important;
         border-color: #6ec0c7 !important;
     }
+
+    @media (max-width: 768px) {
+        .search-container {
+            padding: 1.5rem;
+        }
+
+        .btn-primary {
+            width: 100%;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+    }
 </style>
 
 <h1 class="text-center mt-5"
@@ -97,29 +145,46 @@
     <div class="row g-3">
         @forelse ($favorites as $job)
             <div class="col-lg-4 col-md-6">
-                <div class="card">
+                <div class="card position-relative">
                     <div class="card-header">
                         <h5 class="card-title mb-0">{{ $job->title }}</h5>
                     </div>
+
                     <div class="card-body">
                         <div class="job-meta">
-                            <p class="mb-2">
-                                <i class="fas fa-building me-2"></i>
-                                {{ $job->company->name }}
-                            </p>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <p class="mb-0">
+                                    <i class="fas fa-building me-2"></i>
+                                    {{ $job->company->name }}
+                                </p>
+                                <form action="{{ route('favorites.destroy', $job->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-link p-0 text-danger"
+                                        title="Remove from Favorites">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </form>
+                            </div>
+
                             <p class="mb-2">
                                 <i class="fas fa-map-marker-alt me-2"></i>
                                 {{ $job->location }}
                             </p>
                             <p class="mb-2">
+                                <i class="bi bi-tags me-2"></i>
+                                {{ $job->category }}
+                            </p>
+                            <p class="mb-2">
                                 <i class="fas fa-money-bill-wave me-2"></i>
-                                ${{ number_format($job->salary, 2) }}
+                                {{ number_format($job->salary, 2) }} JD
                             </p>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between align-items-center">
-                            <span class="badge" style="background-color:#6ec0c7;">W.Hours: 
-                                {{ ucfirst($job->work_hours) }}</span>
+                            <span class="badge" style="background-color:#6ec0c7;">
+                                W.Hours: {{ ucfirst($job->work_hours) }}
+                            </span>
                             <small class="text-muted">
                                 <i class="fas fa-clock me-1"></i>
                                 Deadline: {{ \Carbon\Carbon::parse($job->deadline)->format('d M, Y') }}
@@ -129,15 +194,6 @@
                         <a href="{{ route('jobOffersDetails', $job->id) }}" class="btn btn-primary mt-3 w-100">
                             View Details <i class="fas fa-arrow-right ms-2"></i>
                         </a>
-
-                        <!-- Heart Button to remove from favorites -->
-                        <form action="{{ route('favorites.destroy', $job->id) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger mt-3 w-100">
-                                <i class="fas fa-heart-broken"></i> Remove from Favorites
-                            </button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -149,5 +205,7 @@
         {{ $favorites->links('pagination::bootstrap-5') }}
     </div>
 </div>
+
+
 
 @include('component.footer')
