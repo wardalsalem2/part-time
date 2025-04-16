@@ -1,25 +1,17 @@
 @include('company.component.header')
 
 <div class="container py-4">
+    @if(session('success'))
+        <div class="alert alert-success mt-4">
+            <strong>Success!</strong> {{ session('success') }}
+        </div>
+    @endif
 
-    @section('content')
-    <div class="container">
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Success!</strong> {{ session('success') }}
-
-            </div>
-        @endif
-        <h2 class="mb-4">{{ $jobOffer->title }}</h2>
-
-        <div class="card p-4">
-            <p><strong>Description:</strong> {{ $jobOffer->description }}</p>
-            <p><strong>Location:</strong> {{ $jobOffer->location }}</p>
-            <p><strong>Category:</strong> {{ $jobOffer->category }}</p>
-
-            @if($jobOffer->work_hours)
-                <p><strong>Work Hours:</strong> {{ $jobOffer->work_hours }}</p>
-            @endif
+    @if(session('warning'))
+        <div class="alert alert-warning mt-4">
+            <strong>Warning!</strong> {{ session('warning') }}
+        </div>
+    @endif
 
             @if($jobOffer->salary)
                 <p><strong>Salary:</strong> {{ number_format($jobOffer->salary, 2) }} JD</p>
