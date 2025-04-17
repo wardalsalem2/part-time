@@ -2092,7 +2092,7 @@ body {
   z-index: 1;
   color: #ffffff;
   font-weight: 200;
-  background: #ffffff;
+  background: #1c2c3e;
   background-size: cover;
   background-position: center center;
   border-right: 1px solid #eee;
@@ -2105,6 +2105,7 @@ body {
   padding-bottom: 12.5px;
   border-bottom: 1px solid #eee;
   display: block;
+  
 }
 .sidebar .user .photo {
   width: 40px;
@@ -2123,6 +2124,7 @@ body {
   white-space: nowrap;
   display: block;
   position: relative;
+  color: #ffff;
 }
 .sidebar .user .info a:hover, .sidebar .user .info a:focus {
   text-decoration: none;
@@ -2292,7 +2294,7 @@ body {
   text-transform: none;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-smoothing: antialiased;
+  -font-smoothing: antialiased;
 }
 
 .la-lg {

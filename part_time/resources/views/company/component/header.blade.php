@@ -33,58 +33,49 @@
         }
     }
 </style>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
-      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" style="background-color: #1c2c3e;" id="accordionSidebar">
 
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center" href="{{ route('company.dashboard') }}">
-        <div class="sidebar-brand ">
-            <img src="{{ asset('assets/logonew.png') }}" alt="Part Time Dashboard Logo" width="150" />
-        </div>
-    </a>
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center" href="{{ route('company.dashboard') }}">
+                <div class="sidebar-brand ">
+                    <img src="{{ asset('assets/logonew.png') }}" alt="Part Time Dashboard Logo" width="150" />
+                </div>
+            </a>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider mx-2">
+            <!-- Divider -->
+            <hr class="sidebar-divider mx-2">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link d-flex align-items-center" href="{{ route('company.dashboard') }}">
-            <i class="fas fa-fw fa-tachometer-alt mr-2"></i>
-            <span>Dashboard</span>
-        </a>
-    </li>
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link d-flex align-items-center" href="{{ route('company.dashboard') }}">
+                    <i class="fas fa-fw fa-tachometer-alt mr-2"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
 
-    <!-- Nav Item - Job Offers -->
-    <li class="nav-item">
-        <a class="nav-link d-flex align-items-center" href="{{ route('company.job-offers.index') }}">
-            <i class="fas fa-fw fa-briefcase mr-2"></i>
-            <span>Job Offers</span>
-        </a>
-    </li>
+            <!-- Nav Item - Job Offers -->
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center" href="{{ route('company.job-offers.index') }}">
+                    <i class="fas fa-fw fa-briefcase mr-2"></i>
+                    <span>Job Offers</span>
+                </a>
+            </li>
 
-    <!-- Nav Item - Job Applications -->
-    {{-- <li class="nav-item">
-        <a class="nav-link d-flex align-items-center" href="{{ route('company.applications.index') }}">
-            <i class="fas fa-fw fa-file-alt mr-2"></i>
-            <span>Job Applications</span>
-        </a>
-    </li> --}}
+            <!-- Nav Item - Logout -->
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center" href="{{ route('logout') }}">
+                    <i class="fas fa-fw fa-sign-out-alt mr-2"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
 
-    <!-- Nav Item - Logout -->
-    <li class="nav-item">
-        <a class="nav-link d-flex align-items-center" href="{{ route('logout') }}">
-            <i class="fas fa-fw fa-sign-out-alt mr-2"></i>
-            <span>Logout</span>
-        </a>
-    </li>
-
-</ul>
+        </ul>
 
 
         <!-- Content Wrapper -->
@@ -94,30 +85,27 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand topbar mb-4 static-top shadow" style="background-color: #1c2c3e;">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
                         <div class="topbar-divider d-none d-sm-block"></div>
-
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item  no-arrow">
+                        <li class="nav-item  no-arrow" style="color: white;">
                             <a class="nav-link" href="{{ route('company.profile') }}" id="userDropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">
                                 <span
-                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+                                    class="mr-2 d-none d-lg-inline small" style="color: white;">{{ Auth::user()->name }}</span>
 
                                 @if(Auth::user()->profile_image)
                                     <img class="img-profile rounded-circle" src="{{ asset(Auth::user()->profile_image) }}"
                                         alt="{{ Auth::user()->name }}">
                                 @else
-                                    <i class="fas fa-user-circle fa-2x text-gray-600"></i>
+                                    <i class="fas fa-user-circle fa-2x" style="color: white;"></i>
                                 @endif
                             </a>
                         </li>
@@ -125,4 +113,3 @@
 
                 </nav>
                 <!-- End of Topbar -->
-            
