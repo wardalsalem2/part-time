@@ -65,8 +65,8 @@
         </div>
 
         <div class="d-flex justify-content-between">
-            <a href="{{ route('company.job-offers.index') }}" class="btn btn-secondary px-4 py-2">Back to List</a>
-            <button type="submit" class="btn btn-primary px-4 py-2">Update</button>
+            <a href="{{ route('company.job-offers.index') }}" class="btn btn-outline-secondary rounded-pill px-4">Back to List</a>
+            <button type="submit" class="btn btn-primary rounded-pill px-4">Update</button>
 
         </div>
     </form>

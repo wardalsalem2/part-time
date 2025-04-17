@@ -38,7 +38,7 @@ class CompanyJobApplicationController extends Controller
             ->latest()
             ->paginate(10);
 
-        // رجعنا job كمتغير فاضي حتى لو مش موجود، عشان ما يعطي Error بالـ view
+
         return view('company.JobApplication.applications', compact('applications', 'job'));
     }
 
@@ -114,14 +114,19 @@ class CompanyJobApplicationController extends Controller
     //--------------------------------------------------------------------------------------------------
 
     public function destroy($id)
-    {
-        $application = JobApplication::whereHas('jobOffer', fn($q) => $q->where('company_id', Auth::user()->company->id))->findOrFail($id);
+{
+    $application = JobApplication::whereHas('jobOffer', fn($q) => 
+        $q->where('company_id', Auth::user()->company->id)
+    )->findOrFail($id);
 
-        $application->delete();
+    $jobId = $application->job_offer_id; // assuming this is the foreign key
 
-        return redirect()->route('company.applications.applications')
-            ->with('success', 'The employee has been removed from the job.');
-    }
+    $application->delete();
+
+    return redirect()->route('company.applications.applications', ['job' => $jobId])
+        ->with('success', 'The employee has been removed from the job.');
+}
+
 
 
 

@@ -96,7 +96,7 @@ Route::middleware(['role:2'])->prefix('company')->name('company.')->group(functi
     Route::get('/', [CompanyAdminController::class, 'index'])->name('dashboard');
 
     // --------------------------- Job Offers ---------------------------
-  
+
     Route::resource('job-offers', CompanyJobOfferController::class);
     Route::post('job-offers/{id}/toggle-status', [CompanyJobOfferController::class, 'toggleStatus'])->name('job-offers.toggle-status');
     Route::get('company/job-offers/{id}', [CompanyJobOfferController::class, 'show'])->name('company.job-offers.show');
@@ -109,10 +109,10 @@ Route::middleware(['role:2'])->prefix('company')->name('company.')->group(functi
     Route::post('applications/{id}/reject', [CompanyJobApplicationController::class, 'reject'])->name('applications.reject');
     Route::delete('applications/{id}', [CompanyJobApplicationController::class, 'destroy'])->name('applications.destroy');
     Route::post('/company/applications/{id}/set-pending', [CompanyJobApplicationController::class, 'setPending'])
-    ->name('applications.setPending');
+        ->name('applications.setPending');
 
     Route::get('/company/{job}', [CompanyJobApplicationController::class, 'index'])
-    ->name('applications.applications');
+        ->name('applications.applications');
 
 
     // --------------------------- Profile ---------------------------
@@ -168,7 +168,7 @@ Route::prefix('admin')->middleware(['role:3'])->group(function () {
 Route::prefix('admin')->middleware(['role:3'])->group(function () {
     Route::get('/job-applications', [JobApplicationsController::class, 'index'])->name('admin.job_applications.index');
     Route::get('/job-applications/{id}', [JobApplicationsController::class, 'show'])->name('admin.job_applications.show');
-    Route::post('/job-applications/{id}/toggle', [JobApplicationsController::class, 'toggleStatus'])->name('admin.job_applications.toggleStatus');
+    Route::post('/job-applications/{id}/toggle/{newStatus}', [JobApplicationsController::class, 'toggleStatus'])->name('admin.job_applications.toggleStatus');
 
     Route::post('/job-applications/{id}/accept', [JobApplicationsController::class, 'accept'])->name('admin.job_applications.accept');
     Route::post('/job-applications/{id}/reject', [JobApplicationsController::class, 'reject'])->name('admin.job_applications.reject');

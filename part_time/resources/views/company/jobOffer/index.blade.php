@@ -16,65 +16,90 @@
             <h1 class="display-6 fw-bold text-dark mb-1">My Job Offers</h1>
             <p class="text-muted">Manage your career opportunities</p>
         </div>
-        <a href="{{ route('company.job-offers.create') }}" class="btn btn-primary px-4 py-2 rounded-3">
+        <a href="{{ route('company.job-offers.create') }}" class="btn btn-primary rounded-pill px-4">
             <i class="bi bi-plus-lg me-2"></i>New Offer
         </a>
     </div>
 
     <!-- Search Form -->
-    <div class="card shadow-sm border-0 mb-4">
+    <div class="card shadow-sm border-0 mb-4 rounded-4">
         <div class="card-header bg-white border-0">
-            <h5 class="mb-0 d-flex align-items-center">
-                <i class="bi bi-funnel me-2 text-primary"></i>
-                Filter Job Offers
+            <h5 class="mb-0 d-flex align-items-center text-primary fw-bold">
+                <i class="bi bi-funnel me-2"></i> Filter Job Offers
             </h5>
         </div>
+
         <div class="card-body">
             <form method="GET" action="{{ route('company.job-offers.index') }}">
                 <div class="row g-3 align-items-center">
+
                     <!-- Job Title -->
-                    <div class="col-auto">
-                        <input type="text" name="title" id="title"
-                            class="form-control rounded-pill border shadow-sm ps-3" placeholder="Job Title"
-                            value="{{ request('title') }}" aria-label="Job Title">
+                    <div class="col-md-3">
+                        <div class="position-relative">
+                            <input type="text" name="title" id="title"
+                                class="form-control shadow-sm rounded-pill px-4 border-0" placeholder="Job Title"
+                                value="{{ request('title') }}">
+                        
+                        </div>
                     </div>
 
-                    <!-- Location -->
-                    <div class="col-auto">
-                        <input type="text" name="location" id="location"
-                            class="form-control rounded-pill border shadow-sm ps-3" placeholder="Location"
-                            value="{{ request('location') }}" aria-label="Location">
+                    <!-- Location Dropdown -->
+                    <div class="col-md-3">
+                        <div class="position-relative">
+                            <select name="location" id="location"
+                                class="form-select shadow-sm rounded-pill px-4 border-0 location-dropdown"
+                                style="height: 40px;">
+                                <option value="">All Locations</option>
+                                @php
+                                    $governorates = [
+                                        'Amman',
+                                        'Zarqa',
+                                        'Irbid',
+                                        'Aqaba',
+                                        'Balqa',
+                                        'Jerash',
+                                        'Madaba',
+                                        'Ajloun',
+                                        'Mafraq',
+                                        'Karak',
+                                        'Tafilah',
+                                        'Ma\'an'
+                                    ];
+                                @endphp
+                                @foreach ($governorates as $gov)
+                                    <option value="{{ $gov }}" {{ request('location') == $gov ? 'selected' : '' }}>
+                                        {{ $gov }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
-                    <!-- Category -->
-                    <div class="col-auto">
-                        <div class="input-group shadow-sm">
-                            <span class="input-group-text bg-white border-end-0 rounded-start-pill">
-                                <i class="bi bi-tags text-primary"></i>
-                            </span>
-                            <select name="category" id="category" class="form-select border-start-0 rounded-end-pill">
+                    <!-- Category Dropdown -->
+                    <div class="col-md-3">
+                        <div class="position-relative">
+                            <select name="category" id="category"
+                                class="form-select shadow-sm rounded-pill px-4 border-0" style="height: 40px;">
                                 <option value="">All Categories</option>
                                 <option value="IT" {{ request('category') == 'IT' ? 'selected' : '' }}>IT</option>
                                 <option value="Marketing" {{ request('category') == 'Marketing' ? 'selected' : '' }}>
-                                    Marketing
-                                </option>
+                                    Marketing</option>
                                 <option value="Design" {{ request('category') == 'Design' ? 'selected' : '' }}>Design
                                 </option>
                             </select>
                         </div>
                     </div>
 
-                    <!-- Reset Button -->
-                    <div class="col-auto">
+                    <!-- Buttons -->
+                    <div class="col-md-3 d-flex gap-2 justify-content-end">
+                        <!-- Reset Button -->
                         <a href="{{ route('company.job-offers.index') }}"
-                            class="btn btn-outline-secondary rounded-pill px-4 py-2 d-flex align-items-center">
+                            class="btn btn-outline-secondary rounded-pill px-4 d-flex align-items-center">
                             <i class="bi bi-x-circle me-1"></i> Reset
                         </a>
-                    </div>
 
-                    <!-- Search Button -->
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 d-flex align-items-center">
+                        <!-- Search Button -->
+                        <button type="submit" class="btn btn-primary rounded-pill px-4 d-flex align-items-center">
                             <i class="bi bi-search me-1"></i> Search
                         </button>
                     </div>
@@ -82,7 +107,6 @@
             </form>
         </div>
     </div>
-
 
     <!-- Cards Grid -->
     <div class="row g-4">

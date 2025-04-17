@@ -10,9 +10,6 @@ use App\Models\JobApplication;
 
 class JobApplicationsController extends Controller
 {
-
-
-
     public function index(Request $request)
     {
         $status = $request->status;
@@ -39,28 +36,21 @@ class JobApplicationsController extends Controller
         return view('admin.job_applications.show', compact('application'));
     }
     //-------------------------------------------------------------------------------------------------------------------------------------------------
-    public function toggleStatus($id)
+    public function toggleStatus($id, $newStatus)
     {
         $application = JobApplication::findOrFail($id);
     
-        if ($application->status == 'pending') {
-            $application->update(['status' => 'accepted']);
-            return back()->with('success', 'Application accepted.');
+        $validStatuses = ['applied', 'pending', 'accepted', 'rejected'];
+    
+        if (in_array($newStatus, $validStatuses)) {
+            $application->update(['status' => $newStatus]);
+            return back()->with('success', 'Application status updated to ' . ucfirst($newStatus) . '.');
         }
     
-        if ($application->status == 'accepted') {
-            $application->update(['status' => 'pending']);
-            return back()->with('success', 'Application status updated to pending.');
-        }
-    
-        if ($application->status == 'rejected') {
-            $application->update(['status' => 'pending']);
-            return back()->with('success', 'Application status updated to pending.');
-        }
-    
-        return back()->with('error', 'Unable to toggle status.');
+        return back()->with('error', 'Invalid status.');
     }
     
+
     //-------------------------------------------------------------------------------------------------------------------------------------------------
 
     public function destroy($id)

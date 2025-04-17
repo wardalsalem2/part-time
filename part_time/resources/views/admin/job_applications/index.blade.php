@@ -4,7 +4,7 @@
     <div class="content bg-white">
         <div class="container-fluid bg-white">
             <h2>Job Applications Management</h2>
-            
+
             <!-- Search Form -->
             <form action="{{ route('admin.job_applications.index') }}" method="GET" class="mb-4">
                 <div class="row">
@@ -12,6 +12,7 @@
                         <label for="status">Status</label>
                         <select name="status" id="status" class="form-control">
                             <option value="">All</option>
+                            <option value="applied" {{ request('status') == 'applied' ? 'selected' : '' }}>Applied</option>
                             <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
                             <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>Accepted</option>
                             <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
@@ -40,7 +41,6 @@
                     </div>
                 </div>
             </form>
-                
 
             <!-- Applications Table -->
             <div class="table-responsive w-100">
@@ -63,7 +63,8 @@
                                 <td>{{ $app->jobOffer->company->name ?? 'N/A' }}</td>
                                 <td>
                                     <span class="badge 
-                                        @if($app->status == 'pending') bg-warning
+                                        @if($app->status == 'applied') bg-info
+                                        @elseif($app->status == 'pending') bg-warning
                                         @elseif($app->status == 'accepted') bg-success
                                         @elseif($app->status == 'rejected') bg-danger
                                         @endif">
@@ -72,32 +73,40 @@
                                 </td>
                                 <td>{{ $app->created_at->format('Y-m-d') }}</td>
                                 <td>
-                                    <!-- Toggle Button for Pending, Accepted and Rejected -->
-                                    @if($app->status == 'pending')
-                                        <form action="{{ route('admin.job_applications.toggleStatus', $app->id) }}" method="POST" style="display:inline;">
+                                    <!-- Status Actions -->
+                                    @if($app->status == 'applied')
+                                        <form action="{{ route('admin.job_applications.toggleStatus', ['id' => $app->id, 'newStatus' => 'pending']) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-warning btn-sm">Move to Pending</button>
+                                        </form>
+                                        <form action="{{ route('admin.job_applications.toggleStatus', ['id' => $app->id, 'newStatus' => 'rejected']) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                                        </form>
+                                    @elseif($app->status == 'pending')
+                                        <form action="{{ route('admin.job_applications.toggleStatus', ['id' => $app->id, 'newStatus' => 'accepted']) }}" method="POST" style="display:inline;">
                                             @csrf
                                             <button type="submit" class="btn btn-success btn-sm">Accept</button>
                                         </form>
-                                        <form action="{{ route('admin.job_applications.toggleStatus', $app->id) }}" method="POST" style="display:inline;">
+                                        <form action="{{ route('admin.job_applications.toggleStatus', ['id' => $app->id, 'newStatus' => 'rejected']) }}" method="POST" style="display:inline;">
                                             @csrf
                                             <button type="submit" class="btn btn-danger btn-sm">Reject</button>
                                         </form>
                                     @elseif($app->status == 'accepted' || $app->status == 'rejected')
-                                        <!-- Toggle between Pending -->
-                                        <form action="{{ route('admin.job_applications.toggleStatus', $app->id) }}" method="POST" style="display:inline;">
+                                        <form action="{{ route('admin.job_applications.toggleStatus', ['id' => $app->id, 'newStatus' => 'pending']) }}" method="POST" style="display:inline;">
                                             @csrf
-                                            <button type="submit" class="btn btn-warning btn-sm">
-                                                Set as Pending
-                                            </button>
+                                            <button type="submit" class="btn btn-warning btn-sm">Set to Pending</button>
                                         </form>
                                     @endif
 
-                                    <!-- Delete Button -->
+                                    <!-- Delete -->
                                     <form action="{{ route('admin.job_applications.destroy', $app->id) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete(event, {{ $app->id }})">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
+
+                                    <!-- Show -->
                                     <a href="{{ route('admin.job_applications.show', $app->id) }}" class="btn btn-info btn-sm">Show</a>
                                 </td>
                             </tr>
@@ -121,10 +130,9 @@
 @include('admin.componant.footer')
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
     function confirmDelete(event, applicationId) {
-        event.preventDefault(); // Prevent form submission
+        event.preventDefault();
         Swal.fire({
             title: 'Are you sure?',
             text: 'This action cannot be undone!',
