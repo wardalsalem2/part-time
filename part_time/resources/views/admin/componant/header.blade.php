@@ -56,6 +56,7 @@
 				</div>
 			</nav>
 		</div>
+		{{-- //       ------------------------------ saidebar -----------------------------------}}
 		<div class="sidebar" style="background-color: #1c2c3e;">
 			<div class="scrollbar-inner sidebar-wrapper">
 				<a href="{{ route('profile.show') }}" class="text-decoration-none">

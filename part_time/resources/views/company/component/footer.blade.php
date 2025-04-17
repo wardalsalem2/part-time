@@ -1,3 +1,7 @@
+</div>
+</div>
+</div>
+</div>
 <!-- Bootstrap core JavaScript-->
 <script src="{{ asset('assets/company/vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/company/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

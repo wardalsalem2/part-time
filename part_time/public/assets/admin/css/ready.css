@@ -2042,7 +2042,7 @@ body {
   background: #ffffff;
   position: fixed;
   z-index: 1001;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #ffff;
 }
 .main-header .logo-header {
   float: left;
@@ -2059,9 +2059,9 @@ body {
   z-index: 1001;
   display: inline-block;
 }
-.main-header .logo-header a.logo {
+/* .main-header .logo-header a.logo {
   color: #575962;
-}
+} */
 .main-header .logo-header .navbar-toggler {
   padding-left: 0px;
   padding-right: 0px;
@@ -2126,19 +2126,22 @@ body {
   position: relative;
   color: #ffff;
 }
+
 .sidebar .user .info a:hover, .sidebar .user .info a:focus {
   text-decoration: none;
+  color: #6ec0c7;
+  
 }
 .sidebar .user .info a > span {
   font-size: 14px;
   font-weight: 600;
-  color: #777;
+  color: #ffff;
   letter-spacing: 0.04em;
   display: flex;
   flex-direction: column;
 }
 .sidebar .user .info a > span .user-level {
-  color: #555;
+  color: #ffff;
   font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.05em;
@@ -2151,7 +2154,6 @@ body {
   position: absolute;
   top: 17px;
   right: 0px;
-  border-top-color: #777;
 }
 .sidebar .sidebar-wrapper {
   position: relative;
@@ -2172,11 +2174,11 @@ body {
   display: list-item;
 }
 .sidebar .nav .nav-item.active a {
-  color: #575962;
+  color: #ffff;
   font-weight: 700;
 }
 .sidebar .nav .nav-item.active a:before {
-  background: #1d7af3;
+  background: #6ec0c7;
   opacity: 1 !important;
   position: absolute;
   z-index: 1;
@@ -2187,7 +2189,7 @@ body {
   top: 0;
 }
 .sidebar .nav .nav-item.active:hover a:before {
-  background: #1d7af3;
+  background: #ffff;
   opacity: 1 !important;
   position: absolute;
   z-index: 1;
@@ -2198,12 +2200,12 @@ body {
   top: 0;
 }
 .sidebar .nav .nav-item.active a i {
-  color: #4d7cfe;
+  color:#ffff;
 }
 .sidebar .nav .nav-item a {
   display: flex;
   align-items: center;
-  color: #83848a;
+  color: #ffff;
   padding: 13px 25px;
   width: 100%;
   font-size: 14px;
@@ -2213,10 +2215,9 @@ body {
 }
 .sidebar .nav .nav-item a:hover, .sidebar .nav .nav-item a:focus {
   text-decoration: none;
-  background: #fbfbfb;
+  background: #6ec0c7;
 }
 .sidebar .nav .nav-item:hover a:before {
-  background: #1d7af3;
   opacity: 0.7;
   position: absolute;
   z-index: 1;
