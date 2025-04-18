@@ -113,13 +113,25 @@ Route::middleware(['role:2'])->prefix('company')->name('company.')->group(functi
 
     Route::get('/company/{job?}', [CompanyJobApplicationController::class, 'index'])
         ->name('applications.applications');
-
+    Route::get('company/applications/{id}/reject-email', [CompanyJobApplicationController::class, 'rejectEmail'])->name('applications.rejectEmail');
+    Route::post('/company/applications/{id}/reject-email', [CompanyJobApplicationController::class, 'sendRejectEmail'])
+    ->name('applications.sendRejectEmail');
 
     // --------------------------- Profile ---------------------------
     Route::get('profile', [CompanyAdminController::class, 'profile'])->name('profile');
     Route::get('profile/edit', [CompanyAdminController::class, 'editprofile'])->name('profile.edit');
     Route::post('profile/update', [CompanyAdminController::class, 'updateprofile'])->name('profile.update');
 });
+
+
+//-------------------
+// Route::get('/test-email', function() {
+//     Mail::raw('This is a test email', function ($message) {
+//         $message->to('partjop77@gmail.com')
+//                 ->subject('Test Email');
+//     });
+//     return 'Email Sent';
+// });
 
 
 //----------------------------- admin pages ----------------------------------------------------
