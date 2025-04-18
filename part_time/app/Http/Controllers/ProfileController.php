@@ -58,7 +58,6 @@ class ProfileController extends Controller
     //----------------------------------------------------------------------------------------------------------------
     public function update(Request $request)
     {
-
         $request->validate([
             'job_title' => 'required|string|max:255',
             'hourly_rate' => 'nullable|numeric',
@@ -71,31 +70,33 @@ class ProfileController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'cv' => 'nullable|mimes:pdf|max:5120',
         ]);
-
+    
         $profile = auth()->user()->profile;
-
+    
         if (!$profile) {
             $profile = auth()->user()->profile()->create([]);
         }
-
+    
+        //  profile_images
         if ($request->hasFile('image')) {
             if ($profile->image_path && Storage::disk('public')->exists($profile->image_path)) {
                 Storage::disk('public')->delete($profile->image_path);
             }
-
+    
             $imagePath = $request->file('image')->store('profile_images', 'public');
             $profile->image_path = $imagePath;
         }
-
+    
+        //  cv_files
         if ($request->hasFile('cv')) {
             if ($profile->cv_path && Storage::disk('public')->exists($profile->cv_path)) {
                 Storage::disk('public')->delete($profile->cv_path);
             }
-
+    
             $cvPath = $request->file('cv')->store('cv_files', 'public');
             $profile->cv_path = $cvPath;
         }
-
+    
         $profile->job_title = $request->job_title;
         $profile->hourly_rate = $request->hourly_rate;
         $profile->available_hours = $request->available_hours;
@@ -104,13 +105,14 @@ class ProfileController extends Controller
         $profile->city = $request->city;
         $profile->country = $request->country;
         $profile->phone = $request->phone;
-
+    
         if ($profile->save()) {
             return redirect()->route('profile.show')->with('success', 'Profile updated successfully');
         } else {
             return redirect()->route('profile.edit')->with('error', 'There was an issue updating your profile.');
         }
     }
+    
 
 }
 

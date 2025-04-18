@@ -182,10 +182,11 @@
         <div class="profile-image-wrapper">
 
             @if($profile->image_path)
-                <img src="{{ asset('storage/'.$profile->image_path) }}" alt="Profile Image" class="profile-image">
+                <img src="{{ asset('storage/' . $profile->image_path) }}" alt="Profile Image" class="profile-image">
             @else
                 <img src="{{ asset('images/default-profile.png') }}" class="profile-image">
             @endif
+
         </div>
 
         <h3 class="profile-name">{{ Auth::user()->name }}</h3>
@@ -207,6 +208,7 @@
                 @else
                     <span class="text-danger ms-2">No CV uploaded</span>
                 @endif
+
             </p>
         </div>
 
@@ -236,10 +238,10 @@
                                         <td>{{ $application->created_at->format('M d, Y') }}</td>
                                         <td>
                                             <span class="badge job-status-badge bg-{{ 
-                                                        $application->status == 'applied' ? 'primary' :
+                                                                                        $application->status == 'applied' ? 'primary' :
                             ($application->status == 'pending' ? 'warning' :
                                 ($application->status == 'accepted' ? 'success' : 'danger')) 
-                                                    }}">
+                                                                                    }}">
                                                 {{ ucfirst($application->status) }}
                                             </span>
 

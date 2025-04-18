@@ -137,7 +137,7 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                     @if($profile->cv_path)
-                        <a href="{{ Storage::url($profile->cv_path) }}" target="_blank" class="d-block mt-2">View Current
+                        <a href="{{ asset('storage/' . $profile->cv_path) }}" target="_blank" class="d-block mt-2">View Current
                             CV</a>
                     @endif
                 </div>
@@ -152,7 +152,7 @@
 
                     <div class="text-center">
                         @if($profile->image_path)
-                            <img src="{{ Storage::url($profile->image_path) }}" alt="Profile Image" class="profile-image">
+                            <img src="{{ asset('storage/' . $profile->image_path) }}" alt="Profile Image" class="profile-image">
                         @else
                             <img src="{{ asset('images/default-profile.png') }}" class="profile-image">
                         @endif
