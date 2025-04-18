@@ -111,7 +111,7 @@ Route::middleware(['role:2'])->prefix('company')->name('company.')->group(functi
     Route::post('/company/applications/{id}/set-pending', [CompanyJobApplicationController::class, 'setPending'])
         ->name('applications.setPending');
 
-    Route::get('/company/{job}', [CompanyJobApplicationController::class, 'index'])
+    Route::get('/company/{job?}', [CompanyJobApplicationController::class, 'index'])
         ->name('applications.applications');
 
 

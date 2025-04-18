@@ -4,7 +4,7 @@
     <!-- Filter & Search -->
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-body">
-            <form method="GET" action="{{ route('company.applications.index') }}">
+            <form method="GET" action="{{ isset($job) ? route('company.applications.applications', $job->id) : route('company.applications.index') }}">
                 <div class="row g-2 align-items-center">
                     <!-- Search -->
                     <div class="col-md-5">
@@ -72,7 +72,20 @@
                                 <div class="me-3">
                                     <h6 class="mb-1">{{ $app->profile->user->name }}</h6>
                                     <p class="text-muted mb-1">{{ $app->user->email }}</p>
-                                    <div class="text-muted"><i class="bi bi-clock me-1"></i> Applied
+                                    <p>
+                                        <span class="fw-bold">Status:</span>
+                                        <span class="badge text-white 
+                                            @switch($app->status)
+                                                @case('accepted') bg-success @break
+                                                @case('rejected') bg-danger @break
+                                                @case('pending') bg-warning @break
+                                                @default bg-secondary
+                                            @endswitch">
+                                            {{ ucfirst($app->status) }}
+                                        </span>
+                                    </p>
+                                    
+                                    <div class="text-dark"><i class="bi bi-clock me-1"></i> Applied
                                         {{ $app->created_at->diffForHumans() }}</div>
                                 </div>
         

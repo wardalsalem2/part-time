@@ -11,36 +11,36 @@ class CompanyJobApplicationController extends Controller
 {
     public function index(Request $request, JobOffer $job = null)
     {
-        if ($job != null) {
-            // إذا تم تمرير job، نعرض فقط الطلبات الخاصة فيه
-            $applications = $job->jobApplications()
-                ->with(['user', 'profile'])
-                ->latest()
-                ->get();
 
-            return view('company.JobApplication.applications', compact('job', 'applications'));
-        }
-
-        // عرض كل الطلبات التابعة للشركة
-        $applications = JobApplication::with(['jobOffer', 'profile.user'])
-            ->whereHas('jobOffer', function ($q) use ($request) {
-                $q->where('company_id', Auth::user()->company->id);
-
-                if ($request->filled('search')) {
-                    $q->where('title', 'LIKE', '%' . $request->search . '%');
-                }
-            })
-            ->when($request->status, function ($q) use ($request) {
+    if ($job != null) {
+        // إذا تم تمرير job، نعرض فقط الطلبات الخاصة فيه
+        $applications = $job->jobApplications()
+            ->with(['user', 'profile'])
+            ->when($request->status, function ($query) use ($request) {
                 if (in_array($request->status, ['applied', 'pending', 'accepted', 'rejected'])) {
-                    $q->where('status', $request->status);
+                    $query->where('status', $request->status);
                 }
             })
             ->latest()
-            ->paginate(10);
+            ->get();
 
-
-        return view('company.JobApplication.applications', compact('applications', 'job'));
+        return view('company.JobApplication.applications', compact('job', 'applications'));
     }
+
+    // عرض كل الطلبات التابعة للشركة
+    $applications = JobApplication::with(['jobOffer', 'profile.user'])
+        ->whereHas('jobOffer', function ($q) use ($request) {
+            $q->where('company_id', Auth::user()->company->id);
+
+            if ($request->filled('search')) {
+                $q->where('title', 'LIKE', '%' . $request->search . '%');
+            }
+        })
+        ->latest()
+        ->paginate(10);
+
+    // return view('company.JobApplication.applications', compact('applications', 'job'));
+}
 
     //--------------------------------------------------------------------------------------------------
     public function show($id)
