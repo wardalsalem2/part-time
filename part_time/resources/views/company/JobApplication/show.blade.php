@@ -78,8 +78,7 @@
                 <form method="POST" action="{{ route('company.applications.reject', $application->id) }}">
                     @csrf
                     <input type="hidden" name="confirm_reject" value="1">
-                    <button class="btn btn-danger px-4 rounded-pill"
-                        onclick="return confirm('Are you sure you want to reject this application?')">
+                    <button class="btn btn-danger px-4 rounded-pill">
                         Reject
                     </button>
                 </form>
@@ -94,8 +93,7 @@
                 <form method="POST" action="{{ route('company.applications.reject', $application->id) }}">
                     @csrf
                     <input type="hidden" name="confirm_reject" value="1">
-                    <button class="btn btn-danger px-4 rounded-pill"
-                        onclick="return confirm('Are you sure you want to reject this application?')">
+                    <button class="btn btn-danger px-4 rounded-pill">
                         Reject
                     </button>
                 </form>
