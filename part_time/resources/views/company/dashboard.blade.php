@@ -94,38 +94,32 @@
         </div>
 
         <!-- Pie Chart -->
+        <!-- Pie Chart -->
         <div class="col-12 col-md-6 col-lg-4">
-            <div class="card shadow mb-4">
+            <div class="card shadow mb-4 h-100">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Job Applications Overview</h6>
                 </div>
-                <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div class="chart-pie pt-4 pb-2" style="position: relative; height: 300px;">
                         <canvas id="myPieChart"></canvas>
                     </div>
-                    <div class="mt-5 text-center small">
-                        <span class="mr-2">
-                            <i class="fas fa-circle" style="color: #1cc88a;"></i> Accepted
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle" style="color: #f6c23e;"></i> Pending
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle" style="color: #e74a3b;"></i> Rejected
-                        </span>
+                    <div class="mt-4 text-center small d-flex flex-wrap justify-content-center gap-2">
+                        <span class="mr-3"><i class="fas fa-circle" style="color: #36b9cc;"></i> Applied</span>
+                        <span class="mr-3"><i class="fas fa-circle" style="color: #1cc88a;"></i> Accepted</span>
+                        <span class="mr-3"><i class="fas fa-circle" style="color: #f6c23e;"></i> Pending</span>
+                        <span class="mr-3"><i class="fas fa-circle" style="color: #e74a3b;"></i> Rejected</span>
                     </div>
                 </div>
             </div>
         </div>
-        
-        
-    </div>
 
+    </div>
 </div>
 <!-- End Page Content -->
 
 @include('company.component.footer')
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     var monthlyEarnings = @json($monthlyEarnings);
     var revenueSources = @json($revenueSources);
@@ -152,57 +146,29 @@
             }
         }
     });
-
+    // {{-----------------------------for Revenue Sources  -----------------------------------------}}
     // Pie Chart
     var ctxPie = document.getElementById('myPieChart').getContext('2d');
     var myPieChart = new Chart(ctxPie, {
         type: 'pie',
         data: {
-            labels: ['Accepted', 'Pending', 'Rejected'],
+            labels: ['Applied', 'Accepted', 'Pending', 'Rejected'],
             datasets: [{
                 data: revenueSources,
-                backgroundColor: ['#1cc88a', '#f6c23e', '#e74a3b'],
+                backgroundColor: ['#36b9cc', '#1cc88a', '#f6c23e', '#e74a3b'],
+                borderWidth: 1,
             }]
         },
         options: {
-            responsive: true
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false // مخفي لأنه ظاهر بالـ HTML تحت
+                }
+            }
         }
     });
+
+
 </script>
-
-{{-----------------------------for Revenue Sources  -----------------------------------------}}
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-{{-- <script>
-    const ctx = document.getElementById('myPieChart').getContext('2d');
-    const myPieChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Accepted', 'Pending', 'Rejected'],
-            datasets: [{
-                data: [
-                    {{ $acceptedApplications }},
-                    {{ $pendingApplications }},
-                    {{ $rejectedApplications }}
-                ],
-                backgroundColor: ['#1cc88a', '#f6c23e', '#e74a3b'],
-                hoverBackgroundColor: ['#1cc88a', '#f6c23e', '#e74a3b'],
-                hoverBorderColor: "rgba(234, 236, 244, 1)",
-            }],
-        },
-        options: {
-            maintainAspectRatio: false,
-            tooltips: {
-                backgroundColor: "rgb(255,255,255)",
-                bodyFontColor: "#858796",
-                borderColor: '#dddfeb',
-                borderWidth: 1,
-            },
-            legend: {
-                display: true
-            },
-            cutoutPercentage: 60,
-        },
-    });
-</script> --}}
-

@@ -47,6 +47,22 @@
   box-sizing: border-box;
 }
 
+
+    @media (max-width: 768px) {
+        .chart-pie {
+            height: 250px !important;
+        }
+    }
+
+    .card-body span {
+        white-space: nowrap;
+    }
+
+    .card .small span {
+        margin: 5px 10px;
+    }
+
+
 html {
   font-family: sans-serif;
   line-height: 1.15;

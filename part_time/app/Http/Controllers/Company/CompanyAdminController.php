@@ -26,12 +26,18 @@ class CompanyAdminController extends Controller
         $pendingApplications = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->where('status', 'pending')->count();
         $acceptedApplications = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->where('status', 'accepted')->count();
         $rejectedApplications = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->where('status', 'rejected')->count();
-
+        
         // بيانات الأرباح الشهرية (استبدلها بالبيانات الحقيقية)
         $monthlyEarnings = [40000, 45000, 50000, 55000, 60000, 65000, 70000];
 
         // بيانات مصادر الإيرادات (استبدلها بالبيانات الحقيقية)
-        $revenueSources = [300, 500, 200];
+        $revenueSources = [
+            $appliedApplications,
+            $acceptedApplications,
+            $pendingApplications,
+            $rejectedApplications,
+        ];
+        
 
         return view('company.dashboard', [
             'company' => $company,
