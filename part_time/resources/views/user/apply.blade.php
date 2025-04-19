@@ -103,7 +103,7 @@
     <div class="job-details-section">
         <h3 class="job-details-title">Apply for {{ $jobOffer->title }}</h3>
         <p class="text-muted">Company: {{ $jobOffer->company->name }}</p>
-
+        
         @if(session('success'))
             <div class="alert alert-success text-center">
                 {{ session('success') }}
@@ -136,5 +136,4 @@
         </form>
     </div>
 </div>
-
 @include('component.footer')

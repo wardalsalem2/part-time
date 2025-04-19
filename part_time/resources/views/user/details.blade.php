@@ -67,14 +67,10 @@
     }
 </style>
 <div class="container py-5">
-
-    
     <div class="bg-white py-5 text-center rounded mb-4 shadow-sm">
         <h1 class="text-black">{{ $jobOffer->title }}</h1>
     </div>
-
-    <!-- Job + Company Info -->
-
+<!-- Job + Company Info -->
     <div class="row g-4">
         <!-- Job Details -->
         <div class="col-md-6 d-flex">
@@ -84,6 +80,7 @@
                 <p><strong>Salary:</strong> ${{ number_format($jobOffer->salary, 2) }}</p>
                 <p><strong>Work Hours:</strong> {{ ucfirst($jobOffer->work_hours) }}</p>
                 <p><strong>Deadline:</strong> {{ \Carbon\Carbon::parse($jobOffer->deadline)->format('d M, Y') }}</p>
+                <p><strong>Description:</strong> <br>{{ Str::limit($jobOffer->description, 200) }}</p>
                 <hr>
                 <h5 class="mt-4">Requirements</h5>
                 <ul>
@@ -93,7 +90,6 @@
                 </ul>
             </div>
         </div>
-
         <!-- Company Info -->
         <div class="col-md-6 d-flex">
             <div class="card border-0 shadow-lg p-4 w-100">
@@ -111,18 +107,12 @@
             </div>
         </div>
     </div>
-
     {{-- -------------------------------------------------------------------------------------- --}}
-
     {{-- Check if the user is authenticated --}}
     @auth
         @php
             // Get the currently authenticated user's profile
             $profile = auth()->user()->profile;
-
-            // -----------------------------------------------------------------------------------------
-
-            // Required fields to consider the profile complete
             $requiredFields = [
                 'job_title',
                 'hourly_rate',
@@ -135,13 +125,9 @@
                 'image_path',
                 'phone'
             ];
-
             // Flag to determine if the profile is incomplete
             $isProfileIncomplete = false;
-
-            // Check if profile exists
             if ($profile) {
-                // Loop through required fields and check if any are empty
                 foreach ($requiredFields as $field) {
                     if (empty($profile->$field)) {
                         $isProfileIncomplete = true;
@@ -151,17 +137,14 @@
             } else {
                 $isProfileIncomplete = true;
             }
-
         @endphp
     @endauth
     {{-- //-------------------------------------------------------------------------------------- --}}
-
     <!-- Application Buttons Section -->
     <div class="mt-5 d-flex flex-column align-items-center gap-3">
         @auth
                 @php
                     $profile = auth()->user()->profile;
-
                     // Required fields for a complete profile
                     $requiredFields = [
                         'job_title',
@@ -175,7 +158,6 @@
                         'image_path',
                         'phone'
                     ];
-
                     // Check if profile is incomplete
                     $isProfileIncomplete = false;
 
@@ -189,13 +171,11 @@
                     } else {
                         $isProfileIncomplete = true;
                     }
-
                     // Check if the user has already applied to this job
                     $hasApplied = !$isProfileIncomplete && $profile
                         ? $profile->jobApplications()->where('job_offer_id', $jobOffer->id)->exists()
                         : false;
                 @endphp
-
                 {{-- If the profile is incomplete or not active --}}
                 @if($isProfileIncomplete || !$profile || !$profile->is_active)
                 <div class="mx-auto w-100" style="max-width: 700px;">
@@ -208,7 +188,6 @@
                     </div>
                 </div>
             @else
-            
                     {{-- Show info if already applied --}}
                     @if($hasApplied)
                         <div class="alert alert-info" role="alert">
@@ -222,7 +201,6 @@
                     @endif
                 @endif
         @endauth
-
         @guest
             <div class="alert alert-warning" role="alert">
                 You need to create an account before applying for jobs,
@@ -230,14 +208,8 @@
                 go to login page
             </div>
         @endguest
-
         {{-- Back to job listings --}}
         <a href="{{ route('jobOffersIndex') }}" class="btn btn-outline-primary">← Back to Listings</a>
     </div>
-
-
-
-
 </div>
-
 @include('component.footer')

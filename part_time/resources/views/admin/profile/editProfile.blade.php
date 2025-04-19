@@ -48,8 +48,8 @@
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center mt-5">
-                            <button type="submit" class="btn btn-dark px-4">Save Changes</button>
-                            <a href="{{ route('profile.show') }}" class="btn btn-outline-secondary px-4">Cancel</a>
+                            <button type="submit" class="btn btn-success px-4">Save Changes</button>
+                            <a href="{{ route('profile.show') }}" class="btn btn-outline-danger px-4">Cancel</a>
                         </div>
                     </form>
                 </div>

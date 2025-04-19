@@ -38,7 +38,7 @@
                     <input type="text" name="phone" class="form-control" value="{{ $user->profile->phone ?? '' }}">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-success">Update</button>
             </form>
 
             <!-- Go Back Button -->

@@ -5,7 +5,7 @@
         <div class="container-fluid bg-white">
             
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="text-primary fw-bold">Application Details</h2>
+                <h2 class="text-dark fw-bold">Application Details</h2>
                 <a href="{{ route('admin.job_applications.index') }}" class="btn btn-outline-secondary rounded-pill px-4">
                     <i class="bi bi-arrow-left"></i> Back
                 </a>

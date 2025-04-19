@@ -1,17 +1,6 @@
 @include('component.header')
-<style>
-    .section-divider {
-        border: none;
-        height: 2px;
-        background: linear-gradient(135deg, #6ec0c7, rgb(38, 92, 95));
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        border-radius: 10px;
-    }
-</style>
 <main class="main">
-
-    <!-------------------------------------- face of web Section ------------------------------------------------>
-
+<!-------------------------------------- face of web Section ------------------------------------------------>
     <section id="hero" class="hero section dark-background">
         <img src="assets/img/contact-page-title-bg.jpg" alt="" data-aos="fade-in">
         <div class="container">
@@ -29,9 +18,6 @@
                 </div>
             </div>
     </section>
-
-    <!----------------------------------- face of web Section ------------------------------------------------>
-
     {{----------------------------------- aboute us ---------------------------------------------------------- --}}
     <section id="about" class="about section">
         <div class="container">
@@ -119,13 +105,8 @@
             </div>
         </div>
     </section>
-
-
-    {{----------------------------------aboute us ---------------------------------------------------------- --}}
-
     <hr class="section-divider">
     <!-------------------------------------------- jobs Section------------------------------------------- -->
-
     <section id="job-offers" class="job-offers section py-5" style="background-color: #ffffff;">
         <div class="container">
             <h2 class="text-center mb-4" style="font-size: 2.5rem; font-weight: 700;">Job Offers</h2>
@@ -151,6 +132,10 @@
                                     <p class="mb-2" style="font-size: 0.95rem; color: #555;">
                                         <i class="fas fa-map-marker-alt me-2" style="color: #6ec0c7;"></i>
                                         {{ $job->location }}
+                                    </p>
+                                    <p class="mb-2" style="font-size: 0.95rem; color: #555;">
+                                        <i class="bi bi-tags me-2" style="color: #6ec0c7;"></i>
+                                        {{ $job->category }}
                                     </p>
                                     <p class="mb-2" style="font-size: 0.95rem; color: #555;">
                                         <i class="fas fa-money-bill-wave me-2" style="color: #6ec0c7;"></i>
@@ -183,22 +168,6 @@
             </div>
         </div>
     </section>
-
-    <style>
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(110, 192, 199, 0.4);
-        }
-    </style>
-
-
-
-    <!------------------------------------/jobs Section -------------------------------------------------------->
     <hr class="section-divider">
     <!------------------------------------ Services Section ---------------------------------------------------->
     <section id="services" class="services section">
@@ -291,11 +260,7 @@
             </div>
         </div>
     </section>
-
-    <!------------------------------------------------ /Services Section ---------------------------------------------->
-
     <!------------------------------------------------ contact us  Section ---------------------------------------------->
-
     <section id="call-to-action" class="call-to-action section dark-background" style="padding: 80px 0;">
         <div class="cta-background" style="position: relative; height: 500px;">
             <img src="assets/img/cta-bg.jpg" alt="" class="w-100 h-100" style="object-fit: cover;">
@@ -315,19 +280,13 @@
                             schedule and skills.
                         </p>
                         <a class="cta-btn" href="{{ route('contactCreate') }}"
-                            style="margin-top: 20px; background-color: #6ec0c7; color: white; padding: 10px 20px; font-size: 16px; text-decoration: none; border-radius: 5px; display: inline-block;">
-                            Contact Us
+                        style="background: linear-gradient(135deg, #6ec0c7, #3b8f94); border: none; padding: 0.75rem 1.5rem; font-weight: 600; color: white; border-radius: 30px; transition: all 0.3s ease;">
+                        Contact Us
                         </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
-
-    <!------------------------------------------------------ /contact us Section ------------------------------------------->
-
 </main>
-
-
 @include('component.footer')

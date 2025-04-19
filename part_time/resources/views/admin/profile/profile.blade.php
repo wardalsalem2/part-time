@@ -17,19 +17,15 @@
                 </div>
             @endif
 
-            <!-- البطاقة الرئيسية -->
             <div class="card border shadow-sm">
-                <!-- الهيدر -->
                 <div class="card-header bg-white border-bottom py-3">
                     <h3 class="mb-0 text-center text-dark">
                         <i class="bi bi-person-lines-fill me-2"></i>
                         Profile Details
                     </h3>
                 </div>
-
-                <!-- محتوى البطاقة -->
                 <div class="card-body p-4">
-                    <!-- الصورة الشخصية -->
+
                     <div class="text-center mb-4">
                         <img src="{{ $profile->image_path ? asset('storage/' . $profile->image_path) : asset('images/default-profile.png') }}"
                             class="img-thumbnail rounded-circle border" style="width: 150px; height: 150px;">
@@ -37,9 +33,7 @@
                         <p class="text-muted mb-4">{{ $profile->user->email }}</p>
                     </div>
 
-                    <!-- التفاصيل -->
                     <div class="row g-4">
-                        <!-- العمود الأيسر -->
                         <div class="col-md-6">
                             <div class="p-3 border rounded h-100">
                                 <dl>
@@ -59,7 +53,6 @@
                             </div>
                         </div>
 
-                        <!-- العمود الأيمن -->
                         <div class="col-md-6">
                             <div class="p-3 border rounded h-100">
                                 <dl>
@@ -76,7 +69,7 @@
                                     <dd>
                                         @if($profile->cv_path)
                                             <a href="{{ asset('storage/' . $profile->cv_path) }}"
-                                                class="btn btn-outline-dark btn-sm" target="_blank">
+                                                class="btn btn-outline-info btn-sm" target="_blank">
                                                 Download CV
                                             </a>
                                         @else
@@ -90,7 +83,7 @@
 
                     <!-- زر التعديل -->
                     <div class="text-center mt-4">
-                        <a href="{{ route('profile.edit') }}" class="btn btn-dark btn-lg px-5">
+                        <a href="{{ route('profile.edit') }}" class="btn btn-warning btn-lg px-5">
                             <i class="bi bi-pencil-square me-2"></i>Edit Profile
                         </a>
                     </div>
