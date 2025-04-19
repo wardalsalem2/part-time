@@ -170,4 +170,7 @@ class CompanyJobApplicationController extends Controller
                 ->with('error', 'There was an error sending the rejection email.');
         }
     }
+
+    //------------------------------ notification ---------------------------------------------------
+    
 }

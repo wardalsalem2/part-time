@@ -69,15 +69,13 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center" href="{{ route('company.dashboard') }}">
                 <div class="sidebar-brand">
-                    <img src="{{ asset('assets/logonew.png') }}" alt="Part Time Dashboard Logo"
-                        class="img-fluid sidebar-logo" />
+                    <img src="{{ asset('assets/logonew.png') }}" alt="Part Time Dashboard Logo" class="img-fluid sidebar-logo" />
                 </div>
-
             </a>
-
+        
             <!-- Divider -->
             <hr class="sidebar-divider mx-2">
-
+        
             <!-- Nav Item - Dashboard -->
             <li class="nav-item {{ request()->routeIs('company.dashboard') ? 'active' : '' }}">
                 <a class="nav-link d-flex align-items-center" href="{{ route('company.dashboard') }}">
@@ -85,7 +83,7 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-
+        
             <!-- Nav Item - Job Offers -->
             <li class="nav-item {{ request()->routeIs('company.job-offers.index') ? 'active' : '' }}">
                 <a class="nav-link d-flex align-items-center" href="{{ route('company.job-offers.index') }}">
@@ -93,7 +91,24 @@
                     <span>Job Offers</span>
                 </a>
             </li>
-
+        
+            <!-- Nav Item - Notifications -->
+    <li class="nav-item {{ request()->routeIs('company.notifications') ? 'active' : '' }}">
+        @php
+            $company = Auth::user()->company;
+            $unread = \App\Models\Notification::where('company_id', $company->id)
+                ->where('is_read', false)
+                ->count();
+        @endphp
+        <a href="{{ route('company.notifications') }}" class="nav-link d-flex align-items-center">
+            <i class="fa fa-bell fa-lg mr-2"></i>
+            <span>Notifications</span>
+            @if($unread > 0)
+                <span class="badge bg-danger ms-2 mx-5" >{{ $unread }}</span>  
+            @endif
+        </a>
+    </li>
+        
             <!-- Nav Item - Logout -->
             <li class="nav-item">
                 <a class="nav-link d-flex align-items-center" href="{{ route('logout') }}">
@@ -102,7 +117,7 @@
                 </a>
             </li>
         </ul>
-
+        
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->

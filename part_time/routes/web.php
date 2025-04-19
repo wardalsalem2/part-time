@@ -8,12 +8,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\JobOfferController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteJobController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\Admin\AdminController;
-
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\CompaniesController;
 use App\Http\Controllers\Admin\JobOffersController;
@@ -121,18 +120,14 @@ Route::middleware(['role:2'])->prefix('company')->name('company.')->group(functi
     Route::get('profile', [CompanyAdminController::class, 'profile'])->name('profile');
     Route::get('profile/edit', [CompanyAdminController::class, 'editprofile'])->name('profile.edit');
     Route::post('profile/update', [CompanyAdminController::class, 'updateprofile'])->name('profile.update');
+
+
+    // --------------------------- Company notifecation ---------------------------
+
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+
 });
-
-
-//-------------------
-// Route::get('/test-email', function() {
-//     Mail::raw('This is a test email', function ($message) {
-//         $message->to('partjop77@gmail.com')
-//                 ->subject('Test Email');
-//     });
-//     return 'Email Sent';
-// });
-
 
 //----------------------------- admin pages ----------------------------------------------------
 
