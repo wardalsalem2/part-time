@@ -924,59 +924,40 @@ section,
 /*--------------------------------------------------------------
 # Services Section
 --------------------------------------------------------------*/
-.services .service-item {
-  position: relative;
+.services .service-card {
   height: 100%;
-  margin-bottom: 30px;
+  min-height: 200px;
+  transition: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  border: none;
 }
 
-.services .service-item .icon {
-  margin-right: 20px;
+.services .service-card:hover {
+  transform: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.services .service-item .icon i {
-  color: var(--accent-color);
-  font-size: 40px;
-  line-height: 0;
-  /* transition: 0.3s; */
+.services .service-card .icon {
+  font-size: 2rem;
 }
 
-.services .service-item:hover .icon i {
-  color: var(--accent-color);
+.services .service-card .card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
 }
 
-.services .service-item .title {
-  color: var(--heading-color);
-  font-weight: 700;
-  margin-bottom: 10px;
-  font-size: 20px;
-  transition: 0.3s;
+.services .service-card .card-text {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 0;
 }
 
-.services .service-item .description {
-  font-size: 15px;
-  color: color-mix(in srgb, var(--default-color), transparent 30%);
-  margin-bottom: 10px;
+.services .service-card .icon i {
+  transition: none;
 }
 
-.services .service-item .readmore {
-  display: flex;
-  align-items: center;
-  color: color-mix(in srgb, var(--default-color), transparent 50%);
-  /* transition: 0.3s; */
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.services .service-item .readmore i {
-  margin-left: 8px;
-}
-
-.services .service-item:hover .title,
-.services .service-item:hover .readmore,
-.services .service-item:hover .icon i {
-  color: var(--accent-color);
-}
 
 /*--------------------------------------------------------------
 # contact us Section
