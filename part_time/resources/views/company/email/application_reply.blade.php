@@ -3,12 +3,11 @@ Hello {{ $userName }},
 We would like to inform you about the status of your job application.
 
 @if($status === 'pending')
-    Your application is currently under review. You have been shortlisted for an interview.
-    Please review the status of your application on the company website after 4 days from receiving this message.
-
+You have been shortlisted for interview.
+Please check the company's website 4 days after receiving this message.
 @elseif($status === 'accepted')
-    Congratulations! You have been selected for an interview.
-    We will contact you shortly to schedule a date.
+Congratulations! You have been selected for the job.
+Please contact the company to begin work
 
 @elseif($status === 'rejected')
     We regret to inform you that your application has not been successful.
