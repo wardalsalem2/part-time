@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Company;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,14 +19,14 @@ class RegisterController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'role_id' => 'required|in:1,2',
         ]);
-    
+
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'role_id' => $validated['role_id'],
         ]);
-    
+
         if ($validated['role_id'] == 2) {
             $request->validate([
                 'company_name' => 'required|string|max:255',
@@ -38,7 +39,6 @@ class RegisterController extends Controller
                 'company_industry' => 'nullable|string',
                 'company_num_employees' => 'nullable|integer',
             ]);
-    
             $company = Company::create([
                 'user_id' => $user->id,
                 'name' => $request->company_name,
@@ -52,8 +52,17 @@ class RegisterController extends Controller
                 'num_employees' => $request->company_num_employees,
                 'is_active' => 0,
             ]);
+
+            $notification = Notification::create([
+                'message' => 'New company "' . $company->name . '" has been registered and is pending approval.',
+                'company_id' => $company->id,
+                'user_id' => $user->id,
+                'is_read' => false,
+            ]);
+
+            
         }
+
         return redirect()->route('login')->with('message', 'User registered successfully. Please log in.');
     }
-    
 }

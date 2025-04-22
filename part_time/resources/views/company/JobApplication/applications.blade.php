@@ -79,7 +79,7 @@
                                                 @case('accepted') bg-success @break
                                                 @case('rejected') bg-danger @break
                                                 @case('pending') bg-warning @break
-                                                @default bg-secondary
+                                                @default bg-info
                                             @endswitch">
                                             {{ ucfirst($app->status) }}
                                         </span>

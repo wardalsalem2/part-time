@@ -1,6 +1,18 @@
 @include('component.header')
 
 <div class="body">
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show mb-4 border">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show mb-4 border">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
     <div class="login-container">
         <div class="login-wrap">
             <div class="login-html">
@@ -87,7 +99,8 @@
                                         <label for="sign-up-role-user" style="background-color:#6ec0c7;">User</label>
 
                                         <input type="radio" id="sign-up-role-company" name="role_id" value="2">
-                                        <label for="sign-up-role-company" style="background-color:#6ec0c7;">Company</label>
+                                        <label for="sign-up-role-company"
+                                            style="background-color:#6ec0c7;">Company</label>
                                     </div>
                                 </fieldset>
                             </div>

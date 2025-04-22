@@ -54,7 +54,7 @@
             </div>
 
             <a href="{{ route('admin.companies.edit', $company->id) }}" class="btn btn-warning">Edit Company</a>
-            <a href="{{ route('admin.companies.index') }}" class="btn btn-light">Back to list</a>
+            <a href="{{ route('admin.companies.index') }}" class="btn btn-dark">Back to list</a>
 
         </div>
 

@@ -50,8 +50,6 @@ class JobApplicationController extends Controller
             'user_id' => Auth::id(),
             'message' => Auth::user()->name . ' applay to ' . $jobOffer->title,
         ]);
-
-
         return $application
             ? redirect()->route('profile.show')->with('success', 'Application submitted successfully! Please wait for an email from the company.')
             : back()->with('error', 'Failed to submit application.');

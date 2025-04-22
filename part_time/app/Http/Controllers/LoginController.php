@@ -1,6 +1,5 @@
 <?php
 namespace App\Http\Controllers;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -24,7 +23,6 @@ public function login(Request $request)
     
     if (Auth::attempt($credentials)) {
         $user = Auth::user();
-
 
         if ($user->role_id == 2 && $user->company && !$user->company->is_active) {
             Auth::logout();
@@ -51,7 +49,6 @@ public function login(Request $request)
             return redirect()->route('user.home');
         }
     }
-
     return back()->withErrors([
         'email' => 'The provided credentials are incorrect.',
     ]);

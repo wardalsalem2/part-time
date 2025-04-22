@@ -40,7 +40,7 @@
                     <span class="badge text-white 
                         {{ $application->status === 'accepted' ? 'bg-success' :
     ($application->status === 'rejected' ? 'bg-danger' :
-        ($application->status === 'pending' ? 'bg-warning' : 'bg-secondary')) }}">
+        ($application->status === 'pending' ? 'bg-warning' : 'bg-info')) }}">
                         {{ ucfirst($application->status) }}
                     </span>
                 </p>
@@ -58,14 +58,21 @@
         <div class="mt-4">
             <h6 class="text-secondary">CV:</h6>
             @if($application->profile->cv_path)
+                <!-- View CV button -->
                 <a href="{{ asset('storage/' . $application->profile->cv_path) }}" target="_blank"
                     class="btn btn-primary rounded-pill px-4">
                     View CV
+                </a>
+        
+                <!-- Download CV button -->
+                <a href="{{ route('company.applications.downloadCv', $application->id) }}" class="btn btn-success rounded-pill px-4 mt-2">
+                    Download CV
                 </a>
             @else
                 <p class="text-muted">No CV uploaded</p>
             @endif
         </div>
+        
 
         {{-- Actions Based on Status --}}
         @if($application->status === 'applied')

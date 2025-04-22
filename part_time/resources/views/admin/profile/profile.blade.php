@@ -70,7 +70,7 @@
                                         @if($profile->cv_path)
                                             <a href="{{ asset('storage/' . $profile->cv_path) }}"
                                                 class="btn btn-outline-info btn-sm" target="_blank">
-                                                Download CV
+                                                View CV
                                             </a>
                                         @else
                                             <span class="text-muted">No CV uploaded</span>

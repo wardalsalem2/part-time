@@ -17,23 +17,18 @@ class ProfileController extends Controller
         if (!$profile) {
             $profile = $user->profile()->create([]);
         }
-
         if ($user->role->id == 1) {
 
             $jobApplications = $profile->jobApplications;
             return view('user.profile', compact('profile', 'jobApplications'));
-
         } elseif ($user->role->id == 3) {
 
-            return view('admin.profile.profile', compact('profile')); // صفحة بروفايل الإدمن
+            return view('admin.profile.profile', compact('profile')); 
         } else {
             abort(403, 'Unauthorized');
         }
     }
-
-
-    //----------------------------------------------------------------------------------------------------------------------------------------------
-
+//----------------------------------------------------------------------------------------------------------------------------------------------
     public function edit()
     {
         $user = Auth::user();
@@ -41,7 +36,6 @@ class ProfileController extends Controller
         if (!$user->profile) {
             $user->profile()->create([]);
         }
-
         if ($user->role->id == 1) {
 
             return view('user.editProfile', ['profile' => $user->profile]);
@@ -53,7 +47,6 @@ class ProfileController extends Controller
             abort(403, 'Unauthorized');
         }
     }
-
 
     //----------------------------------------------------------------------------------------------------------------
     public function update(Request $request)

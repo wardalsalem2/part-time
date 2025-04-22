@@ -74,7 +74,7 @@
                                 <td>{{ $app->created_at->format('Y-m-d') }}</td>
                                 <td>
                                     <!-- Status Actions -->
-                                    @if($app->status == 'applied')
+                                    {{-- @if($app->status == 'applied')
                                         <form action="{{ route('admin.job_applications.toggleStatus', ['id' => $app->id, 'newStatus' => 'pending']) }}" method="POST" style="display:inline;">
                                             @csrf
                                             <button type="submit" class="btn btn-warning btn-sm">Move to Pending</button>
@@ -97,7 +97,7 @@
                                             @csrf
                                             <button type="submit" class="btn btn-warning btn-sm">Set to Pending</button>
                                         </form>
-                                    @endif
+                                    @endif --}}
 
                                     <!-- Delete -->
                                     <form action="{{ route('admin.job_applications.destroy', $app->id) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete(event, {{ $app->id }})">

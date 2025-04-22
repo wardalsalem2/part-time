@@ -110,6 +110,19 @@
 						</a>
 					</li>
 
+					<li class="nav-item {{ request()->routeIs('admin.notifications.index') ? 'active' : '' }}">
+						@php
+							$unread = \App\Models\Notification::where('is_read', false)->count();
+						@endphp
+						<a class="nav-link d-flex align-items-center" href="{{ route('admin.notifications.index') }}">
+							<i class="la la-bell"></i>
+							<p>Notifications</p>
+							@if($unread > 0)
+								<span class="badge bg-danger ms-2 mx-5">{{ $unread }}</span>
+							@endif
+						</a>
+					</li>
+					
 					<li class="nav-item">
 						<a href="{{ route('admin.contacts.index') }}" style="color: white;">
 							<i class="la la-envelope" style="color: white;"></i>

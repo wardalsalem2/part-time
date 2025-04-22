@@ -20,7 +20,7 @@
     </div>
 
     <div class="d-flex justify-content-center mt-4">
-        <a href="{{ route('company.profile.edit') }}" class="btn btn-primary px-4 py-2">Edit Profile</a>
+        <a href="{{ route('company.profile.edit') }}" class="btn btn-warning px-4 py-2">Edit Profile</a>
     </div>
 </div>
 

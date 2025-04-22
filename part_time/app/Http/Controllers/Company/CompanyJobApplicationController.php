@@ -41,7 +41,7 @@ class CompanyJobApplicationController extends Controller
 
         return view('company.JobApplication.applications', compact('applications', 'job'));
     }
-
+    //--------------------------------------------------------------------------------------------------
     public function show($id)
     {
         $application = JobApplication::with(['jobOffer', 'profile.user'])
@@ -50,16 +50,33 @@ class CompanyJobApplicationController extends Controller
         $job = $application->jobOffer;
         return view('company.JobApplication.show', compact(['application', 'job']));
     }
-//--------------------------------------------------------------------------------------------------
+
+    //------------------------- download cv-------------------------------------------------------------------------
+
+    public function downloadCv($id)
+    {
+        $application = JobApplication::with('profile.user')->findOrFail($id);
+
+        if ($application->profile->cv_path) {
+            $filePath = storage_path('app/public/' . $application->profile->cv_path);
+
+            if (file_exists($filePath)) {
+                return response()->download($filePath);
+            }
+        }
+
+        return back()->with('error', 'CV not found.');
+    }
+
+    //--------------------------------------------------------------------------------------------------
     public function accept($id)
     {
         $application = JobApplication::whereHas('jobOffer', fn($q) => $q->where('company_id', Auth::user()->company->id))->findOrFail($id);
 
         if ($application->status === 'pending') {
             $application->update(['status' => 'accepted']);
-    
+
             try {
-                // إرسال الإيميل عند القبول
                 Log::info('Sending pending email to: ' . $application->profile->user->email);
                 Mail::to($application->profile->user->email)->send(new ApplicationReplyMail('accepted', null, $application->profile->user->name));
                 return redirect()->route('company.applications.show', $application->id)
@@ -74,7 +91,7 @@ class CompanyJobApplicationController extends Controller
         return redirect()->route('company.applications.show', $application->id)
             ->with('warning', 'This application cannot be accepted at this stage.');
     }
-//--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
     public function reject(Request $request, $id)
     {
         $application = JobApplication::whereHas('jobOffer', fn($q) => $q->where('company_id', Auth::user()->company->id))->findOrFail($id);
@@ -82,7 +99,7 @@ class CompanyJobApplicationController extends Controller
         if ($request->has('confirm_reject')) {
             if ($application->status === 'pending') {
                 $application->update(['status' => 'rejected']);
-                // توجيه لصفحة إرسال البريد الإلكتروني مع تحذير
+
                 return redirect()->route('company.applications.rejectEmail', $application->id)
                     ->with('warning', 'You need to confirm the reason before sending the rejection email.');
             }
@@ -93,7 +110,7 @@ class CompanyJobApplicationController extends Controller
 
         return back();
     }
-//--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
     public function setPending($id)
     {
         $application = JobApplication::whereHas('jobOffer', fn($q) => $q->where('company_id', Auth::user()->company->id))->findOrFail($id);
@@ -115,7 +132,7 @@ class CompanyJobApplicationController extends Controller
         return redirect()->route('company.applications.show', $application->id)
             ->with('warning', 'This application is already in the interview stage or has been accepted/rejected.');
     }
-//--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
     public function destroy($id)
     {
         $application = JobApplication::whereHas('jobOffer', fn($q) => $q->where('company_id', Auth::user()->company->id))->findOrFail($id);
@@ -155,7 +172,7 @@ class CompanyJobApplicationController extends Controller
 
         return view('company.email.reject_email', compact('application'));
     }
-//-----------------------------for sending reject email ---------------------------------------------------------------------
+    //-----------------------------for sending reject email ---------------------------------------------------------------------
     public function sendRejectEmail(Request $request, $id)
     {
         $application = JobApplication::whereHas('jobOffer', fn($q) => $q->where('company_id', Auth::user()->company->id))->findOrFail($id);
@@ -170,7 +187,4 @@ class CompanyJobApplicationController extends Controller
                 ->with('error', 'There was an error sending the rejection email.');
         }
     }
-
-    //------------------------------ notification ---------------------------------------------------
-    
 }

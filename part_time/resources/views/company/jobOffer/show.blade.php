@@ -110,7 +110,7 @@
 
         <div class="d-flex justify-content-end gap-3 job-details-actions">
             <a href="{{ route('company.job-offers.index') }}" class="btn btn-outline-secondary">Back to List</a>
-            <a href="{{ route('company.job-offers.edit', $jobOffer->id) }}" class="btn btn-primary">Edit</a>
+            <a href="{{ route('company.job-offers.edit', $jobOffer->id) }}" class="btn btn-warning">Edit</a>
         </div>
     </div>
 </div>

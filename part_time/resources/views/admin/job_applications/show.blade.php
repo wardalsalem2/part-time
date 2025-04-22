@@ -6,7 +6,7 @@
             
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="text-dark fw-bold">Application Details</h2>
-                <a href="{{ route('admin.job_applications.index') }}" class="btn btn-outline-secondary rounded-pill px-4">
+                <a href="{{ route('admin.job_applications.index') }}" class="btn btn-dark rounded-pill px-4">
                     <i class="bi bi-arrow-left"></i> Back
                 </a>
             </div>
@@ -66,7 +66,7 @@
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="d-flex flex-wrap gap-3 mt-4">
+                    {{-- <div class="d-flex flex-wrap gap-3 mt-4">
                         @if($application->status === 'applied')
                             <form action="{{ route('admin.job_applications.toggleStatus', ['id' => $application->id, 'newStatus' => 'pending']) }}" method="POST">
                                 @csrf
@@ -91,7 +91,7 @@
                                 <button type="submit" class="btn btn-outline-warning rounded-pill px-4">Set to Pending</button>
                             </form>
                         @endif
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>

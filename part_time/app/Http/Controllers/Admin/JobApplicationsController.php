@@ -36,19 +36,19 @@ class JobApplicationsController extends Controller
         return view('admin.job_applications.show', compact('application'));
     }
     //-------------------------------------------------------------------------------------------------------------------------------------------------
-    public function toggleStatus($id, $newStatus)
-    {
-        $application = JobApplication::findOrFail($id);
+    // public function toggleStatus($id, $newStatus)
+    // {
+    //     $application = JobApplication::findOrFail($id);
     
-        $validStatuses = ['applied', 'pending', 'accepted', 'rejected'];
+    //     $validStatuses = ['applied', 'pending', 'accepted', 'rejected'];
     
-        if (in_array($newStatus, $validStatuses)) {
-            $application->update(['status' => $newStatus]);
-            return back()->with('success', 'Application status updated to ' . ucfirst($newStatus) . '.');
-        }
+    //     if (in_array($newStatus, $validStatuses)) {
+    //         $application->update(['status' => $newStatus]);
+    //         return back()->with('success', 'Application status updated to ' . ucfirst($newStatus) . '.');
+    //     }
     
-        return back()->with('error', 'Invalid status.');
-    }
+    //     return back()->with('error', 'Invalid status.');
+    // }
     
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------

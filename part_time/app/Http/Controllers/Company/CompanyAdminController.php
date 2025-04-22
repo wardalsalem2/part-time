@@ -21,7 +21,6 @@ class CompanyAdminController extends Controller
         
         $jobApplicationsCount = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->count();
         
-        // تعديل الحالات حسب الستيتس الجديد
         $appliedApplications = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->where('status', 'applied')->count();
         $pendingApplications = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->where('status', 'pending')->count();
         $acceptedApplications = JobApplication::whereIn('job_offer_id', $company->jobOffers->pluck('id'))->where('status', 'accepted')->count();
