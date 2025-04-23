@@ -26,7 +26,7 @@
 <script src="{{ asset('assets/admin/js/core/popper.min.js') }}"></script>
 <script src="{{ asset('assets/admin/js/core/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/admin/js/plugin/chartist/chartist.min.js') }}"></script>
-<script src="{{ asset('assets/admin/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js') }}"></script>
+{{-- <script src="{{ asset('assets/admin/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js') }}"></script> --}}
 <script src="{{ asset('assets/admin/js/plugin/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
 <script src="{{ asset('assets/admin/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ asset('assets/admin/js/plugin/jquery-mapael/jquery.mapael.min.js') }}"></script>
@@ -34,8 +34,9 @@
 <script src="{{ asset('assets/admin/js/plugin/chart-circle/circles.min.js') }}"></script>
 <script src="{{ asset('assets/admin/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
 <script src="{{ asset('assets/admin/js/ready.min.js') }}"></script>
-<script src="{{ asset('assets/admin/js/demo.js') }}"></script>
+{{-- <script src="{{ asset('assets/admin/js/demo.js') }}"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('assets/admin/js/forms.js') }}"></script>
 
 
 </html>

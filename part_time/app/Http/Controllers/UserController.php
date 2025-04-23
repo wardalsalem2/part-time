@@ -13,8 +13,10 @@ class UserController extends Controller
 
     public function index()
     {
-        $jobOffers = JobOffer::with('company');   
-        return view('home', compact('jobOffers'));
+        $jobOffers = JobOffer::with('company')->get();
+        $user = Auth::user();
+    
+        return view('home', compact('jobOffers', 'user'));
     }
 
 //--------------------------------------------------------------------------------------------------

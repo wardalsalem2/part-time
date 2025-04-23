@@ -1,6 +1,6 @@
 @include('component.header')
 <main class="main">
-<!-------------------------------------- face of web Section ------------------------------------------------>
+    <!-------------------------------------- face of web Section ------------------------------------------------>
     <section id="hero" class="hero section dark-background">
         <img src="assets/img/contact-page-title-bg.jpg" alt="" data-aos="fade-in">
         <div class="container">
@@ -175,7 +175,7 @@
             <h2 class="text-center mb-4" style="font-size: 2.5rem; font-weight: 700;">Our Services</h2>
             <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
         </div>
-    
+
         <div class="container">
             <div class="row gy-4">
                 <!-- Repeatable Service Card -->
@@ -186,11 +186,12 @@
                                 <i class="bi bi-clipboard" style="color: #f57813; font-size: 2rem;"></i>
                             </div>
                             <h4 class="card-title">Part-Time Job Listings</h4>
-                            <p class="card-text">Explore part-time job opportunities for university students, including remote work options.</p>
+                            <p class="card-text">Explore part-time job opportunities for university students, including
+                                remote work options.</p>
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-lg-4 col-md-6">
                     <div class="card service-card h-100 shadow-sm border-light" data-aos="fade-up" data-aos-delay="200">
                         <div class="card-body text-center">
@@ -198,11 +199,12 @@
                                 <i class="bi bi-robot" style="color: #15a04a; font-size: 2rem;"></i>
                             </div>
                             <h4 class="card-title">Smart Job Matching</h4>
-                            <p class="card-text">AI-driven job matching system connecting students with the most suitable job offers.</p>
+                            <p class="card-text">AI-driven job matching system connecting students with the most
+                                suitable job offers.</p>
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-lg-4 col-md-6">
                     <div class="card service-card h-100 shadow-sm border-light" data-aos="fade-up" data-aos-delay="300">
                         <div class="card-body text-center">
@@ -210,11 +212,12 @@
                                 <i class="bi bi-briefcase" style="color: #d90769; font-size: 2rem;"></i>
                             </div>
                             <h4 class="card-title">Internship & Training</h4>
-                            <p class="card-text">Get hands-on training and internship opportunities that prepare you for the job market.</p>
+                            <p class="card-text">Get hands-on training and internship opportunities that prepare you for
+                                the job market.</p>
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-lg-4 col-md-6">
                     <div class="card service-card h-100 shadow-sm border-light" data-aos="fade-up" data-aos-delay="400">
                         <div class="card-body text-center">
@@ -222,11 +225,12 @@
                                 <i class="bi bi-hand-thumbs-up" style="color: #6ec0c7; font-size: 2rem;"></i>
                             </div>
                             <h4 class="card-title">Employer Support</h4>
-                            <p class="card-text">Supporting employers in finding talented students who fit their job requirements.</p>
+                            <p class="card-text">Supporting employers in finding talented students who fit their job
+                                requirements.</p>
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-lg-4 col-md-6">
                     <div class="card service-card h-100 shadow-sm border-light" data-aos="fade-up" data-aos-delay="500">
                         <div class="card-body text-center">
@@ -234,11 +238,12 @@
                                 <i class="bi bi-person-check" style="color: #f5cf13; font-size: 2rem;"></i>
                             </div>
                             <h4 class="card-title">Career Guidance</h4>
-                            <p class="card-text">Providing career advice and guidance to help students navigate the job market successfully.</p>
+                            <p class="card-text">Providing career advice and guidance to help students navigate the job
+                                market successfully.</p>
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-lg-4 col-md-6">
                     <div class="card service-card h-100 shadow-sm border-light" data-aos="fade-up" data-aos-delay="600">
                         <div class="card-body text-center">
@@ -246,14 +251,15 @@
                                 <i class="bi bi-globe" style="color: #6ec0c7; font-size: 2rem;"></i>
                             </div>
                             <h4 class="card-title">Flexible Work Options</h4>
-                            <p class="card-text">Offering flexible work options that fit your schedule and work preferences.</p>
+                            <p class="card-text">Offering flexible work options that fit your schedule and work
+                                preferences.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!------------------------------------------------ contact us  Section ---------------------------------------------->
     <section id="call-to-action" class="call-to-action section dark-background" style="padding: 80px 0;">
         <div class="cta-background" style="position: relative; height: 500px;">
@@ -274,8 +280,8 @@
                             schedule and skills.
                         </p>
                         <a class="cta-btn" href="{{ route('contactCreate') }}"
-                        style="background: linear-gradient(135deg, #6ec0c7, #3b8f94); border: none; padding: 0.75rem 1.5rem; font-weight: 600; color: white; border-radius: 30px; transition: all 0.3s ease;">
-                        Contact Us
+                            style="background: linear-gradient(135deg, #6ec0c7, #3b8f94); border: none; padding: 0.75rem 1.5rem; font-weight: 600; color: white; border-radius: 30px; transition: all 0.3s ease;">
+                            Contact Us
                         </a>
                     </div>
                 </div>

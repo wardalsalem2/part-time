@@ -12,12 +12,14 @@
 
             <!-- Edit Form -->
             <form id="editCompanyForm" action="{{ route('admin.companies.update', $company->id) }}" method="POST">
+
                 @csrf
                 @method('PUT')
+                <div id="formErrorContainer" class="alert alert-danger" style="display: none;"></div>
 
                 <div class="form-group">
                     <label for="name">Company Name</label>
-                    <input type="text" name="name" class="form-control" id="name" value="{{ old('name', $company->name) }}" required>
+                    <input type="text" name="name" class="form-control" id="name" value="{{ old('name', $company->name) }}" >
                     <div class="error" id="nameError" style="color: red; display: none;">This field is required.</div>
                 </div>
 

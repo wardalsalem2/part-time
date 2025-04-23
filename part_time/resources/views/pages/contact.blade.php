@@ -16,7 +16,7 @@
                         <i class="bi bi-geo-alt flex-shrink-0" style="background-color:#6ec0c7;"></i>
                         <div>
                             <h3>Address</h3>
-                            <p>Jordan , Amman</p>
+                            <p>Jordan, Amman</p>
                         </div>
                     </div>
 
@@ -38,63 +38,87 @@
                 </div>
 
                 <div class="col-lg-7">
-                    <!-- Form starts here -->
-                    <form id="contact-form" action="{{ route('contact.store') }}" method="POST">
+                    <!-- Contact Form -->
+                    <form id="contactForm" action="{{ route('contact.store') }}" method="POST" onsubmit="return validateContactForm()">
                         @csrf
                         <div class="row gy-4">
                             <div class="col-md-6">
-                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                                    placeholder="Your Name" value="{{ old('name') }}" required>
-                                @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <input type="text" name="name" id="inputName" class="form-control" placeholder="Your Name" value="{{ old('name') }}" >
+                                <div class="text-danger small" id="errorName"></div>
                             </div>
 
                             <div class="col-md-6">
-                                <input type="email" name="email"
-                                    class="form-control @error('email') is-invalid @enderror" placeholder="Your Email"
-                                    value="{{ old('email') }}" required>
-                                @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Your Email" value="{{ old('email') }}" >
+                                <div class="text-danger small" id="errorEmail"></div>
                             </div>
 
                             <div class="col-md-12">
-                                <input type="text" name="subject"
-                                    class="form-control @error('subject') is-invalid @enderror" placeholder="Subject"
-                                    value="{{ old('subject') }}" required>
-                                @error('subject')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <input type="text" name="subject" id="inputSubject" class="form-control" placeholder="Subject" value="{{ old('subject') }}" >
+                                <div class="text-danger small" id="errorSubject"></div>
                             </div>
 
                             <div class="col-md-12">
-                                <textarea class="form-control @error('message') is-invalid @enderror" name="message"
-                                    rows="6" placeholder="Message" required>{{ old('message') }}</textarea>
-                                @error('message')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <textarea name="message" id="inputMessage" class="form-control" rows="6" placeholder="Message" >{{ old('message') }}</textarea>
+                                <div class="text-danger small" id="errorMessage"></div>
                             </div>
 
                             <div class="col-md-12 text-center">
                                 <button type="submit" class="btn w-50" style="background-color:#6ec0c7; border-radius: 50px; color: white;">Send Message</button>
                             </div>
-                            
-                            
                         </div>
                     </form>
-                    <!-- Form ends here -->
                 </div>
             </div>
         </div>
     </section>
 </main>
 
-<!-- Success message handling -->
 @if (session('success'))
-    <div class="alert alert-success">
+    <div class="alert alert-success text-center mt-3">
         {{ session('success') }}
     </div>
 @endif
 
 @include('component.footer')
+
+<!-- JavaScript Validation -->
+<script>
+function validateContactForm() {
+    let valid = true;
+
+    document.getElementById('errorName').textContent = '';
+    document.getElementById('errorEmail').textContent = '';
+    document.getElementById('errorSubject').textContent = '';
+    document.getElementById('errorMessage').textContent = '';
+
+    const name = document.getElementById('inputName').value.trim();
+    const email = document.getElementById('inputEmail').value.trim();
+    const subject = document.getElementById('inputSubject').value.trim();
+    const message = document.getElementById('inputMessage').value.trim();
+
+    if (name === '') {
+        document.getElementById('errorName').textContent = 'Please enter your name.';
+        valid = false;
+    }
+
+    if (email === '') {
+        document.getElementById('errorEmail').textContent = 'Please enter your email.';
+        valid = false;
+    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+        document.getElementById('errorEmail').textContent = 'Invalid email format.';
+        valid = false;
+    }
+
+    if (subject === '') {
+        document.getElementById('errorSubject').textContent = 'Please enter a subject.';
+        valid = false;
+    }
+
+    if (message === '') {
+        document.getElementById('errorMessage').textContent = 'Please enter your message.';
+        valid = false;
+    }
+
+    return valid;
+}
+</script>

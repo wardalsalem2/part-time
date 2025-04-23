@@ -70,6 +70,19 @@
 <!-- Main JS File -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggleBtn = document.querySelector('.mobile-nav-toggle');
+    const navMenu = document.querySelector('#navmenu');
+
+    toggleBtn.addEventListener('click', function () {
+      navMenu.classList.toggle('navmenu-active');
+      toggleBtn.classList.toggle('bi-list');
+      toggleBtn.classList.toggle('bi-x');
+    });
+  });
+</script>
+
 </body>
 
 </html>

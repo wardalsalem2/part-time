@@ -36,8 +36,7 @@ public function login(Request $request)
             return redirect('/login')->withErrors([
                 'email' => 'Your account is inactive. Please contact support.',
             ]);
-        }
-
+        }        
 
         if ($user->role_id == 1) {
             return redirect()->route('user.home');
