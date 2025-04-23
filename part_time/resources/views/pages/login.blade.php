@@ -19,7 +19,7 @@
                             <input type="hidden" name="tab" value="login">
                             <div class="group">
                                 <label for="sign-in-email" class="label">Email</label>
-                                <input id="sign-in-email" type="email" name="email" class="input" required autocomplete="email">
+                                <input id="sign-in-email" type="email" name="email" class="input"  autocomplete="email">
                                 @error('email')
                                     <p style="color:red;">{{ $message }}</p>
                                 @enderror
@@ -27,7 +27,7 @@
 
                             <div class="group">
                                 <label for="sign-in-password" class="label">Password</label>
-                                <input id="sign-in-password" type="password" name="password" class="input" required autocomplete="current-password">
+                                <input id="sign-in-password" type="password" name="password" class="input" autocomplete="current-password">
                                 @error('password')
                                     <p style="color:red;">{{ $message }}</p>
                                 @enderror
@@ -48,7 +48,7 @@
 
                             <div class="group">
                                 <label for="sign-up-name" class="label">Username</label>
-                                <input id="sign-up-name" type="text" name="name" class="input" required autocomplete="username">
+                                <input id="sign-up-name" type="text" name="name" class="input" autocomplete="username">
                                 @error('name')
                                     <p style="color:red;">{{ $message }}</p>
                                 @enderror
@@ -56,7 +56,7 @@
 
                             <div class="group">
                                 <label for="sign-up-email" class="label">Email</label>
-                                <input id="sign-up-email" type="email" name="email" class="input" required autocomplete="email">
+                                <input id="sign-up-email" type="email" name="email" class="input" autocomplete="email">
                                 @error('email')
                                     <p style="color:red;">{{ $message }}</p>
                                 @enderror
@@ -64,7 +64,7 @@
 
                             <div class="group">
                                 <label for="sign-up-password" class="label">Password</label>
-                                <input id="sign-up-password" type="password" name="password" class="input" required autocomplete="new-password">
+                                <input id="sign-up-password" type="password" name="password" class="input" autocomplete="new-password">
                                 @error('password')
                                     <p style="color:red;">{{ $message }}</p>
                                 @enderror
@@ -72,7 +72,7 @@
 
                             <div class="group">
                                 <label for="sign-up-password-confirm" class="label">Confirm Password</label>
-                                <input id="sign-up-password-confirm" type="password" name="password_confirmation" class="input" required autocomplete="new-password">
+                                <input id="sign-up-password-confirm" type="password" name="password_confirmation" class="input" autocomplete="new-password">
                             </div>
 
                             <!-- Register As Fieldset -->
