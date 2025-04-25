@@ -13,6 +13,10 @@
 
 	<link rel="stylesheet" href="{{ asset('assets/admin/css/ready.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/admin/css/demo.css') }}">
+	<style>.nav-item.active {
+		background-color: #6fc0c6;
+	}
+	</style>
 </head>
 
 <body>
@@ -75,40 +79,40 @@
 				</a>
 
 				<ul class="nav">
-					<li class="nav-item">
+					<li class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
 						<a href="{{ route('admin.dashboard') }}" style="color: white;">
 							<i class="la la-home" style="color: white;"></i>
 							<p>Dashboard</p>
 						</a>
 					</li>
-
-					<li class="nav-item">
+					
+					<li class="nav-item {{ request()->routeIs('admin.users.index') ? 'active' : '' }}">
 						<a href="{{ route('admin.users.index') }}" style="color: white;">
 							<i class="la la-users" style="color: white;"></i>
 							<p>Users</p>
 						</a>
 					</li>
-
-					<li class="nav-item">
+					
+					<li class="nav-item {{ request()->routeIs('admin.companies.index') ? 'active' : '' }}">
 						<a href="{{ route('admin.companies.index') }}" style="color: white;">
 							<i class="la la-building" style="color: white;"></i>
 							<p>Companies</p>
 						</a>
 					</li>
-
-					<li class="nav-item">
+					
+					<li class="nav-item {{ request()->routeIs('admin.job_offers.index') ? 'active' : '' }}">
 						<a href="{{ route('admin.job_offers.index') }}" style="color: white;">
 							<i class="la la-briefcase" style="color: white;"></i>
 							<p>Job Offers</p>
 						</a>
 					</li>
-
-					<li class="nav-item">
+					
+					<li class="nav-item {{ request()->routeIs('admin.job_applications.index') ? 'active' : '' }}">
 						<a href="{{ route('admin.job_applications.index') }}" style="color: white;">
 							<i class="la la-briefcase" style="color: white;"></i>
 							<p>Job Applications</p>
 						</a>
-					</li>
+					</li>	
 
 					<li class="nav-item {{ request()->routeIs('admin.notifications.index') ? 'active' : '' }}">
 						@php
@@ -123,7 +127,7 @@
 						</a>
 					</li>
 					
-					<li class="nav-item">
+					<li class="nav-item {{ request()->routeIs('admin.contacts.index') ? 'active' : '' }}">
 						<a href="{{ route('admin.contacts.index') }}" style="color: white;">
 							<i class="la la-envelope" style="color: white;"></i>
 							<p>Contact</p>

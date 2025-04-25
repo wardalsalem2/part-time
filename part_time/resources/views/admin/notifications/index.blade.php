@@ -16,7 +16,6 @@
             @endif
             <h2 class="mb-4">Admin Notifications</h2>
 
-
             <div class="alert alert-info">
                 There are {{ $unreadCount }} unread notifications
             </div>
@@ -44,12 +43,9 @@
                                 @endif
                             </td>
                             <td>
-                                <!-- تحقق من أن الروابط صحيحة -->
                                 <a href="{{ route('admin.notifications.markAsRead', $notification->id) }}"
                                     class="btn btn-sm btn-primary">Mark as Read</a>
                                 @if ($notification->company_id)
-                                    <a href="{{ route('admin.companies.approve', $notification->company_id) }}"
-                                        class="btn btn-sm btn-success">Approve Company</a>
                                 @endif
                             </td>
                         </tr>
@@ -57,5 +53,4 @@
                 </tbody>
             </table>
         </div>
-
         @include('admin.componant.footer')

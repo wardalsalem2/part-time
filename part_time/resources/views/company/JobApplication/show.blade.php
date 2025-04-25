@@ -65,7 +65,7 @@
                 </a>
         
                 <!-- Download CV button -->
-                <a href="{{ route('company.applications.downloadCv', $application->id) }}" class="btn btn-success rounded-pill px-4 mt-2">
+                <a href="{{ route('company.applications.downloadCv', $application->id) }}" class="btn btn-success rounded-pill px-4">
                     Download CV
                 </a>
             @else
@@ -75,6 +75,7 @@
         
 
         {{-- Actions Based on Status --}}
+        
         @if($application->status === 'applied')
             <div class="mt-5 d-flex gap-2">
                 <form method="POST" action="{{ route('company.applications.setPending', $application->id) }}">

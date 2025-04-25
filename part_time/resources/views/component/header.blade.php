@@ -36,7 +36,7 @@
       position: absolute;
       width: 100%;
       height: 2px;
-      background-color: #6ec0c7;
+      background-color:rgb(24, 28, 29);
       left: 0;
       bottom: -5px;
       border-radius: 2px;
@@ -88,20 +88,19 @@
   .mobile-nav-toggle {
     display: block;
     font-size: 24px;
-    color: #fff;
-    z-index: 1001;
+    z-index: 1000;
     cursor: pointer;
+    background-color: #1c2c3e !important;
   }
 
   .navmenu {
     display: none;
     position: fixed;
     top: 70px;
-    right: 0; /* تطلع من اليمين */
-    background-color: #1c2c3e; /* الخلفية الداكنة */
-    width: 80%;
+    background-color: #1c2c3e !important;
+    width: 30%;
     max-width: 280px;
-    height: auto;
+    height: 100vh;
     padding: 20px;
     flex-direction: column;
     z-index: 1000;
@@ -123,7 +122,7 @@
   }
 
   .navmenu ul li a {
-    color: #ffffff !important;
+    color:black !important;
     font-size: 1rem;
     font-weight: 500;
     padding: 10px 12px;
@@ -135,7 +134,7 @@
 
   .navmenu ul li a:hover,
   .navmenu ul li a.active {
-    background-color: #2a3e55;
+    background-color: #1c2c3e !important;
     color: #6ec0c7 !important;
   }
 
@@ -178,8 +177,8 @@
                 </span>
               </a>
             </li>
-            <li><a href="{{ route('logout') }}">Logout</a></li>
-          @else
+            <li><a href="{{ route('logout') }}"><i class="fas fa-sign-out-alt me-1" style="font-size: 1.5rem;"></i> Logout</a></li>
+            @else
             <li><a href="{{ route('login') }}">Login</a></li>
           @endif
         </ul>

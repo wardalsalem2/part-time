@@ -31,23 +31,23 @@
 
         <div class="card-body">
             <form method="GET" action="{{ route('company.job-offers.index') }}">
-                <div class="row g-3 align-items-center">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 align-items-center">
 
                     <!-- Job Title -->
-                    <div class="col-md-3">
-                        <div class="position-relative">
+                    <div class="col">
+                        {{-- <div class="position-relative"> --}}
                             <input type="text" name="title" id="title"
-                                class="form-control shadow-sm rounded-pill px-4 border-0" placeholder="Job Title"
+                                class="form-control shadow-sm rounded-pill px-4 py-2  border-0" placeholder="Job Title"
                                 value="{{ request('title') }}">
                         
-                        </div>
+                        {{-- </div> --}}
                     </div>
 
                     <!-- Location Dropdown -->
-                    <div class="col-md-3">
-                        <div class="position-relative">
+                    <div class="col">
+                        {{-- <div class="position-relative"> --}}
                             <select name="location" id="location"
-                                class="form-select shadow-sm rounded-pill px-4 border-0 location-dropdown"
+                                class="form-select shadow-sm rounded-pill px-4 py-2 border-0 location-dropdown"
                                 style="height: 40px;">
                                 <option value="">All Locations</option>
                                 @php
@@ -72,14 +72,14 @@
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
+                        {{-- </div> --}}
                     </div>
 
                     <!-- Category Dropdown -->
-                    <div class="col-md-3">
-                        <div class="position-relative">
+                    <div class="col">
+                        {{-- <div class="position-relative"> --}}
                             <select name="category" id="category"
-                                class="form-select shadow-sm rounded-pill px-4 border-0" style="height: 40px;">
+                                class="form-select shadow-sm rounded-pill px-4 py-2 border-0" style="height: 40px;">
                                 <option value="">All Categories</option>
                                 <option value="IT" {{ request('category') == 'IT' ? 'selected' : '' }}>IT</option>
                                 <option value="Marketing" {{ request('category') == 'Marketing' ? 'selected' : '' }}>
@@ -87,11 +87,11 @@
                                 <option value="Design" {{ request('category') == 'Design' ? 'selected' : '' }}>Design
                                 </option>
                             </select>
-                        </div>
+                        {{-- </div> --}}
                     </div>
 
                     <!-- Buttons -->
-                    <div class="col-md-3 d-flex gap-2 justify-content-end">
+                    <div class="col d-flex gap-2 justify-content-start justify-content-md-end">
                         <!-- Reset Button -->
                         <a href="{{ route('company.job-offers.index') }}"
                             class="btn btn-outline-secondary rounded-pill px-4 d-flex align-items-center">
