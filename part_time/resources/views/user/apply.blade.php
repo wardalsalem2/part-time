@@ -119,21 +119,63 @@
         <form action="{{ route('jobApplications.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="job_offer_id" value="{{ $jobOffer->id }}">
-
+        
             <div class="mb-4">
                 <label for="cover_letter" class="form-label">Cover Letter</label>
-                <textarea name="cover_letter" id="cover_letter" class="form-control" rows="5" placeholder="Write your cover letter here..." required></textarea>
+                <textarea name="cover_letter" id="cover_letter" class="form-control" rows="5" placeholder="Write your cover letter here..."></textarea>
+                <p id="cover_letter_error" class="text-danger mt-2" style="display: none; font-size: 0.95rem;"></p>
             </div>
-
+        
             <div class="mb-4">
                 <label for="resume" class="form-label">Upload Resume (PDF only)</label>
-                <input type="file" name="resume" id="resume" class="form-control" accept=".pdf" required>
+                <input type="file" name="resume" id="resume" class="form-control" accept=".pdf">
+                <p id="resume_error" class="text-danger mt-2" style="display: none; font-size: 0.95rem;"></p>
             </div>
-
+        
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Submit Application</button>
             </div>
         </form>
+        
     </div>
 </div>
 @include('component.footer')
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const coverLetter = document.getElementById("cover_letter");
+        const resume = document.getElementById("resume");
+
+        const coverLetterError = document.getElementById("cover_letter_error");
+        const resumeError = document.getElementById("resume_error");
+
+        form.addEventListener("submit", function (e) {
+            let hasError = false;
+            coverLetterError.style.display = "none";
+            resumeError.style.display = "none";
+            coverLetterError.innerText = "";
+            resumeError.innerText = "";
+
+            if (coverLetter.value.trim() === "") {
+                coverLetterError.innerText = "Cover letter is required.";
+                coverLetterError.style.display = "block";
+                hasError = true;
+            }
+
+            if (!resume.files.length) {
+                resumeError.innerText = "Please upload your resume.";
+                resumeError.style.display = "block";
+                hasError = true;
+            } else if (!resume.files[0].name.endsWith(".pdf")) {
+                resumeError.innerText = "Only PDF files are allowed.";
+                resumeError.style.display = "block";
+                hasError = true;
+            }
+
+            if (hasError) {
+                e.preventDefault(); 
+            }
+        });
+    });
+</script>

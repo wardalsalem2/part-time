@@ -65,6 +65,7 @@
                             <div class="group">
                                 <label for="sign-up-password" class="label">Password</label>
                                 <input id="sign-up-password" type="password" name="password" class="input" autocomplete="new-password">
+                                <p id="password-error" style="color:red; display:none;"></p>
                                 @error('password')
                                     <p style="color:red;">{{ $message }}</p>
                                 @enderror
@@ -159,3 +160,26 @@
 </div>
 
 @include('component.footer')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('login-form');
+        const passwordInput = document.getElementById('sign-up-password');
+        const errorElement = document.getElementById('password-error');
+
+        form.addEventListener('submit', function (e) {
+            const password = passwordInput.value;
+            const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/;
+
+            if (!pattern.test(password)) {
+                e.preventDefault();
+                errorElement.textContent = 'Password must include at least one uppercase letter, one lowercase letter, one number, and one special character.';
+                errorElement.style.display = 'block';
+            } else {
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+    
