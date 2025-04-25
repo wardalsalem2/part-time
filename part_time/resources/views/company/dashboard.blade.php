@@ -113,12 +113,42 @@
                 </div>
             </div>
         </div>
-
     </div>
+    <div class="card mt-4">
+        <div class="card-header">Latest 5 Job Applications</div>
+        <div class="card-body">
+            @if($latestApplications->count())
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Applicant Name</th>
+                            <th>Job Title</th>
+                            <th>Applied At</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($latestApplications as $application)
+                            <tr>
+                                <td>{{ $application->user->name ?? 'N/A' }}</td>
+                                <td>{{ $application->jobOffer->title ?? 'N/A' }}</td>
+                                <td>{{ $application->created_at->format('Y-m-d') }}</td>
+                                <td>{{ ucfirst($application->status) }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @else
+                <p>No recent job applications found.</p>
+            @endif
+        </div>
+    </div>
+    
 </div>
 <!-- End Page Content -->
 
 @include('company.component.footer')
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     var monthlyEarnings = @json($monthlyEarnings);
