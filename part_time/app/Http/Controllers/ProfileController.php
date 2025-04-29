@@ -61,7 +61,7 @@ class ProfileController extends Controller
             'country' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'cv' => 'nullable|mimes:pdf|max:5120',
+            // 'cv' => 'nullable|mimes:pdf|max:5120',
         ]);
     
         $profile = auth()->user()->profile;
@@ -70,7 +70,7 @@ class ProfileController extends Controller
             $profile = auth()->user()->profile()->create([]);
         }
     
-        //  profile_images
+        // Only process image if a new one is uploaded
         if ($request->hasFile('image')) {
             if ($profile->image_path && Storage::disk('public')->exists($profile->image_path)) {
                 Storage::disk('public')->delete($profile->image_path);
@@ -80,16 +80,17 @@ class ProfileController extends Controller
             $profile->image_path = $imagePath;
         }
     
-        //  cv_files
-        if ($request->hasFile('cv')) {
-            if ($profile->cv_path && Storage::disk('public')->exists($profile->cv_path)) {
-                Storage::disk('public')->delete($profile->cv_path);
-            }
+        // Only process CV if a new one is uploaded
+        // if ($request->hasFile('cv')) {
+        //     if ($profile->cv_path && Storage::disk('public')->exists($profile->cv_path)) {
+        //         Storage::disk('public')->delete($profile->cv_path);
+        //     }
     
-            $cvPath = $request->file('cv')->store('cv_files', 'public');
-            $profile->cv_path = $cvPath;
-        }
+        //     $cvPath = $request->file('cv')->store('cv_files', 'public');
+        //     $profile->cv_path = $cvPath;
+        // }
     
+        // Update other fields
         $profile->job_title = $request->job_title;
         $profile->hourly_rate = $request->hourly_rate;
         $profile->available_hours = $request->available_hours;
@@ -100,13 +101,11 @@ class ProfileController extends Controller
         $profile->phone = $request->phone;
     
         if ($profile->save()) {
-            return redirect()->route('profile.show')->with('success', 'Profile updated successfully');
+            return redirect()->route('profile.show')->with('success', 'Profile updated successfully.');
         } else {
             return redirect()->route('profile.edit')->with('error', 'There was an issue updating your profile.');
         }
     }
-    
-
 }
 
 

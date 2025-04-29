@@ -45,7 +45,7 @@
     }
 
     .save-btn:hover {
-        background-color:rgb(71, 125, 129);
+        background-color: rgb(71, 125, 129);
         cursor: pointer;
     }
 
@@ -143,7 +143,7 @@
                     @enderror
                 </div>
 
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <label for="cv" class="form-label">Upload CV (PDF only)</label>
                     <input type="file" class="form-control @error('cv') is-invalid @enderror" name="cv" accept=".pdf">
                     <p id="cv_error" class="error"></p>
@@ -151,10 +151,11 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                     @if($profile->cv_path)
-                        <a href="{{ asset('storage/' . $profile->cv_path) }}" target="_blank" class="d-block mt-2">View Current
+                        <a href="{{ asset('storage/' . $profile->cv_path) }}" target="_blank" class="d-block mt-2">View
+                            Current
                             CV</a>
                     @endif
-                </div>
+                </div> --}}
 
                 <div class="col-md-6">
                     <label for="image" class="form-label">Upload Profile Image</label>
@@ -167,7 +168,8 @@
 
                     <div class="text-center">
                         @if($profile->image_path)
-                            <img src="{{ asset('storage/' . $profile->image_path) }}" alt="Profile Image" class="profile-image">
+                            <img src="{{ asset('storage/' . $profile->image_path) }}" alt="Profile Image"
+                                class="profile-image">
                         @else
                             <img src="{{ asset('images/default-profile.png') }}" class="profile-image">
                         @endif
@@ -189,7 +191,7 @@
 @include('component.footer')
 
 <script>
-    document.getElementById("profileForm").addEventListener("submit", function(e) {
+    document.getElementById("profileForm").addEventListener("submit", function (e) {
         let formValid = true;
         let errors = {
             job_title: "Job title is required.",
@@ -259,15 +261,23 @@
         }
 
         // Validate CV File (PDF)
-        const cvFile = document.getElementsByName("cv")[0].files[0];
-        if (!cvFile || cvFile.type !== "application/pdf") {
-            document.getElementById("cv_error").innerText = errors.cv;
-            formValid = false;
-        }
+        // const existingCV = "{{ $profile->cv_path ? 'true' : 'false' }}";
+        // const cvFile = document.getElementsByName("cv")[0].files[0];
+        // if (!cvFile && existingCV === "false") {
+        //     document.getElementById("cv_error").innerText = errors.cv;
+        //     formValid = false;
+        // } else if (cvFile && cvFile.type !== "application/pdf") {
+        //     document.getElementById("cv_error").innerText = errors.cv;
+        //     formValid = false;
+        // }
 
         // Validate Profile Image (JPG or PNG)
+        const existingImage = "{{ $profile->image_path ? 'true' : 'false' }}";
         const imageFile = document.getElementsByName("image")[0].files[0];
-        if (!imageFile || !["image/jpeg", "image/png"].includes(imageFile.type)) {
+        if (!imageFile && existingImage === "false") {
+            document.getElementById("image_error").innerText = errors.image;
+            formValid = false;
+        } else if (imageFile && !["image/jpeg", "image/png", "image/jpg"].includes(imageFile.type)) {
             document.getElementById("image_error").innerText = errors.image;
             formValid = false;
         }
@@ -278,4 +288,3 @@
         }
     });
 </script>
-

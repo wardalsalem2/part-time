@@ -200,7 +200,7 @@
             <p><span class="info-label">Location:</span> {{ $profile->city }}, {{ $profile->country }}</p>
             <p><span class="info-label">Phone:</span> {{ $profile->phone }}</p>
 
-            <p>
+            {{-- <p>
                 <span class="info-label">CV:</span>
                 @if($profile->cv_path)
                     <a href="{{ asset('storage/' . $profile->cv_path) }}" target="_blank"
@@ -209,7 +209,7 @@
                     <span class="text-danger ms-2">No CV uploaded</span>
                 @endif
 
-            </p>
+            </p> --}}
         </div>
 
         <a href="{{ route('profile.edit') }}" class="edit-btn">Edit Profile</a>
