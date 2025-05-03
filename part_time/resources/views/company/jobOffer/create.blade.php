@@ -21,7 +21,21 @@
 
             <div class="mb-3">
                 <label class="form-label">Location <span class="text-danger">*</span></label>
-                <input type="text" name="location" class="form-control rounded-3">
+                <select name="location" class="form-control rounded-3">
+                    <option value="">-- Select Location --</option>
+                    <option value="Amman">Amman</option>
+                    <option value="Zarqa">Zarqa</option>
+                    <option value="Irbid">Irbid</option>
+                    <option value="Aqaba">Aqaba</option>
+                    <option value="Balqa">Balqa</option>
+                    <option value="Mafraq">Mafraq</option>
+                    <option value="Jerash">Jerash</option>
+                    <option value="Ajloun">Ajloun</option>
+                    <option value="Madaba">Madaba</option>
+                    <option value="Karak">Karak</option>
+                    <option value="Tafilah">Tafilah</option>
+                    <option value="Ma'an">Ma'an</option>
+                </select>
                 <div class="invalid-feedback" style="display: none;">Location is required.</div>
             </div>
 
@@ -50,18 +64,20 @@
 
             <div class="mb-3">
                 <label class="form-label">Requirements</label>
-                <textarea name="requirements" class="form-control rounded-3" rows="3" placeholder="List job requirements..."></textarea>
+                <textarea name="requirements" class="form-control rounded-3" rows="3"
+                    placeholder="List job requirements..."></textarea>
                 <div class="invalid-feedback" style="display: none;">Requirements must be provided if entered.</div>
             </div>
 
             <div class="mb-4">
                 <label class="form-label">Deadline</label>
-                <input type="date" name="deadline" class="form-control rounded-3">
+                <input type="date" name="deadline" id="deadline" class="form-control rounded-3">
                 <div class="invalid-feedback" style="display: none;">Please select a valid deadline if provided.</div>
             </div>
 
             <div class="d-flex justify-content-between">
-                <a href="{{ route('company.job-offers.index') }}" class="btn btn-outline-secondary rounded-pill px-4">Back to List</a>
+                <a href="{{ route('company.job-offers.index') }}"
+                    class="btn btn-outline-secondary rounded-pill px-4">Back to List</a>
                 <button type="submit" class="btn btn-primary rounded-pill px-4">Submit</button>
             </div>
         </form>
@@ -152,10 +168,17 @@
                 isValid = false;
             }
 
+
             // If form is invalid, prevent submission
             if (!isValid) {
                 event.preventDefault();
             }
         });
     });
+</script>
+
+<script>
+    // Set the minimum date for the deadline input to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('deadline').setAttribute('min', today);
 </script>
