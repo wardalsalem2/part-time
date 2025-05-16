@@ -32,24 +32,25 @@
                 </thead>
                 <tbody>
                     @foreach ($notifications as $notification)
-                        <tr>
-                            <td>{{ $notification->message }}</td>
-                            <td>{{ $notification->created_at->format('Y-m-d H:i') }}</td>
-                            <td>
-                                @if ($notification->is_read)
-                                    <span class="badge bg-success">Read</span>
-                                @else
-                                    <span class="badge bg-warning">Unread</span>
-                                @endif
-                            </td>
-                            <td>
+                    <tr>
+                        <td>{{ $notification->message }}</td>
+                        <td>{{ $notification->created_at->format('Y-m-d H:i') }}</td>
+                        <td>
+                            @if ($notification->is_read)
+                                <span class="badge bg-success">Read</span>
+                            @else
+                                <span class="badge bg-warning">Unread</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if (!$notification->is_read)
                                 <a href="{{ route('admin.notifications.markAsRead', $notification->id) }}"
                                     class="btn btn-sm btn-primary">Mark as Read</a>
-                                @if ($notification->company_id)
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+                
                 </tbody>
             </table>
         </div>

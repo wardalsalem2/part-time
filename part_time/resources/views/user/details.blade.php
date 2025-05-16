@@ -93,7 +93,7 @@
         <!-- Company Info -->
         <div class="col-md-6 d-flex">
             <div class="card border-0 shadow-lg p-4 w-100">
-                <h5>🏢 Company Info</h5>
+                <h5> Company Info</h5>
                 <p><strong>Name:</strong> {{ $jobOffer->company->name }}</p>
                 <p><strong>Email:</strong> {{ $jobOffer->company->email }}</p>
                 <p><strong>Description:</strong>
@@ -154,7 +154,6 @@
                         'experience',
                         'city',
                         'country',
-                        'cv_path',
                         'image_path',
                         'phone'
                     ];

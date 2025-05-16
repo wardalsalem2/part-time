@@ -72,13 +72,23 @@ class CompanyJobApplicationController extends Controller
     public function accept($id)
     {
         $application = JobApplication::whereHas('jobOffer', fn($q) => $q->where('company_id', Auth::user()->company->id))->findOrFail($id);
-
+    
         if ($application->status === 'pending') {
             $application->update(['status' => 'accepted']);
-
+    
             try {
-                Log::info('Sending pending email to: ' . $application->profile->user->email);
-                Mail::to($application->profile->user->email)->send(new ApplicationReplyMail('accepted', null, $application->profile->user->name));
+                $jobTitle = $application->jobOffer->title;
+                $companyName = $application->jobOffer->company->name;
+    
+                Mail::to($application->profile->user->email)
+                    ->send(new ApplicationReplyMail(
+                        'accepted',
+                        null,
+                        $application->profile->user->name,
+                        $jobTitle,
+                        $companyName
+                    ));
+    
                 return redirect()->route('company.applications.show', $application->id)
                     ->with('success', 'The application has been accepted and email sent.');
             } catch (\Exception $e) {
@@ -87,29 +97,31 @@ class CompanyJobApplicationController extends Controller
                     ->with('error', 'There was an error sending the acceptance email.');
             }
         }
-
+    
         return redirect()->route('company.applications.show', $application->id)
             ->with('warning', 'This application cannot be accepted at this stage.');
     }
+    
     //--------------------------------------------------------------------------------------------------
     public function reject(Request $request, $id)
-    {
-        $application = JobApplication::whereHas('jobOffer', fn($q) => $q->where('company_id', Auth::user()->company->id))->findOrFail($id);
+{
+    $application = JobApplication::whereHas('jobOffer', fn($q) => $q->where('company_id', Auth::user()->company->id))->findOrFail($id);
 
-        if ($request->has('confirm_reject')) {
-            if ($application->status === 'pending') {
-                $application->update(['status' => 'rejected']);
+    if ($request->has('confirm_reject')) {
+        if (in_array($application->status, ['pending', 'applied'])) {
+            $application->update(['status' => 'rejected']);
 
-                return redirect()->route('company.applications.rejectEmail', $application->id)
-                    ->with('warning', 'You need to confirm the reason before sending the rejection email.');
-            }
-
-            return redirect()->route('company.applications.show', $application->id)
-                ->with('warning', 'This application cannot be rejected at this stage.');
+            return redirect()->route('company.applications.rejectEmail', $application->id)
+                ->with('warning', 'You need to confirm the reason before sending the rejection email.');
         }
 
-        return back();
+        return redirect()->route('company.applications.show', $application->id)
+            ->with('warning', 'This application cannot be rejected at this stage.');
     }
+
+    return back();
+}
+
     //--------------------------------------------------------------------------------------------------
     public function setPending($id)
     {
@@ -149,13 +161,16 @@ class CompanyJobApplicationController extends Controller
     public function sendReply(Request $request, $applicationId)
     {
         $application = JobApplication::findOrFail($applicationId);
-        $user = $application->user;
-
+        $user = $application->profile->user;
+    
         $status = $request->input('status');
         $reason = $request->input('reason');
-
+    
+        $jobTitle = $application->jobOffer->title;
+        $companyName = $application->jobOffer->company->name;
+    
         try {
-            Mail::to($user->email)->send(new ApplicationReplyMail($status, $reason, $user->name));
+            Mail::to($user->email)->send(new ApplicationReplyMail($status, $reason, $user->name, $jobTitle, $companyName));
             return redirect()->route('company.applications.show', $application->id)
                 ->with('success', 'The reply email has been sent successfully.');
         } catch (\Exception $e) {
@@ -164,6 +179,7 @@ class CompanyJobApplicationController extends Controller
                 ->with('error', 'There was an error sending the reply email.');
         }
     }
+    
 
     //-----------------------------for showing reject email ---------------------------------------------------------------------
     public function rejectEmail($id)
@@ -176,9 +192,20 @@ class CompanyJobApplicationController extends Controller
     public function sendRejectEmail(Request $request, $id)
     {
         $application = JobApplication::whereHas('jobOffer', fn($q) => $q->where('company_id', Auth::user()->company->id))->findOrFail($id);
-
+    
+        $jobTitle = $application->jobOffer->title;
+        $companyName = $application->jobOffer->company->name;
+    
         try {
-            Mail::to($application->profile->user->email)->send(new ApplicationReplyMail('rejected', $request->input('reason'), $application->profile->user->name));
+            Mail::to($application->profile->user->email)
+                ->send(new ApplicationReplyMail(
+                    'rejected',
+                    $request->input('reason'),
+                    $application->profile->user->name,
+                    $jobTitle,
+                    $companyName
+                ));
+    
             return redirect()->route('company.applications.show', $application->id)
                 ->with('success', 'The rejection email has been sent successfully.');
         } catch (\Exception $e) {
@@ -187,4 +214,5 @@ class CompanyJobApplicationController extends Controller
                 ->with('error', 'There was an error sending the rejection email.');
         }
     }
+    
 }

@@ -91,13 +91,13 @@
         
                                 <div class="text-end">
                                     <div class="d-flex gap-2 justify-content-end flex-wrap align-items-center mt-5">
-                                        @if($app->resume)
+                                        {{-- @if($app->resume)
                                             <a href="{{ asset('storage/' . $app->profile->cv_path) }}" target="_blank"
                                                 class="btn btn-outline-primary btn-sm shadow-sm px-3 rounded-pill"
                                                 style="min-width: 110px;">
                                                 <i class="bi bi-file-earmark-person me-1"></i> View CV
                                             </a>
-                                        @endif
+                                        @endif --}} 
                                 
                                         <a href="{{ route('company.applications.show', $app->id) }}"
                                             class="btn btn-outline-secondary btn-sm shadow-sm rounded-pill px-3"

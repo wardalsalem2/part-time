@@ -108,8 +108,8 @@
             <p><strong>Deadline:</strong> {{ \Carbon\Carbon::parse($jobOffer->deadline)->format('F d, Y') }}</p>
         @endif
 
-        <div class="d-flex justify-content-end gap-3 job-details-actions">
-            <a href="{{ route('company.job-offers.index') }}" class="btn btn-outline-secondary">Back to List</a>
+        <div class="d-flex  justify-content-between gap-3 job-details-actions">
+            <a href="{{ route('company.job-offers.index') }}" class="btn btn-outline-secondary">Back</a>
             <a href="{{ route('company.job-offers.edit', $jobOffer->id) }}" class="btn btn-warning">Edit</a>
         </div>
     </div>

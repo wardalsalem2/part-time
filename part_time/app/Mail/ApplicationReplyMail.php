@@ -11,13 +11,16 @@ class ApplicationReplyMail extends Mailable
     public $status;
     public $reason;
     public $userName;
-
-    public function __construct($status, $reason = null, $userName = null)
-    {
-        $this->status = $status;
-        $this->reason = $reason;
-        $this->userName = $userName;
-    }
+    public $jobTitle;
+    public $companyName;
+    public function __construct($status, $reason = null, $userName = null, $jobTitle = null, $companyName = null)
+{
+    $this->status = $status;
+    $this->reason = $reason;
+    $this->userName = $userName;
+    $this->jobTitle = $jobTitle;
+    $this->companyName = $companyName;
+}
 
     public function build()
     {
@@ -27,6 +30,8 @@ class ApplicationReplyMail extends Mailable
                         'status' => $this->status,
                         'reason' => $this->reason,
                         'userName' => $this->userName,
+                        'jobTitle' => $this->jobTitle,
+                        'companyName' => $this->companyName,
                     ]);
     }
 }

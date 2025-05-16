@@ -245,32 +245,6 @@
 {{------------------ for area chart ---------------------------}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Pie Chart
-    const ctx1 = document.getElementById("companyStatusPieChart").getContext('2d');
-    const companyStatusPieChart2 = new Chart(ctx1, {
-        type: 'pie',
-        data: {
-            labels: ["Active Companies", "Inactive Companies"],
-            datasets: [{
-                data: [{{ $activeCompanies }}, {{ $inactiveCompanies }}],
-                backgroundColor: ['#1cc88a', '#e74a3b'],
-                hoverBackgroundColor: ['#17a673', '#be2617'],
-                hoverBorderColor: "rgba(234, 236, 244, 1)",
-            }],
-        },
-        options: {
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: true },
-                tooltip: {
-                    backgroundColor: "rgb(255,255,255)",
-                    bodyColor: "#858796",
-                    borderColor: '#dddfeb',
-                    borderWidth: 1,
-                }
-            }
-        },
-    });
 
     // Area Chart
     const ctx2 = document.getElementById("companyAreaChart").getContext('2d');

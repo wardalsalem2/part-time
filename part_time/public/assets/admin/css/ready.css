@@ -2072,6 +2072,7 @@ body {
   background-size: cover;
   height: 1em;
   width: 1em;
+  
   opacity: .8;
 }
 .main-header .logo-header .more {
@@ -2174,7 +2175,6 @@ body {
   display: list-item;
 }
 .sidebar .nav .nav-item.active a {
-  color: #ffff;
   font-weight: 700;
 }
 .sidebar .nav .nav-item.active a:before {
@@ -2205,7 +2205,6 @@ body {
 .sidebar .nav .nav-item a {
   display: flex;
   align-items: center;
-  color: #ffff;
   padding: 13px 25px;
   width: 100%;
   font-size: 14px;
@@ -6352,7 +6351,7 @@ body {
   color: #6c757d !important;
 }
 
-.nav-pills > li > a {
+/* .nav-pills > li > a {
   margin-left: -1px;
   border-radius: 0 !important;
   border: 1px solid #1D62F0;
@@ -6360,7 +6359,7 @@ body {
 }
 .nav-pills > li > a.active {
   background: #1D62F0;
-}
+} */
 .nav-pills > li > a:hover {
   background: #fafafa;
 }
@@ -6552,41 +6551,86 @@ body {
     opacity: 1;
   }
 }
+
 @media screen and (max-width: 991px) {
-  .sidebar {
-    position: fixed;
-    left: 0 !important;
-    right: 0;
-    -webkit-transform: translate3d(-270px, 0, 0);
-    -moz-transform: translate3d(-270px, 0, 0);
-    -o-transform: translate3d(-270px, 0, 0);
-    -ms-transform: translate3d(-270px, 0, 0);
-    transform: translate3d(-270px, 0, 0) !important;
-    transition: all .5s;
-  }
 
-  .nav_open .sidebar {
-    -webkit-transform: translate3d(0px, 0, 0);
-    -moz-transform: translate3d(0px, 0, 0);
-    -o-transform: translate3d(0px, 0, 0);
-    -ms-transform: translate3d(0px, 0, 0);
-    transform: translate3d(0px, 0, 0) !important;
-  }
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        width: 250px !important;
+        height: 100vh;
+        z-index: 1000;
+        overflow-y: auto;
+    }
 
-  .sidebar .sidebar-wrapper {
-    padding-top: 0px;
-  }
+    .nav_open .sidebar {
+        left: 0;
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-  .nav_open {
-    overflow: hidden !important;
-  }
-  .nav_open .main-panel, .nav_open .main-header {
-    -webkit-transform: translate3d(260px, 0, 0);
-    -moz-transform: translate3d(260px, 0, 0);
-    -o-transform: translate3d(260px, 0, 0);
-    -ms-transform: translate3d(260px, 0, 0);
-    transform: translate3d(260px, 0, 0) !important;
-  }
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: none;
+    }
+
+    .nav_open .sidebar-overlay {
+        display: block;
+    }
+
+    .main-panel, 
+    .main-header {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .nav_open .main-panel,
+    .nav_open .main-header {
+        transform: translateX(250px);
+    }
+
+    .sidebar .nav-item {
+        white-space: nowrap;
+    }
+
+    .sidebar .nav-item p {
+        display: inline-block !important;
+    }
+
+    .sidebar .user {
+        padding: 15px;
+    }
+
+    /* تحسينات إضافية */
+    body.nav_open {
+        overflow: hidden;
+    }
+
+    .sidebar::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+        background: #6fc0c6;
+    }
+
+    .navbar-toggler {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    .navbar-toggler:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
 
   .main-header {
     transition: all .5s;
@@ -6596,6 +6640,7 @@ body {
     width: 100%;
     transition: all .5s;
   }
+
   .main-panel .content {
     padding: 30px 10px;
   }
@@ -6607,13 +6652,15 @@ body {
     position: relative;
     justify-content: center;
   }
+
   .main-header .logo-header .navbar-toggler {
     position: absolute;
     top: auto;
     height: 100%;
-    left: 15px;
+    right: 15px;
     opacity: 1;
   }
+
   .main-header .logo-header .more {
     opacity: 1;
     position: absolute;
@@ -6641,12 +6688,13 @@ body {
     transform: translate3d(0, 54px, 0) !important;
     border-bottom: 1px solid #eee;
   }
+
   .topbar_open .main-panel {
     transform: translate3d(0, 125px, 0) !important;
   }
 
   .nav_open.topbar_open .main-panel {
-    transform: translate3d(260px, 125px, 0) !important;
+    transform: translate3d(150px, 125px, 0) !important;
   }
 
   .navbar-header .navbar-nav {
@@ -6658,9 +6706,11 @@ body {
     margin-bottom: 10px;
     position: relative;
   }
+
   .navbar-header .navbar-nav .dropdown {
     position: unset;
   }
+
   .navbar-header .navbar-nav .dropdown-menu {
     position: absolute;
     left: 0;
@@ -6672,6 +6722,8 @@ body {
   .profile-pic span {
     display: none;
   }
+
 }
+
 
 /*# sourceMappingURL=ready.css.map */

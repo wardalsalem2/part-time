@@ -79,21 +79,51 @@
 
     <!-- Content Row -->
     <div class="row">
-        <!-- Area Chart -->
+        <!-- Latest 5 Job Applications -->
         <div class="col-xl-8 col-lg-7">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+            <div class="card shadow mb-4 h-100">
+                <div class="card-header py-3 d-flex align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Latest 5 Job Applications</h6>
                 </div>
                 <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
-                    </div>
+                    @if($latestApplications->count())
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Applicant Name</th>
+                                        <th>Job Title</th>
+                                        <th>Applied At</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($latestApplications as $application)
+                                        <tr>
+                                            <td>{{ $application->user->name ?? 'N/A' }}</td>
+                                            <td>{{ $application->jobOffer->title ?? 'N/A' }}</td>
+                                            <td>{{ $application->created_at->format('Y-m-d') }}</td>
+                                            <td>
+                                                <span class="badge 
+                                                    @if($application->status == 'accepted') badge-success 
+                                                    @elseif($application->status == 'pending') badge-warning 
+                                                    @elseif($application->status == 'rejected') badge-danger 
+                                                    @else badge-primary @endif">
+                                                    {{ ucfirst($application->status) }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <p>No recent job applications found.</p>
+                    @endif
                 </div>
             </div>
         </div>
 
-        <!-- Pie Chart -->
         <!-- Pie Chart -->
         <div class="col-12 col-md-6 col-lg-4">
             <div class="card shadow mb-4 h-100">
@@ -114,36 +144,6 @@
             </div>
         </div>
     </div>
-    <div class="card mt-4">
-        <div class="card-header">Latest 5 Job Applications</div>
-        <div class="card-body">
-            @if($latestApplications->count())
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Applicant Name</th>
-                            <th>Job Title</th>
-                            <th>Applied At</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($latestApplications as $application)
-                            <tr>
-                                <td>{{ $application->user->name ?? 'N/A' }}</td>
-                                <td>{{ $application->jobOffer->title ?? 'N/A' }}</td>
-                                <td>{{ $application->created_at->format('Y-m-d') }}</td>
-                                <td>{{ ucfirst($application->status) }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            @else
-                <p>No recent job applications found.</p>
-            @endif
-        </div>
-    </div>
-    
 </div>
 <!-- End Page Content -->
 
@@ -151,32 +151,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    var monthlyEarnings = @json($monthlyEarnings);
     var revenueSources = @json($revenueSources);
 
-    // Area Chart
-    var ctxArea = document.getElementById('myAreaChart').getContext('2d');
-    var myAreaChart = new Chart(ctxArea, {
-        type: 'line',
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [{
-                label: 'Earnings Overview',
-                data: monthlyEarnings,
-                backgroundColor: 'rgba(78, 115, 223, 0.2)',
-                borderColor: 'rgba(78, 115, 223, 1)',
-                borderWidth: 2,
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-    // {{-----------------------------for Revenue Sources  -----------------------------------------}}
     // Pie Chart
     var ctxPie = document.getElementById('myPieChart').getContext('2d');
     var myPieChart = new Chart(ctxPie, {
@@ -194,11 +170,9 @@
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    display: false // مخفي لأنه ظاهر بالـ HTML تحت
+                    display: false // ظاهر بالأيقونات تحت
                 }
             }
         }
     });
-
-
 </script>

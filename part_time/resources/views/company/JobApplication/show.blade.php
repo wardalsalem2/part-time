@@ -57,20 +57,19 @@
 
         <div class="mt-4">
             <h6 class="text-secondary">CV:</h6>
-            @if($application->profile->cv_path)
-                <!-- View CV button -->
-                <a href="{{ asset('storage/' . $application->profile->cv_path) }}" target="_blank"
-                    class="btn btn-primary rounded-pill px-4">
-                    View CV
-                </a>
+            @if($application->resume)
+            <a href="{{ asset('storage/' . $application->resume) }}" target="_blank"
+                class="btn btn-primary rounded-pill px-4">
+                View CV
+            </a>
         
-                <!-- Download CV button -->
-                <a href="{{ route('company.applications.downloadCv', $application->id) }}" class="btn btn-success rounded-pill px-4">
-                    Download CV
-                </a>
-            @else
-                <p class="text-muted">No CV uploaded</p>
-            @endif
+            <a href="{{ asset('storage/' . $application->resume) }}" download class="btn btn-success rounded-pill px-4">
+                Download CV
+            </a>
+        @else
+            <p class="text-muted">No CV uploaded</p>
+        @endif
+        
         </div>
         
 
