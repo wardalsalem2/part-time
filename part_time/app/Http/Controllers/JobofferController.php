@@ -9,7 +9,7 @@ class JobOfferController extends Controller
 {
     public function showhome()
     {
-        $jobOffers = JobOffer::with('company')->paginate(3);    // for showing the jop in home page
+        $jobOffers = JobOffer::with('company')->latest()->take(3)->get();   // for showing the jop in home page
         return view('home', compact('jobOffers'));
     }
 //------------------------------------------------------------------------------------------------------------------------------
