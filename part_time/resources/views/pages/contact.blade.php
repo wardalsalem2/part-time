@@ -7,7 +7,11 @@
             <p>We are here to assist you with any inquiries. Please feel free to reach out for support and information. Your satisfaction is our priority!</p>
         </div>
     </div>
-
+    @if (session('success'))
+    <div class="alert alert-success text-center mt-3">
+        {{ session('success') }}
+    </div>
+@endif
     <section id="contact" class="contact section">
         <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
             <div class="row gy-4">
@@ -73,11 +77,7 @@
     </section>
 </main>
 
-@if (session('success'))
-    <div class="alert alert-success text-center mt-3">
-        {{ session('success') }}
-    </div>
-@endif
+
 
 @include('component.footer')
 
