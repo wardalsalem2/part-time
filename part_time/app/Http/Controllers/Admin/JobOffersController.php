@@ -83,7 +83,6 @@ public function destroy($id)
 public function toggleStatus($id)
 {
     $jobOffer = JobOffer::findOrFail($id);
-
     $jobOffer->is_active = !$jobOffer->is_active; // يقلب القيمة
     $jobOffer->save();
 
@@ -91,8 +90,4 @@ public function toggleStatus($id)
 
     return back()->with('success', "Job offer has been {$status}.");
 }
-
-
-
-
 }

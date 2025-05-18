@@ -11,7 +11,6 @@ use App\Models\Role;
 class UsersController extends Controller
 {public function index(Request $request)
     {
-        // Manually build your query
         $query = User::with(['profile', 'role']);
         
         // Filter by name if provided

@@ -127,9 +127,4 @@ class CompaniesController extends Controller
         return redirect()->route('admin.companies.index')->with('success', 'Company disabled');
     }
 
-
-
-
-
-
 }

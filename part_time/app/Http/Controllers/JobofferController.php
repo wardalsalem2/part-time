@@ -15,7 +15,7 @@ class JobOfferController extends Controller
 //------------------------------------------------------------------------------------------------------------------------------
 public function index(Request $request)
 {
-    $jobOffers = JobOffer::query()
+    $jobOffers = JobOffer::where('is_active', true) // only show active job offers
         ->when($request->title, function ($query, $title) {
             return $query->where('title', 'like', "%{$title}%");
         })
@@ -23,10 +23,11 @@ public function index(Request $request)
             return $query->where('location', 'like', "%{$location}%");
         })
         ->when($request->work_hours, function ($query, $work_hours) {
-            return $query->where('work_hours', '=', $work_hours);
+            // Treat work_hours as numeric range if needed
+            return $query->whereBetween('work_hours', [$work_hours - 5, $work_hours + 5]);
         })
         ->when($request->salary, function ($query, $salary) {
-            return $query->where('salary', '>=', $salary);
+            return $query->whereBetween('salary', [$salary - 200, $salary + 200]);
         })
         ->when($request->category, function ($query, $category) {
             return $query->where('category', $category);
@@ -35,6 +36,7 @@ public function index(Request $request)
 
     return view('user.jobs', compact('jobOffers'));
 }
+
 
 
 //----------------------------------------------------------------------------------------------------------------------

@@ -11,12 +11,12 @@
     <form action="{{ route('jobOffersIndex') }}" method="GET">
         {{-- First Row --}}
         <div class="row g-3 mb-3">
-            <div class="col-md-4">
+            <div class="col-md-4 col-12">
                 <input type="text" name="title" class="form-control" placeholder="Job Title"
                     value="{{ request('title') }}">
             </div>
-            <div class="col-md-4">
-                <select name="location" class="form-select">
+            <div class="col-md-4 col-12">
+                <select name="location" class="form-select form-control-sm">
                     <option value="">Select Location</option>
                     @php
                         $governorates = [
@@ -32,8 +32,8 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-4">
-                <select name="category" class="form-select">
+            <div class="col-md-4 col-12">
+                <select name="category" class="form-select form-control-sm">
                     <option value="">Select Category</option>
                     <option value="IT" {{ request('category') == 'IT' ? 'selected' : '' }}>IT</option>
                     <option value="Marketing" {{ request('category') == 'Marketing' ? 'selected' : '' }}>Marketing</option>
@@ -53,7 +53,7 @@
                     value="{{ request('salary') }}" min="0">
             </div>
             <div class="col-md-4">
-                <button type="submit" class="btn btn-primary w-100 h-100">
+                <button type="submit" class="btn btn-primary w-100 h-100 d-flex align-items-center justify-content-center">
                     <i class="fas fa-search me-2"></i> Search
                 </button>
             </div>

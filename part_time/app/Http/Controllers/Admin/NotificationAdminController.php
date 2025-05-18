@@ -10,14 +10,11 @@ class NotificationAdminController extends Controller
 {
     public function index()
     {
-        
         $notifications = Notification::with('company', 'user')->latest()->get();
-        
         $unreadCount = Notification::where('is_read', false)->count();
     
         return view('admin.notifications.index', compact('notifications', 'unreadCount'));
     }
-
     public function markAsRead($id)
     {
         $notification = Notification::findOrFail($id);

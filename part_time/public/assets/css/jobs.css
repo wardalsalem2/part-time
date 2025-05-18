@@ -125,15 +125,32 @@
     }
 
     @media (max-width: 768px) {
-        .search-container {
-            padding: 1.5rem;
-        }
-
-        .btn-primary {
+        .search-container select.form-select {
             width: 100%;
+            max-width: 100%;
+            font-size: 0.9rem;
+            padding: 0.5rem 0.75rem;
+            height: 52px;
+            overflow-y: auto;
         }
-
-        .card-body {
-            padding: 1.5rem;
+    
+        .search-container select.form-select option {
+            font-size: 0.85rem;
+            padding: 0.4rem 0.6rem;
+        }
+    
+        .row.g-3 .col-md-4 {
+            flex: 0 0 100%;
+            max-width: 30%;
+        }
+        .fas {
+            font-size: 1.2rem;
+            display: inline-block; /* بدل flex */
+            height: auto; 
+            vertical-align: middle; 
+        }
+    
+        .btn-primary {
+            width: 50%;
         }
     }
