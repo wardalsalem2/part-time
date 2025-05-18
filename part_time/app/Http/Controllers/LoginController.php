@@ -52,5 +52,4 @@ public function login(Request $request)
         'email' => 'The provided credentials are incorrect.',
     ]);
 }
-
 }

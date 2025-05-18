@@ -5,18 +5,10 @@
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-body">
             <form method="GET" action="{{ isset($job) ? route('company.applications.applications', $job->id) : route('company.applications.index') }}">
-                <div class="row g-2 align-items-center">
-                    <!-- Search -->
-                    <div class="col-md-5">
-                        <input type="text" name="search" class="form-control shadow-sm rounded-pill px-4 py-2"
-                            placeholder="Search by job title..." value="{{ request('search') }}"
-                            style="height: 45px;" />
-                    </div>
-
-                    <!-- Status Filter -->
-                    <div class="col-md-4">
-                        <select name="status" class="form-select shadow-sm rounded-pill px-4 py-2"
-                            style="height: 45px;">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+                    <!-- Status Filter on the left -->
+                    <div class="flex-fill">
+                        <select name="status" class="form-select shadow-sm rounded-pill px-4 py-2" style="height: 45px;">
                             <option value="">Filter by Status</option>
                             <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>Accepted</option>
                             <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
@@ -24,12 +16,11 @@
                             <option value="applied" {{ request('status') == 'applied' ? 'selected' : '' }}>Applied</option>
                         </select>
                     </div>
-
-                    <!-- Search Button -->
-                    <div class="col-md-3">
-                        <button class="btn btn-primary w-100 shadow-sm rounded-pill px-4 py-2" type="submit"
-                            style="height: 45px;">
-                            <i class="bi bi-search me-1"></i> Search
+            
+                    <!-- Search Button on the right -->
+                    <div>
+                        <button class="btn btn-primary shadow-sm rounded-pill px-4 py-2" type="submit" style="height: 45px;">
+                            <i class="bi bi-filter me-1"></i> Filter
                         </button>
                     </div>
                 </div>

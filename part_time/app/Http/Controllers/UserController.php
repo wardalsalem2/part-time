@@ -13,7 +13,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $jobOffers = JobOffer::with('company')->latest()->take(3)->get();
+        $jobOffers = JobOffer::with('company')->latest()->take(3)->get();  // for showing the job in home page when user login
         $user = Auth::user();
     
         return view('home', compact('jobOffers', 'user'));

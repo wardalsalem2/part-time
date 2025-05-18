@@ -35,7 +35,7 @@ class ContactController extends Controller
         return redirect()->route('contactCreate')->with('success', 'Your message has been sent successfully!');
     }
 
-    //----------------- for admin page --------------------------------------
+    //----------------- showing the contacts for admin in  page --------------------------------------
 
     public function index()
     {

@@ -29,15 +29,16 @@ class CompanyJobApplicationController extends Controller
         }
 
         $applications = JobApplication::with(['jobOffer', 'profile.user'])
-            ->whereHas('jobOffer', function ($q) use ($request) {
-                $q->where('company_id', Auth::user()->company->id);
-
-                if ($request->filled('search')) {
-                    $q->where('title', 'LIKE', '%' . $request->search . '%');
-                }
-            })
-            ->latest()
-            ->paginate(10);
+        ->whereHas('jobOffer', function ($q) {
+            $q->where('company_id', Auth::user()->company->id);
+        });
+    
+    if ($request->filled('status')) {
+        $applications->where('status', $request->status);
+    }
+    
+    $applications = $applications->latest()->paginate(10);
+    
 
         return view('company.JobApplication.applications', compact('applications', 'job'));
     }

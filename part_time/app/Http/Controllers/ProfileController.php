@@ -61,7 +61,6 @@ class ProfileController extends Controller
             'country' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // 'cv' => 'nullable|mimes:pdf|max:5120',
         ]);
     
         $profile = auth()->user()->profile;
@@ -79,16 +78,6 @@ class ProfileController extends Controller
             $imagePath = $request->file('image')->store('profile_images', 'public');
             $profile->image_path = $imagePath;
         }
-    
-        // Only process CV if a new one is uploaded
-        // if ($request->hasFile('cv')) {
-        //     if ($profile->cv_path && Storage::disk('public')->exists($profile->cv_path)) {
-        //         Storage::disk('public')->delete($profile->cv_path);
-        //     }
-    
-        //     $cvPath = $request->file('cv')->store('cv_files', 'public');
-        //     $profile->cv_path = $cvPath;
-        // }
     
         // Update other fields
         $profile->job_title = $request->job_title;
