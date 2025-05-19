@@ -200,6 +200,7 @@
                     @endif
                 @endif
         @endauth
+        {{-- if user gitin as guest   --}}
         @guest
             <div class="alert alert-warning" role="alert">
                 You need to create an account before applying for jobs,

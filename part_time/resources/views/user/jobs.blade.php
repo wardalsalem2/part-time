@@ -63,6 +63,12 @@
 
 
 <div class="container py-5">
+    @if($jobOffers->isEmpty())
+    <div class="alert alert-info text-center w-100">
+        Sorry, we couldn't find any job offers that match your search.
+    </div>
+@endif
+
     <div class="row g-3">
         @foreach ($jobOffers as $job)
             <div class="col-lg-4 col-md-6">
