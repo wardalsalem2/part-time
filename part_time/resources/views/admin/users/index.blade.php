@@ -70,7 +70,7 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-info">View</a>
-                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning">Edit</a>
+                                    {{-- <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning">Edit</a> --}}
 
                                     <!-- Toggle Activation Button -->
                                     <form
